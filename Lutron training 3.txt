@@ -1,0 +1,67 @@
+lutron training 3
+
+--- 3 wire dimming EcoSystem C5-BMJ ---
+
+3 wire dimming is a phase adaptive fwd/rev phase dimming method -- USUALLY associated with ballasts / flourescent BUT can rarely be used on an LED driver as well
+
+dimmed hot (orange*) wire is the one that actually has the clipped waveform, but will read 0-120v, etc. on the meter due to taking an average (RMS)
+
+
+--- general electrical --- 
+
+line is 1 phase, neutral is ALL 3 PHASES returning - so it will have 0V when measured (phase cancelling)
+
+
+CONSTANT HOT -- standard colors
+black / red / blue = 120V
+brown / yellow / orange = 277V
+
+neutral = white (high voltage = gray)
+switched hot = red (high voltage = yellow)
+
+GROUND = exposed copper OR green sheath
+
+circuit breaker = source
+
+load = any device along the circuit that is going to consume power
+**recepticles count as loads!!** (possible load / you dont know what will be plugged in)
+
+emergency bypass relay --> 2 inputs normal constant hot and emergency power, if it detects no power on the normal hot, it switches to the 2nd line
+
+QS link is 1 port but has 4 terminals
+
+ask for AS BUILTS -- marked up floor plan showing how things are actually wired
+
+10 digital slots available for wireless devices on the QSM
+
+
+LAMP = SINGLE LIGHT
+FIXTURE = FIXTURE TYPE
+
+YOU can have multiple lamps on a single load but you should NOT have multiple fixtures (fixture types) on a single load
+
+
+
+--- Q Design ---
+
+inside the fixture schedule, you can customize columns and add Low/High end, modify the L/H end trim across the board for all fixtures of a type instead of specifying per area, etc.
+
+COLOR Temp H/L end DOES NOT TRIM --- it just labels what is calibrated for 10V vs 0V
+
+
+Processor link types - each of the 2 links can be configured to a different link type:
+--
+QS
+Power Panel (GRX)
+DMX Input
+DMX Output
+
+
+if the electrician gives you an updated oneline / as built oneline / etc --- highly recommend going to link assignment and updating it to match the updated oneline  -- editing the link assignment in classic view will CHANGE the oneline -- it is dynamically generated!!!
+
+ROWs for daylighting sensors = rows of lights from the windows, where row 1 is the closest to the window
+
+q design database file naming convention:
+JOBNUMBER_JOBNAME_QUANTUMVERSION_DATESTAMP
+
+close lutron service manager -> ctrl shift f7

@@ -1,0 +1,246 @@
+Lutron training 1
+
+-- TERMS -- 
+Neutral => return AC voltage
+switch leg => output (/ output side of a relay) --- electricians refer to switch legs as zones <===> "which circuit is feeding this?" -- in our domain, zone is a GROUP of outputs
+drain -- drains to ground
+
+
+--- systems ---
+
+vive / quantum / athena
+
+old systems:
+panel link / qs standalone
+
+athena is main focus = quantum replacement
+
+
+
+--- quantum hub - power supply and processor ---
+
+can communicate to up to 99 devices
+support BACnet, DMX integration
+control 512 switch legs - physical / digital (ie DALI)
+shade motors also count as switch legs
+only has 1 NIC / mac address -- 2 rj45 ports - one is a service port
+works on multicast by default for networking --- broadcast , any device on the network can hear it -- not as secure as unicast -- in many cases, multicast is required
+
+can track timezones / DST , etc -- cannot track moving holidays 
+
+server based system - not a cloud system
+UI - quantum Vue -- transfers all info to the processor + xfer to the database
+once the db is setup - set up the local web page - server hosts the
+
+server CAN BE just for config if on a laptop - after setup, information lives on the processor
+server can also run permanently on an on-site hardware server, so user can continue to manage
+sqlexpress
+RabbitMQ service -- message queuing protocol
+has enough memory to serve 7 days or so of information then overwrites itself -- if they dont have a server its difficult to pull historical logs
+
+recommend a 500gb HD on the server
+
+web API also supported -- list of partners / mfgs who can use the API (ex. Crestron)
+
+--- Panel Link / OMX link ---
+legacy devices - types:
+XP - switching only modules - just switch power on and off
+GP - f phase - r phase - 3 wire fluorescent (dimming via ballast - switched hot, neg/pos)
+LP/CCP - phase dimming RPM4A / RPM4U
+
+current product line uses QS link protocol - older uses OMX protocol --- NOT COMPATIBLE, but same cables
+
+
+
+--- Quantum ---
+
+--- PRO LED+ ---
+ESN / QSN -- phase adaptive panel -- phase adaptive = dont have to determine whether it is fwd or rev - its auto -- there is a manual function in case it cannot detect correctly
+
+16 A max total current means all 4 switch legs / outputs combined amp ==> if fails, has internal fault protection - gives you blink codes saying you are over voltage etc.
+
+reference for blink codes in wiki*
+
+NO built in relays - dimming only via panel
+
+
+
+--- ESN 0-10V ( Energi Savr Node Switching Panel) ---
+
+model numbers w T -> 0-10v / S -> switching only
+QS Link Cable - communication cable 
+has built in relays
+
+emergency LED rapid blinks when there is an issue / ie. jumper / contact is loose
+if panel is not controlling any emergency loads JUMPER SHOULD REMAIN IN
+
+CCI - close contact input -- signal from any 3rd party device, etc
+
+other wired sensor inputs at bottom - 4 groups -- by default, each group is connected to each zone -- can be reprogrammed 
+
+passive sensors are plug in play - no programming required - can just be replaced if wired correctly
+
+wireless sensors have a unique serial number / SN because they have to be paired
+
+
+
+
+--- T-Series / EcoSystem / DALI ---
+
+DALI -- open source standard -- limit of 64 addresses
+
+EcoSystem - propr. version based on early version of DALI -- also limit of 64 addresses - NOT specifically designed for tunable white
+
+T-Series (Discontinued) = tunable white series (created from EcoSystem) -- adjust balance between cool and warm LED - 2ch --- 1 address for warm white, 1 address for cool white.  important bc DALI has a limit of addresses on a DALI BUS (OR LOOP) --- LIMITED TO 32 drivers / addresses
+
+DALI panel can come in single or dual loop model
+majority get 2
+
+Originally EcoSystem was better because you get Sensor Feedback - etc
+
+DALI version 2 makes BOTH EcoSystem and T-Series mostly obsolescent 
+subsections - DT6 and DT8
+DT6 achieves tunable white via 2 address --- EQUAL TO T-SERIES
+DT8 uses 1 address for white tuning and color intensity -- can use 64 instead of 32 devices
+
+*most things are compatible with athena*
+
+TEST -- press and hold - test led start flashing
+THEN press LOOP 1 --
+-- press 1 time, FULL ON
+-- press 2nd time, DIM
+-- press 3rd time, Dimming up and down / flash
+-- press 4th time, OFF
+press and hold TEST again to stop test mode
+
+Ethernet port = for standalone programming (if there is no processor)
+
+Emergency contact functions the same way as before - but the indicator is different -- indicators flash red when in emergency mode (on loop 1 and loop 2 indicators at top)
+SOLID RED --> SHORT
+FLASHING RED --> IN EMERGENCY MODE
+1 BLINK PER SEC / GREEN --> NORMAL
+
+
+If temp light is flashing red and green - overheating issue
+
+- - FACTORY RESET - -
+***if you want to factory reset -- UNPLUG the QS link cable first*** -- if attached to the processor, will continue getting information and not properly reset
+
+triple tap - hold for 5 sec - triple tap
+
+if lights at bottom flash in unison or go back and forth:
+either
+-mux wires are swapped (pins 3/4)
+-not getting any information from a processor - not connected etc
+-firmware update failed / panel stuck in boot mode --- just push the firmware update again
+
+
+
+--- GRAPHIK EYE QS ---
+
+GRPHIK EYE can be transferred over but you cannot add a new one
+
+
+--- CONTROLS ---
+Seatouch - has a CCI / close contact input on the back -- programmable input
+Palladiom are custom made - if they haven't shown up yet, they may still be being manufactured -- does not have a CCI on the back
+
+
+--- SHADE PANELS ---
+QSPS - QS Power Supply --- QSPS 10 refers to a shade panel --- QSPS-DH - simply din rail power supply (inside the Quantum Hub)
+shade panel only compatible with Lutron shade motors
+
+
+Lutron makes their own fabric -- ie high quality -- overall reliability is reliant on the install -- always installed by a 3rd party 
+
+
+
+--- WIRED INTERFACES ---
+
+QSE-CI-DMX
+--
+DMX Output -- Quantum Processor can do DMX out/in, but this interface is DMX output only (DMX In is a way to communicate with Lutron)
+limit of 32 channels per interface
+
+for each QS link -- limit of 512 DMX channels
+16 DMX interfaces fill up a QS Link
+
+QSE-CI-NWK-E
+--
+allows system to control lighting systems using Ethernet / RS232, can use to do firmware updates, monitor the health of the QS Link --- may be there for AV integration
+
+QSE-IO
+--
+CCO/CCI -- close contact i/o - exterior photo cells to turn off via daytime/nighttime, partition sensors (IR beam set up between a wall that is moveable - track the state of the wall if conference rooms can be combined, etc. -- set up so that keypads can control different areas) - trigger 3rd party shades
+
+QSE-CIW-CI
+--
+Wallbox CCI - used for wiring close contacts - has more inputs but can only do inputs
+
+QSM
+--
+can be wired to up to 4 wired sensors, plus paired to wireless sensors -- Occ/Daylight/Picos/etc -- wireless up to 10 of each kind of device can pair (30 total) (window/daylight counted together)
+
+LUT-ELI-3PH
+--
+Emergency Lighting Interface
+connects to ESN panels with dry contact
+
+
+
+
+--- QS Link Cable ---
+
+Plenum and non plenum - higher durability - open environment / air return or air supply area
+
+Red and Black - 18 gauge
+
+Red Black and Orange (orange cable one compatible with LEGACY) - 12 gauge - can go as far as 2000ft -- "did you buy 500 ft spools or 1000ft spools?" - if they used 4 spools on the floor theyre probably under 2000 but cutting it close ---- extra orange cable interfaces with the legacy panels -- typically only used for an emergency single
+
+BOTH variations can come in 12, 16 or 18 gauge
+
+can get non-Lutron cable but needs to follow the specs - can void warranty if the cable does not follow specs
+
+1 PDU = 33 mA
+when PDUs are added together, the count must be 0 or greater
+QS link has a total limit of 100 total devices (*Wired Devices*) -- processor included -- does NOT include wired sensors
+
+
+QS link power supply +8 PDUs - Seetouch -1 PDU
+at the power supply units, terminal 2 (POWER SOURCE) is capped off / never connected
+
+wired sensors also draw PDUs
+
+
+--- Lutron System Rules ---
+One document that covers all the systems
+
+99 QS devices per QS link
+Max 2000ft , can be boosted another 2000ft with the output of a shade power
+
+
+
+--- PHPM ---
+phase adaptive power module
+-convert between different voltages / extend capacity
+
+PHPM-PA - 2 wire dimming - "phase adaptive"
+PHPM-WBX - 3 wire **(fluorescent)** dimming - forward phasing -- 3rd wire is used to switch the load off
+
+you can have up to 3 PHPM modules on a single dimmer
+
+
+
+
+
+--- SOFTWARE ---
+
+Each processor has 2 links, each link has 512 switch legs
+multicast is a requirement for processor to processor communication
+a subsystem is a multicast network of processors
+
+
+
+-- LUTRON SUBMITTALS --
+
+

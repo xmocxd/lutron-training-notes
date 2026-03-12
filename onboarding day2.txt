@@ -1,0 +1,44 @@
+-- DALI --
+
+DALI 2 Type 8
+DT6 / DT8
+Device Type 8/6
+
+
+-- dimming --
+
+constant hot vs. switched hot
+
+if you remove the 0-10v wires and short out, and still an issue then likely a driver problem
+
+if trying to test a 0-10 and it stays at low end, most likely polarity is reversed
+
+
+
+
+--- vive hub ---
+
+you can start up a whole system without the hub, but you have to pair every single controller
+
+load controller -- pow pak
+
+in wall controls -- hook up switch leg directly to it
+
+wireless remote -- also known as picos
+
+wireless sensors -- wireless daylight sensors
+you may have a job that has wired sensors
+
+vive is scalable - can do single small area or entire building
+not cloud based - they have their own ssid
+
+
+load shedding - demand response -- allows you to reduce the lighting output with all areas associated with the vive hub
+
+HVAC Integration -- BACnet -- use occupancy data from vive to control HVAC
+
+
+434 Mhz -- special frequency for Lutron devices
+
+maestro --- forward phasing / reverse phasing dimmer -- some maestro have built in occupancy sensors
+

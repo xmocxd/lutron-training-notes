@@ -1,0 +1,210 @@
+DC -> AC = Inverter
+AC -> DC = Rectification
+
+
+
+--- LUT-ELI-3PH ---
+
+emergency power line (from powpak / power pak) goes to +V Input (positive voltage / 24V DC input) that is the emergency POWER -- common is the return voltage loop -- 8/7 power the emergency line of the unit
+
+pins 9-12 used for GRX legacy communication --- the emergency state signal is sent via 12 (Sense)
+
+pin 1 is dry contact goes to ESN to trigger emergency state (circuit is open)
+
+
+--- Emergency Bypass Device ---
+
+0-10 controller (any) connects  (normal source/line/feed)
+Emergency Panel (emergency feed)
+
+Need 2 sources of power (normal / emergency)
+
+passes normal power (black)  - uses this to SENSE ---
+
+red switch leg also is patched through to the yellow (EMERGENCY switch leg) to switch on and off both the normal and emergency fixture
+
+purple (0-10 signal) goes through a normally open relay which is CLOSED during normal operation -- when it opens (POWER LOST) it switches into an emergency mode
+
+when the hot leg goes dead (black) -- the 0-10 relay opens up -- when 0-10 control voltage is lost, the fixture goes FULL BRIGHT -- it is connected to the emergency fixture, so EM goes to full bright
+
+ALSO when black leg goes dead NORMALLY CLOSED emergency relay closes, supplying emergency power to the EM fixture
+
+
+--- GRX-TVI ---
+
+phase to 0-10 interface
+
+0-10V control voltage -> PURPLE IS PLUS (positive +) - GRAY/PINK is negative (-)
+
+with 2 feeds / distribution panels, control unit/device MUST be on the same neutral as panel 1 that is wired into the 1st section of pins, lights MUST be on the 2nd panel's neutral
+
+
+--- ATHENA ---
+
+quantum is a server based system, athena is a cloud based system 
+requires an internet connection to connect to the athena / lutron app --- on google play / apple app store etc.  also a web version for desktop
+
+web version has a subscription fee -- offers more functionality
+phone app is free -- does not offer floorplans / activity / errors / etc
+
+can use hotspot to access internet for startup
+
+Athena Edge Processor
+---
+QP-1L --- 1 link processor -- max 25 devices
+QP-2L --- 2 link processor -- max 99 devices per link
+
+
+--- QP5 Athena Hub / Panel ---
+
+can have either 1 or 2 processors -- up to 4 links in the PANEL if 2x QP-2Ls are used
+
+qs wire landing board - its a board that can attach to MULTs QS link
+
+
+QP6 panel -- is a smaller panel with NO SWITCH, just the processor (1 link only)
+
+Circuit Selector -- UA-CS-LX - replaces legacy circuit selector to allow the athena system to control legacy panels
+
+
+Lutron Startup Service (LTE Modem) -- wireless modem for setup
+
+
+
+--- Athena Wireless Processor --- 
+
+DOES NOT connect on the QS Link -- this connects on the POE (power over ethernet) --> A Power over Ethernet (PoE) switch is a networking device that allows a single Ethernet cable to provide both data and electrical power to connected devices
+
+Connects to up to 50 wireless devices - wireless picos / sensors etc  -- "Clear Connect Type A Devices"
+
+in addition to being a processor, it also talks to Type X Ketra devices -- Type X = Ketra Devices / Athena Wireless Nodes
+
+some customers do not want unmanaged switches/poe devices -- if they want these devices on their own network, they have to provide a POE switch -- lutron can sell a POE injector --> just provides the power that is missing from normal ethernet
+
+just like quantum processors - it is compatible with BACnet / LEAP API
+
+BACnet protocol to communicate with HVAC systems / BMS --- LEAP API is api version
+
+
+Type A devices -- must be max of 30ft through walls, 60 ft with line-of-sight
+
+Type X devices -- must be within 25 ft of the processor
+Ketra is basically wireless fixtures that get line voltage, and communicate over wireless to get data / control / etc
+
+athena processors DO NOT have multiple subsystems
+
+athena normal and wireless processors can be on the same subsystem / can talk on the same network
+they can talk to each other
+
+but DOES NOT have QS link - so you need an edge processor on the same network to communicate to ESNs etc via QS-LINK
+
+basically just handles wireless input devices  -- picos/sensors
+
+
+
+--- Ketra ---
+
+fixture has a built in sensor with a feedback loop to measure color temp and get the same output every time
+
+lutron acquired ketra
+
+they have built in wireless features -- creates its own mesh network
+just need the electrician to provide power
+
+DRIVER is BUILT IN to the FIXTURE -- it has the wireless features etc
+
+legacy ketra has its own version of a hub
+
+athena hub can control athena (new) ketra
+
+we DO NOT deal with legacy ketra -- they will call someone else within the company who deals with it
+
+
+
+
+--- Athena Wireless Node (AWN) - INSIDE THE FIXTURE  ---
+
+communicated **TO** over wireless BY the processor, it relays information either 0-10 or DALI dimming information TO THE DRIVER
+
+about the size of a quarter - goes in a fixture (via mfg)
+comes with or without a sensor 
+
+4 terminals -- can be used for DALI or 0-10 (automatically determines)
+1 - DALI (DA -- dali data connection) - 0-10 (AUX+ -- this is AUXILLARY POWER provided TO the AWN to power it and keep it alive)
+2 - DALI (DA) - 0-10 (AUX-)
+3 - DALI (N/C -- no connection) - 0-10 (SIG+ --- this is the 0-10V control voltage SIGNAL translated from the digital signal provided out to the driver)
+4 - DALI (N/C) - 0-10 (SIG- / DGND -- digital ground)
+
+D4I -- ADDITIONAL dali subset -- allows the driver to supply power on the DALI bus/wiresz
+DT6 / DT8 -- does not provide any digital voltage from the driver -- expect power from the controller
+something can be designated DT8 + D4I for example***
+
+if compatibility issue the power can be TURNED OFF on the DRIVER
+
+
+if the driver DOES NOT have a built in power supply (for the AWN), lutron provides/sells a power supply (DFC-OEM-DBI)
+
+Athena Wireless Nodes COUNT as a Type X
+
+
+
+--- Athena Touchscreen - Q-TOUCH-5 --
+
+can have up to 5 touchscreen per edge processor -- wired
+
+can control multiple zones -- typically within one area
+shows the named zones on the left side, can click 
+
+you get the ability to control:
+
+- trigger preset scenes
+- intensity
+- on/off only
+- color temp
+- ketra full color RGB
+- shade controls for lutron shades
+
+touchscreen is a POE device -- connected back to the POE switch in the athena panel, or customer provides their own POE
+
+UI NOT customizable
+
+
+
+
+--- Athena specific -> DIN RAIL versions of ESN panels ---
+
+DIN Panel --- Physical Mounting System / Standard
+
+Everything that would be an ESN in quantum world can be a DIN module ->
+
+Phase Adaptive Module
+0-10V Module
+Switching Module
+DALI Module
+EcoSystem Module
+
+Etc.
+
+itegrated panel solution, comes pre-wired mostly from the factory - electrician is just wiring into the rail
+
+pop it open to check if modules are blinking / error codes
+
+
+
+--- Athena QRF - Athena Clear Connect Gateway (Type X) ---
+
+connects with ***type X ONLY*** devices  ---- AWNs/Ketra
+devices must be within 75ft
+
+like an athena wireless processor, but is NOT a processor -- only interfaces with the devices
+MUST then be connected to either an Athena Wireless Processor (ARF2) or athena edge processor (wired)
+
+connected over POE**
+
+
+
+
+
+
+
+

@@ -1,0 +1,111 @@
+Lutron training 2
+
+--- quantum vue / quantum processors ---
+
+reasons to adjust high end trim -- customer pref, energy savings, device longevity
+reasons to adjust low end trim -- driver shuts off at a certain level, fix flicker issues / whine
+
+shades - 3rd party will not show up / no feedback will be provided -- would have to set up as dry contact
+devices - features - lock and unlock keypads, replace and re-address drivers (scan for new drivers - DALI, EcoSystem, or T-Series)
+
+vue is the UI which lives on the server
+system can run without a server but cannot be configured without site visit
+
+2 links per processor - each can handle 512 switch legs
+multiple floors / processors can be networked to allow quantum vue to control all floors as 1 system
+
+8 max recommended processors on a subsystem - but 16 is real max in the software
+
+
+
+--- fixture controllers / panels ---
+
+they are wired directly to the fixtures
+
+fixtures only have ONE type of dimming usually that they are controlled by:
+
+0-10v
+Switching
+ELV / Reverse Phase
+MLV / Forward Phase
+DMX
+T-Series
+DALI
+EcoSystem
+
+**and the panel will be specifically designed to control via that type of dimming**
+
+Test a 0-10v fixture --- short the wires - if it goes to dim, then it's NOT an issue with the fixture
+
+SYNC vs SOURCE --> refers to which device is providing current vs receiving current - SOURCE provides, SYNC receives 
+in the past, a driver was either a sync or a source -- now every driver in the market is set to auto
+
+when you measure the 0-10 wires coming out of the fixture you should get 10v DC -- when not connected to any panel
+
+DALI panels have 2 loops - 64 fixtures each loop = 128 fixtures max
+
+DALI test mode oscillating operation will always be maximum 0-100%, and may cause drivers that will cut off below a certain % to blink off during the sequence
+
+MAKE sure you set the lights back to HIGH before you exit test mode, they may retain the last broadcast command
+
+if in emergency mode, loop lights LEDs will flash red
+
+if loop LEDs are SOLID RED -- there is a short in the loop
+
+
+for a 0-10v panel, a GREEN LED right above the jumper will flash rapidly if in emergency mode
+
+LEDs flashing in sequence means a QS link cable is wired wrong / no communication / no power to the processor --- OR the firmware update failed and you're stuck in boot mode (for ALL ESN panels)
+
+
+GRX Power Panels
+--- 
+GRX / Legacy panels will communicate using GRX protocol -- there is an extra wire - orange cable 
+difference between GRX and QS is 5th conductor (cable) is not needed
+c
+
+quantum proc has 2 link ports that allow communication with GRX and QS at the same time
+
+CABLE LENGTH LIMIT -- depends on gauge
+12 AWG - 2000 ft
+16 AWG - 1000 ft
+18 AWG - 500 ft
+
+
+one of the inputs of a processor can be configured to accept DMX communication (I/O)
+
+
+--- INTERFACES ---
+Type 1 allows for interaction with 3rd party
+Type 2 allows for converting dimming signal from Lutron panels
+
+type 2--
+
+EcoSystem C5-BMJ-16A
+---
+converts ecosystem dimming signal from an ecosystem panel to a 3 wired forward phase output
+connects to QS-ESN-Eco panels with ecoloop 2-wire
+uses control signal from ESN-Eco panel to control MLV/ELV (magnetic low voltage / electronic low voltage ie. fwd/rev phase --- MLV = Forward, ELV = Reverse) fixtures/loads
+
+
+GRX-TVI
+---
+DOES NOT connect to QS-link or GRX-link
+Uses dimming switchleg from ESN-4A5 or GRX-Power panels to control 0-10v fixtures / loads
+
+
+PHPM
+---
+Boosting / Phase converting interfaces
+DOES NOT connect to QS-link or GRX-link
+Uses dimming switchleg from  ESN-4A5 or GRX-Power panels to control ELV/MLV
+Typically used as a 'power booster' -- they are able to control more fixtures than a single output of ESN panel
+Typically used to convert between MLV and ELV
+DOES NOT have built in relays -- need to use PHPM-SW to deal with switching only fixtures
+
+
+
+
+
+
+

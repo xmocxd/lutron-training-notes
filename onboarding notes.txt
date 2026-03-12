@@ -1,0 +1,83 @@
+-- code --
+
+we are not code experts
+
+if you know the code - you have the auth to sign off but get sig / documentation from customer
+or have the ability to say no
+
+if dont know the code call mgr
+or if anything deviates from the sequence of ops
+
+signature pertains to how many hours we spent making the change -- prevent backcharges
+
+"might not be code compliant
+
+
+***once the space is turned over, you can comply with the customer request -- if space is still under construction, all changes should be run by the electrical contractor***
+???
+
+
+legal--
+walk away - refer to the manufacturer
+
+can pay for light tuning visits after the fact
+
+
+
+-- facility managers --
+
+more detail about the equipment / how to override things
+
+full facility systems training -- paid training they can buy
+
+security and safety control --- either want completely dark or lit, turn off motion sensors etc
+fire alarm may trigger behavior -- dont illumante for giant white cloud
+
+**high end**
+
+BMS -- building management system --- overmanager control
+
+
+when giving trainings -- look for someone who will be there the longest -- give to at least 2-3 training
+who has authority to sign off on purchasing additional warranty
+
+retraining products -->   post occupancy service visit (included in system package)
+
+
+
+
+-- integration --
+
+AV integration often uses telnet / newer use API
+
+--- dry contact - simple low voltage relay - open / close of a wire
+- pulse vs. maintain signal
+get POC for 3rd party system
+
+
+
+-- programming --
+
+TI = Tenant Improvement
+
+core and shell are NON tenant areas etc.
+
+you may think you are connected to the tenant system but you might be connected to the core and shell system
+pre visit phone call***
+
+
+
+
+-- specs on sensor placement 
+hot air flow can sometimes trigger the sensor -- can turn sensitivity down to prevent but can affect operation
+- placement in corner may be problematic(?)
+
+
+there is a line item they have to pay for to fine tune the lighting -- dont let them take away programming timec
+
+
+
+
+
+
+
