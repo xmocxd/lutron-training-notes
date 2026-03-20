@@ -1,0 +1,351 @@
+---- Wall Controls / Wallstations ----
+
+
+ClearConnect = 434 Mhz
+
+
+
+--- QS Wallstations ---
+
+can be programmed to control lights, shades , contact closures, etc.
+
+unprogrammed OOB functionality - they will control the way they were set up at End of Line in production 
+
+
+SeeTouch
+---
+
+seeTouch keypads have a contact closure input on the back -- up to 2 CCI through a connector on the back of the wallstation -- works with Occ/Vac sensors, partitioning, etc.
+
+seeTouch keypads have backlighting
+
+we dont require the customers to really keep their engraving certificates provided in the box of the keypad -- we just look at the bill of materials and give engraving based on that
+
+there are part numbers for standard engraving codes - or they can do custom
+
+1-7 button options for SeeTouch models --- 3 types - lights only, lights and shades, shades only
+
+
+insert style ---
+the opening for the faceplate to insert the button is a standard size (industry standard)
+advantage is keypad button inserts are easily swappable to different button configurations -- the back part of the keypad supports max number of buttons
+
+non-insert style ---
+the faceplate is customized based on the number / config of buttons -- you can't just swap in different buttons
+advantage is just that it looks a bit nicer
+
+
+internally, every keypad has 11 buttons -- 7 buttons in vertical column + 4 raise and lower (at middle and bottom position)
+
+
+you can ask on the pre-wire visit to document the serial numbers of the units when they are installing them -- they can write them down on the one-line --- or they should note where the units are
+
+
+by default the CCI 1 and CCI 2 are first and last buttons on the keypad (!!) the 2 contacts are mapped to the first and last buttons on the device
+
+
+
+
+QS Keyswitch
+---
+
+provides key-only access to QS lighting controls
+recalls preset light levels for any 2 scenes including off
+
+can come in 3 position or 2 position versions -- can be momentary or maintained
+
+Q --- example of what is momentary vs maintained?
+select scenes / basically all button presses - momentary -- 99% of the time
+enabling something until disabled - maintained
+
+
+
+QS Palladiom Keypad
+---
+
+not designed to be customized out in the field
+buttons and faceplate are physically attached -- the other keypads, the faceplate is separate from the unit
+
+status of active button press is indicated through intensity of backlighting -- the buttons have dynamic backlighting
+has an ambient light sensor to adjust the backlighting
+
+engraved ahead of time
+
+
+
+Athena Touchscreen
+---
+
+no real programming for the touchscreen
+gets assigned to a wired edge or wireless processor - can have up to 5 assigned to a proc
+it reads the info on the processor and displays it on the screen
+
+powered by POE
+
+you can designate what areas you want to see
+
+it does not save any settings (?)
+
+
+
+Wiring
+---
+
+MUX drain wire should be spliced through between the 2 mux wires
+
+Athena touchscreen -- each touchscreen needs to have a home run ethernet connection back to a POE switch (or POE injector between the network switch and the touchscreen)
+
+
+Troubleshooting
+---
+
+can it communicate -- if i press a button does it control anything out there
+
+the buttons should track -- if you press a button on 1 keypad, all the rest of the connected keypad should match what was pressed e.g. it should go to scene 2, etc.
+
+LED reverse waterfall = unable to communicate on QS Link
+
+No LED feedback at all = no power to wallstation / another device on the QS Link is in programming mode - try putting the keypad in programming mode and then exit
+
+All LEDs flashing rapidly = device is in advanced programming mode -- press and hold the top and bottom buttons for 3 seconds to exit
+
+
+
+
+
+---- Device / Control Interfaces ---
+
+
+--- QSE-CI-DMX - DMX interface ---
+
+this allows us to control DMX loads
+DMX OUTPUT ONLY
+
+DMX is a streaming protocol - it's constantly sending commands out -- a DMX link can have up to 512 channels on a link
+We can only control 32 from a DMX interface -- this is a DMX limitation - DMX rules are you can only have 32 devices before you need to split the DMX link
+
+when we control DMX it's for architectural purposes
+
+Up to 16 DMX per QS LINK
+
+Daylighting / Loadshedding / Nightlighting NOT SUPPORTED for DMX loads
+
+
+DMX link is a 3 wire connection - Data + (MUX) / Data - (MUX-BAR) / Common 
+DMX wires must be daisy chained -- link terminators required at the end of line -- nominal resistance of 120 Ohms
+
+
+LEDs:
+1 - Power
+2 - Unused
+3 - Status LED -- will be blink steady when in programming mode
+4 - DMX link Tx - blinking based on data flow (send)
+5 - DMX link Rx - blinking based on data flow (rcv)
+6 - QS link Tx - blinking based on data flow (send)
+7 - QS link Rx - blinking based on data flow (rcv)
+
+
+Dip switches 6 7 8 for testing broadcast commands
+6 - send all channels to 0
+7 - send to min
+8 - send to max
+
+
+susceptible to noise - you can get induced noise from it being near electrical cable --- will result in poor connection
+
+
+--- QSE-IO -- Contact Closure Interface ---
+
+input / output
+
+occ / vac sensors
+motorized screens / skylights etc
+av equipment
+security systems / badge access / alarm systems
+movable partition walls
+timeclocks
+
+provides five inputs and five dry contact closure outputs
+provides both NO normally open and NC normally closed contacts
+
+in standalone, the functionality is set by the dip switches
+
+
+
+--- NWK / QSE-CI-NWK-E / AV interface ---
+
+RS232 or RJ45 connectors -- can use one or the other but not both
+
+third party devices can control and/or monitor a QS system
+
+easily integrate with touchscreens, PCs, A/V systems, etc
+
+used for control INPUT, but we give status updates of when things change as output --- for example: if a button press is made on another connected device, they can update the state on their end
+
+monitor lighting scenes, levels, shade positions, etc.
+
+we DO NOT use this to control 3rd party shades / equipment, etc.
+
+up to 10 NWKs per QS Link
+
+RS232 -->
+Baud rate must be set correctly
+STRAIGHT THROUGH CONNECTION / CABLE REQUIRED -- we internally swapped the pins on the device on our end
+Null modem - small device to swap the 2/3 Tx/Rx pins on the RS232 cable -- may be needed by the integrator to fix the connection
+
+Ethernet -->
+standard CAT5 or better
+only supports 10 or 100 Mbps, DOES NOT support gigabit
+default IP address = 192.168.250.1 (can be changed on Lutron DeviceIP)
+
+
+LEDs
+1 - ON
+2 - ETH traffic
+4/5 - RS232 traffic
+6/7 - QS link traffic
+
+Fault indications - No LED traffic on 2 or 4/5 indicates no communication to third party (AV) device
+if communication is garbled on RS232 -- check the baud rate
+
+
+--- QSM - QS Sensor Module ---
+
+Designed to be mounted on a ceiling
+interface for WIRED or WIRELESS sensors
+
+3 models - one for both wired and wireless, one for wireless only (uncommon), one for wired only (sometimes used on goverment sites / healthcare, etc)
+
+only LISTENS on wireless - does not talk over wireless
+
+connects up to 4 wired sensors or controls (occ, daylight, wired picos, EcoSystem wallstations [discontinued])
+RF Range - 60 ft line of sight / 30 ft through walls
+
+Powered by the QS Link
+
+up to 10 OF EACH TYPE of wireless inputs -- CANNOT substitute one for another
+10x Occ sensor
+10x Pico
+10x Daylight
+
+processor DOES NOT autodetect what type of sensor is connected - you have to set the right type of sensor for each wired input
+
+
+LEDs
+TWO rapid blinks, pause - normal
+Erratic - communication issue with processor
+Keeps resetting after some time (multiple blinks + really long pause and cycle restarts) - link is over the PDU limit / overcurrent
+
+NOTE: if LED is blinking rapidly - first thing to check is the QS link - make sure pins 3/4 are connected correctly
+
+
+
+--- Wired and Wireless Sensors ---
+
+--- Wired Occupancy Sensors ---
+
+
+LOS-CDT
+---
+Dual technology ceiling mount occupancy sensor.  Uses both passive IR and ultrasonic.  Passive IR is good for GROSS MOVEMENT - ultrasonic is good for FINE MOVEMENTS
+
+Segmented lens = FREZNEL lens
+
+IR is like a heat signature
+
+BOTH sensors need to trip to GO OCCUPIED -- then EITHER can stay active to STAY OCCUPIED -- BOTH have to go inactive to go VACANT (8 minute no movement timer by default)
+
+covers 2000 square ft -- other models can cover different amounts
+
+passive IR ONLY version might be used for example in corridors
+
+
+DIP switches under the dome:
+
+Bank A
+Auto/Manual - off is automatic / normal -- we never change
+Threshold - auto threshold adjustment - you have to trip both sensors to turn ON -- on HIGH sensitivity mode it turns on with either sensor --- you may want to set this dip switch ON depending on application
+LED motion indicator - disables motion LED -- normally not set
+Reset Learned Settings - you can use to reset the learned settings - but we do not use the auto adjust
+
+Bank B
+Strong Airflow Compensation -- can compensate for airflow interfering with the ultrasonic by DESENSITIZING it -- we usually want to ask the contractor to MOVE IT INSTEAD
+Over Doorway Installation - if turned on, it desensitizes the passive IR (only for the ON state)  -- normally we want to ask the contractor to MOVE IT INSTEAD
+Auto Timer Adjust - not recommended to use default / WE MUST TURN THIS DIP SWITCH TO ON to disable auto - for code / commissioning agent walkthrough etc.  we want this timer to ALWAYS work the same
+Auto Sensitivity - not recommended to use default / WE MUST TURN THIS DIP SWITCH TO ON to disable auto - our policy is to disable it - so that the sensors always function the same
+
+
+Wiring:
+Wired into the QSM or ESNs
+trim pots on back - for trimming sensor range and timer
+Standard- 3 wires - power, common, and occ output (signal)
+Relay model (R model) - 7 wires - power, common, and occ and photocell output (signal), relay common -- used to integrate with hvac
+
+Put into test mode:
+8 second test mode - timer will set to 8 seconds for reactions instead of 8 mins, allowing you to quickly test functionality
+take the black trim pot - go fully clockwise -> fully counter clockwise
+
+
+--- Wireless Occupancy Sensor ---
+
+Uses PIR (passive IR) -- uses Lutron XCT technology to filter out background noise, makes it as sensitive as ultrasonic even though it is using IR
+
+needs LOS & cannot see through glass objects
+
+DO NOT be within 4ft of HVAC, microwave ovens, wireless routers / devices -- the RF energy may tickle the sensor / interferes with the sensor's ability to detect motion
+
+BUTTONS:
+light bulb symbol - sends a forced on/off commands to all lights
+test - gives you a visual indication when it picks you up (visibly lights up the dome)
+
+laser - flash twice and it will put it into test mode, as well as send out its serial number for identification
+
+
+--- Wireless Daylight Sensor ---
+
+
+BUTTONS:
+link - press and hold to activate / send serial
+test - stream its light level constantly for the next 5 mins for calibration
+cal - doesn't do anything unless it's used with a wallbox dimmer - we dont use
+
+effective window height = 3ft up from the floor or at the window sill UP TO the top of the window
+should be 1-2x the effective window height away from the window
+
+DO NOT position with uplight directed at it
+DO NOT position in the well of a skylight
+
+you can use a flashlight to verify its working correctly - should dim lights down
+
+
+--- Wired Daylight Sensor ---
+
+also has an IR sensor built in as well - was used for programming - we don't use
+
+
+--- Wireless PICO ---
+
+uses CCA to communicate to the QSM or the Athena Wireless Processor
+
+
+--- Wired PICO ---
+
+low voltage control that can be connected -- it is NOT battery operated -- NOT QS / NOT ADDRESSABLE -- sends IR signal type
+white wire is IR signal -- digital signal
+wired picos ONLY control lights, not shades or CCI, etc
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

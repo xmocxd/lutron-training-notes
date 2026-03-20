@@ -1,0 +1,28 @@
+CCI on the SeeTouch RARELY/NEVER USED
+
+
+
+
+Q --- example of what is momentary vs maintained? on QS keyswitch
+maintained --> 3rd party shit if it requires maintained
+
+
+
+
+sink vs source clarification --- 0-10V - whether or not the device PROVIDES (source) or CONTROLS/ATTENUATE (sink) the CONTROL VOLTAGE (only)
+
+
+
+GP PANEL
+everything is connected to dimmed hot - the only thing the switched hot will be used for is Lutron 3-wire
+
+
+
+GRX-TVI
+
+Wiring:
+Make sure that L2/H2 and DL2/DH2 are fed from the same phase that powers the control unit -- by code - the SAME BREAKER
+SAME NEUTRAL for control unit and N2
+YOU CAN JUMPER N2 and N1
+NO COMMON NEUTRALS between load and control ---?? WRONG
+

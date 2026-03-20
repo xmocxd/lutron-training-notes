@@ -1,0 +1,322 @@
+--- Shades ---
+
+Shade brands (top is highest end)
+
+Palladiom -- high end design -- more common in residential, but could be in high end office, art gallery, etc -- QS compatible
+Sivoia QS / Sivoia QS Wireless -- wireless dongle SHOULD NOT be connected to QS Link
+Contract Roller (wired/wireless) -- you can only use wired with athena or quantum
+Sivoia QS Triathlon -- battery operated shade -- usually not on commercial startups
+Contract Roller (manual) -- NOT motorized -- offered because if they want both motorized and non motorized on a job we can provide both
+
+in athena usually natural light automation used for controlling the shades
+
+hyperion is only in quantum -- a lot more setup / customization
+
+theia compliant fabrics -- performance fabrics with tighter tolerance in the openness factor (how loose the weave is), much tighter than the industry standard
+
+
+
+Power Options
+---
+NOT powered directly from the QS LINK
+
+MUST BE 1 of the 3 SHADE SPECIFIC power supplies:
+
+QS Smart Panel - 10 outputs , doesn't have fuses, but has resettable circuit breakers
+Plug in power supply - two sets of qs link terminals to daisy chain devices - NO miswire protection -- UNPLUG before troubleshooting
+J-Box power supply - two sets of qs link terminals to daisy chain devices - NO miswire protection -- UNPLUG before troubleshooting
+
+these all put out 35V, which is different than the rest of the system
+
+
+
+Troubleshooting
+---
+Are the limits set? -- shade dealer technically responsible, but may be faster to fix yourself -- usually can be done right from the software in athena/quantum
+Speed/IHA (intelligent hembar alignment) correct? -- IHA makes the hembars run at consistent speed regardless of the level of the shade --- without this, the speed would change due to the tube diameter changing as fabric is taken up -- typically we ONLY ship shades with IHA already set on them -- may not be added to VERY WIDE shades with a baton however.   you can also look in the software to see if values are set for the IHA
+Sound / Noise -- Check: proper wire dressing / proper alignment (ie. the hembars are straight and coupled shades are AT THE SAME LEVEL) / EDU/Drive issue
+Telescoping -- fabric is telescoping on the tube - generally caused by unlevel install, or debris --- may result in damage to the fabric
+Alignment -- Couplers properly torqued -- must use 2 screws provided and plastic coupler clip
+
+
+Power Panel
+---
+LEDs indicate power status of shades
+Override buttons - lights on / lights off - shades open / shades closed -- BROADCAST COMMAND to all shades on the QS Link.  clear alerts button -- clears any blinking alert LEDs (present if the power was cycled, etc).
+
+
+
+--- Shade Notes ---
+
+MAKE SURE you remember when you control the shades on the QS Link -- it controls ALL THE SHADES on the QS Link, even if not in the same room, etc.   they may be wrapped up, or people may be working near them, so make sure you let people know / check all the shades on the link before moving them.
+
+-----
+-- Fixing limits --
+
+-- From the drive unit:
+How to reset the shade limits from the drive unit -- go to the control panel for the drive (user interface) on the side of the roller, there are small buttons which can be pressed with a screwdriver.
+
+- tap the limit button to go into limit set mode (TOP BUTTON)
+- move the shade into the correct position using the move buttons (inner buttons)
+- then PRESS AND HOLD the limit button (TOP button)
+
+-- From the keypad (standalone system):
+
+To assign shades:
+- press and hold the open and close buttons for 6 sec (top/bottom) - all shades on the QS Link move -- if they move to the OPEN position the are NOT assigned to the keypad, if they move to CLOSED position they ARE assigned
+- tap the open button to cycle selected shade -- it will WIGGLE the selected shade.  tap the close button to cycle backwards.
+- to assign the shade to the keypad, tap the lower button
+- to unassign, tap raise
+- press and hold open and close again for 6 sec to get out of assignment mode
+
+To set limits:
+- press and hold OPEN and RAISE to unlock the shade's limits
+- raise or lower the shade
+- lock in the limit by pressing the close button (for lower limit) -- open button (for upper limit)
+
+To set presets:
+- move the shades, then press and hold the preset to set current level to that preset
+NOTE: If you TAP a preset button when in ASSIGNMENT mode, you can set the presets differently for each shade
+
+
+-- OR can be done by the software (athena/quantum)
+
+-----
+
+
+Telescoping:
+
+if fabric is telescoping, check if the shade is level -- document for shade dealer if not
+Roller 100s have a screw to adjust the level - you can do yourself depending on situation
+
+can put a piece of painters tape on the side you want to pull the fabric, under the tube -- this will offset and cause the telescoping to correct.  may need multiple pieces of tape.  it's a temporary fix to make sure the fabric doesn't get damaged on the side channels, etc. while doing setup -- leave the tape on there for the shade dealer to see which shade has the issue
+
+OOBing shades:
+
+on the drive unit, there are buttons:
+close limit
+open limit
+up
+down
+
+- PRESS AND HOLD each button starting with the CLOSE LIMIT until the LED starts to flash, and move down to the next one. this will OOB the shade.  DOES NOT cause the limits to be lost, but removes assignments / presets, etc.
+
+- if you OOB a KEYPAD, it removes all SPECIFIC assignments / presets but will now just send broadcast commands to ALL SHADES on the QS link
+
+
+---- LEGACY PANELS ---
+
+---- PANEL SPECIFICATIONS ----
+
+GP:
+UL Listed
+120/277V
+3-144 circuits
+power failure memory
+controls:
+- INC / Halogen
+- MLV
+- ELV (with PHPM module)
+- Flourescent
+- 0-10V (TVM or TVI interface)
+- Neon cold Cathode
+- HID
+
+LP:
+120V only
+also controls:
+Lutron Tu-wire
+
+XP:
+120/240/277/340V
+switch loads only
+
+
+--- PANEL LINK ---
+PANEL LINK MUST BE DAISY CHAINED
+Baud rate must be set, terminators must be used
+
+
+circuit selectors -- make sure you verify the firmware inside of them to make sure they are compatible with quantum
+
+
+--- LEGACY PANEL / MODULES NOTES ---
+
+XP2 module - Switching modules (white label) - DO NOT PRODUCE HEAT -- the black and white cable provides power for the control circuit INSIDE the module, does not provide power to any loads -- other blacks are the feeds, and reds are the switch legs -- EACH OUTPUT has its own feed - EACH is rated for 16A of lighting load
+
+XP module -- it does not have an addressing dial -- this module still requires power for the control circuit, but it gets it through the 12 pin HEADER / HARNESS on the front -- modules are addressed via jumpers on the harness
+
+triac - this is what controls the dimming - ONLY FORWARD PHASE DIMMING -- its inside the dimming card -- these get damaged easily
+
+
+--- GP PANEL ---
+
+behind the breaker panel there are a bunch of chokes -- they help smooth out the slug of current -- the triac turns on and off 120 times a second / 60hz, so the choke smooths out this current to make the flow of power more constant down at the lighting loads
+
+everything is connected to dimmed hot - the only thing the switched hot will be used for is Lutron Tu-wire (??) 
+
+there is a V shape in the cards lengths to help with convection
+
+make sure nothing is obstructing the vents on the back of the units
+
+circuit selector (quantum) is on the right side --- the last breaker on the right side is marked with a C - that is the control breaker that powers the circuit selector 
+
+
+
+
+--- CIRCUIT SELECTOR ---
+
+if all the dimming cards are NOT blinking in unison with the circuit selector, it means the CS is not communicating with the cards
+
+look at the data OK led to see if communication is coming in over the link
+
+top display shows what circuit is selected
+
+the bottom display shows various things:
+
+a value (number), explains what it is by LEDs below it (selectable by #5 button):
+
+Circuit Level -- the level of dimming on the circuit
+Load Type -- some of the main load types are imprinted on the label at the bottom.  there is a chart printed on the support wiki
+Zone Assignment w/ Circuit Schedule -- 1-512 (quantum) you can have 512 switch legs on a Power Panel Link - shows what zone it is on the database
+Zone Assignment w/ Zone Capture -- (only for standalone) -- rarely used
+Low-End Trim -- default 5 - when you go to 1% on the slider it goes to 5%
+High-End Trim -- default 90 (for incandescents) - when you go to 100% on the slider , it goes to 90% -- helps to extend the life of the lamp
+
+if you click one more time on #5 beyond high-end trim, it goes into ADDRESSING MODE - this is so you can address the circuit selector on the processor (1-32)
+
+control harness is on the bottom of the CS -- check to make sure it is connected if any communication problems -- it also may not be connected on both pins
+
+if you have a panel like LP or CCP module with more than 6 modules, you would have 2 harnesses (more than 24 switch legs)
+
+
+if set up to connect to emergency -- sense wire SENDS a 24V signal to tell the emergency system it is there
+if set up as an emergency PANEL --- sense wire is LOOKING for a signal coming from the other circuit selectors -- when it LOSES the signal, it goes into emergency mode (sets all loads to max)
+
+
+if the CIRCUIT SELECTOR is turned off, the loads will stay where they are at, but the panel will be frozen and not be able to be controlled until it is turned back on.
+
+
+
+--- TERMINAL BLOCKS ---
+
+if something happens to the dimming card, you can insert a bypass jumper to get the lights on
+
+if a fixture needs to be changed, put back in the bypass jumper --- if there is any fault it could damage the card / module (NOT covered by warranty) - bypass jumper avoids
+ask the contractor to keep the jumpers at the bottom of the panel, in case they need to do any work on the fixtures
+
+
+WORK WITH THE JUMPERS NON ENERGIZED -- THEY WILL BE ENERGIZED AS WELL
+
+ELECTRONIC BYPASS --> if the DIMMING CARD BREAKERS are power cycled while the circuit selector is off, the cards wait for a few seconds to check for communication from the circuit selector, then come back on FULL BRIGHTNESS
+
+
+
+
+===============
+---- LOAD INTERFACES ----
+===============
+
+--- PHPM ---
+4 different types
+maximum of 3 per zone --- can connect up to 3 per output of a dimmer
+they mount in a wallbox
+
+**the control sides and load sides are electrical isolated from each other**
+DO NOT USE COMMON NEUTRALS
+
+- phase adaptive PA
+- phase adaptive WBX - uses a different input - uses a 3 wire fluorescent input
+- 3 wire fluorescent
+- softswitch
+
+--- GRX ---
+maximum of 5 per zone
+surface mounted
+
+GRX-TVI - 0-10V interface
+GRX-PWM - Pulse-width modulation -- turns on and off at 350hz - a lot faster -- niche product / uncommon at this point
+
+
+
+--- PHPM-PA ---
+
+used to control phase adaptive loads -- either fwd or rev phase
+
+control up to 16A of lighting load
+
+what it is used for:
+- make a non compatible load type compatible -- convert between one phase type to another
+- to increase the capacity -- use the dimmer to control the phpm-pa, and then use the phpm-pa to control the high load fixture
+
+we need to use a separate neutral for our load vs. the control neutral
+
+
+
+--- PHPM-3F ---
+
+phase control dimmer to control ---> a Lutron 3-wire fluor
+
+**connect both SH and DH to the ballast**
+
+
+
+--- PHPM-SW ---
+
+use a dimmer to control (takes any kind of phase control) --> a switched load / non-dimmed load (**including HID, which is not supported by things like the grafik eye**)
+
+any dimmed signal above zero - SH is ON
+dimmed signal at 0 - SH is OFF
+
+
+
+--- PHPM-WBX ---
+
+output identical to the PHPM-PA, but INPUT is different
+
+allows you to use a 3 wire fluorescent dimmer input to control (CENTER PHASE) ----> a 2 wire output
+
+different model numbers for 120V, 277V, and Dual Voltage (DV)
+
+SH on the input dimmer is capped off - just use DH
+
+
+
+--- CENTER PHASE ---
+
+center phase cuts the sine wave at both the leading and trailing edge of the wave -- takes from both sides equally
+
+RMS -- the average of the output over time
+
+if a center phase signal used on fwd/rev phase, will cause dead travel on the lighting control, because it never cuts one side of the waveform enough to get down to the expected level
+
+
+
+
+--- GRX-TVI ---
+
+
+takes a phase control signal and convert to 0-10
+
+minimum load is 10 microamps and 300 mA maximum on the 0-10V side (higher than usual!)
+
+Wiring:
+Make sure that L2/H2 and DL2/DH2 are fed from the same phase that powers the control unit -- by code - the SAME BREAKER
+SAME NEUTRAL for control unit and N2
+YOU CAN JUMPER N2 and N1
+NO COMMON NEUTRALS between load and control ---??
+
+DO NOT DO SERIES
+***Star topology is ideal for 0-10V loads --- FOR THE CONTROL VOLTAGE****  otherwise you may have resistance or voltage drop
+
+if the fixtures do not look the same on 0-10V, the wiring quality / length etc. may be in play, better to wire as STAR topology
+
+
+
+
+
+
+
+
+
+

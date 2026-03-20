@@ -1,0 +1,2721 @@
+Lutron day 1 remote
+
+----
+
+58%
+
+What do FSEs do?
+
+---
+
+travel to custom sites
+manage the installation of systems and customer relations
+provide initial system trining
+may be sent to any install that has problems
+
+customers are many different roles (EC, lighting designer, facility manager etc)
+
+
+have access to engineering teams (escalate issues)
+provide quality and product feedback to engineering group
+work with customers on system upgrades, maintenance plans, software plans (bring up the plans -- you are the face of Lutron) --- "We offer technology support plans"
+
+
+what does it mean to be a professional?
+
+PUT THE CUSTOMER FIRST
+understand their needs
+
+Make expertise your specialty
+become an expert with the skills and tools
+keep knowledge up to date
+
+Do more than expected -- go above and beyond
+
+"is there anything else i could help you with today?"
+
+Communicate effectively
+clear / concise / thorough, accurate
+
+
+praise your peers not yourself
+
+share your knowledge
+-information isn't a limited resource
+
+territory leader can post stuff on the wiki if you find any new issue / situation / fix etc
+
+SAY THANK YOU
+keep a smile on your face - especially in trying times
+
+keep your promises -- manage and meet expectations
+dont make excuses
+
+honesty and integrity 
+
+self regulation - stay professional under pressure
+
+project a professional image
+
+----
+DO NOT:
+
+argue in front of others
+demeaning criticism / non constructive
+verbal outbursts
+harassment / discrimination
+physical
+
+talk bad about our products -- no "ive seen this a lot" -- WE SHIP QUALITY PRODUCT
+talk bad about COMPETITOR products -- i cant speak for another product / im not really familiar with it
+pointing fingers / blaming others -- man up
+discussing non-job related behavior - dont go down the wrong path - even if you didn't initiate 
+lying and stealing -- DONT help yourself to the amenities, unless specifically told
+
+----
+
+tin doll pants
+
+hard hats = 5 YEAR from date of mfg they EXPIRE should be replaced
+
+
+-- can you wear metallic watches? - NO metal on arms -- you can wear but be smart about it
+
+safety glasses have to be worn at all times -- even if not doing directly risky work -- anything can come from anywhere on the site -- ie. window shattering
+
+
+constructive criticism mut be done privately -- know who is in the room
+
+
+
+listen to your customers -- write stuff down and repeat it back to them
+
+
+---------------------
+
+
+--- SUPPORT WIKI ---
+
+set up by product family
+
+
+stuff under FS Engineer resources --- how to do stuff in lightning (ASC community app?)
+----
+SFS - sales force field service lightning
+Job site guidelines -- leaving jobsite flowchart
+qual card? -- you need to have access - they stay online
+
+post start up
+if a system needs to be updated we need to create a Method of Procedure (MOP) -- plan for how to upgrade the system
+
+Technical Documents
+engrave critical buttons during startup
+commercial project and services (CPS)
+R/T leader maps
+----
+
+SUPPORT WIKI IS FOR INTERNAL EYES ONLY -- DO **NOT** COPY TO A CUSTOMER OR EXTERNAL CONTACT
+
+approved customer documentation is on the Lutron website
+instruction sheets NOT on the support wiki -- check Lutron.com
+
+FIRMWARE IS on the support WIKI***
+
+
+ON WEBSITE - dynamic documents, will always(?) be the latest version
+ON WIKI - documents have to be manually updated, may be outdated
+
+can use product number to search on WIKI
+
+NEVER GO to a hyperlink that directs you to firmware files, always go to the product's homepage and check the firmware on there.  it may be updated / wrong
+
+s19 files = firmware(?)
+
+CUSTOMER INCLUDES REP -- do not send internal only
+
+if you see RED -- READ it
+
+
+DONT EVER USE "JOB SPECIFIC" firmware (unless it is for your job)
+DO NOT USE internal release firmware
+
+ONLY USE full customer release or gamma
+
+Gamma is a legit version to use in the field
+
+
+
+
+--- ATHENA SYSTEM ARCHITECTURE ---
+
+
+athena hubs sometimes referred to as processors, but technically the processor lives inside of the hub
+wired processor = edge
+
+ARF-2 - Athena Wireless Processor
+Q-RF - Athena Gateway
+
+QS-Link - wired low voltage communication link
+
+Athena DIN panel - panels with power modules inside ---> centralized load controller - all the modules live inside
+ 
+ESN = ****distributed**** load controllers - anywhere from 4 outputs .... to 128 switch legs it can control if it's ecosystem, etc.
+distributed = scattered around the building, closer to where the loads are, so u dont have to wire everything back to the same home location
+DMX Interface - is another type of distributed load controller
+
+Wall Controls - all SPEAK QS
+
+QSM - unique interface - 1) wired sensor inputs (including wired picos) - NON addressable devices, you have to tell what is on the inputs, they have to be landed on the correct terminal.  QS link also provides POWER to the devices.  -- 2) wireless sensor inputs
+
+WE support Lutron shades on athena -- BUT they need power, they do not get power from the QS ink -- they require a separate share power supply - can be an individual or shared supply
+
+ESN provides link power
+
+INTERFACES -> AV interface - connect 3rd party equipment, can monitor and output commands / Contact Closure Interface - connect 3rd party equipment -- for example 3rd party shades, security system, etc.
+
+
+BLUE LINE on diag - QS link
+GREEN LINK - ethernet
+
+inside the athena hub, there is a POE switch providing power and connectivity on ethernet
+
+Touchscreen - can have access to 1 area, or multiple areas -- it is configurable
+There is no programming per se of the touchscreen - it reads information from the processor
+
+Athena Wireless Processor - dual radio:  clear connect type A (CCA) - it also has a CCX radio built into it - works with Ketra and AWNs--- it ONLY LISTENS CCA - does not talk CCA
+
+also there is a CCX interface - not shown on the arch diagram --- looks the same as an athena wirelss processor, but does not support CCA
+
+Software -- Lutron Dashboard & Lutron App / Lutron Designer
+Dashboard - allows you to see alerts, system energy, system occupancy **history**, energy usage **history**
+Lutron Designer - software we use to start up the system --- usually end users dont use, but if they go through facility mgr training, they can get access
+(need mylutron account to get to all software)
+
+
+Working on an option to have a local server for athena that is not cloud connected / cloud required -- still in early stages
+
+
+
+if you press a control, it sends the message ***all the way back to the processor***, then the PROCESSOR tells the device to react to the button press -- dispatches
+
+EVERYTHING goes through the processor, ESNs/DIN modules (LOAD CONTROLLER) do not directly communicate to controls / sensors, they only get their commands from the processor and the load controller then manipulates
+
+isolated system - 16 processors per system -- systems cannot talk to systems
+
+
+
+--- QP5 Hub ---
+QP5-xL-POE -- x stands for how many links are on the hub
+2 athena edge processors with up to 2 links each
+includes 8 port ethernet unmanaged POE
+
+1L - 1 Link Athena hub (1x 1 link processor) -- 25 QS Devices -- 50 Wall Controls (including non QS) -- 50 OCC - 50 Daylight - 
+2L - 2 Link Athena hub (1x 2 link processor) -- 99 QS Devices
+5L - 4 Link Athena hub (2x 2 link processor) -- 99 QS Devices
+each processor has 2 eth ports
+
+switchleg - a single output of an ESN - a digitally controlled device on a DALI/Eco ESN -- DIGITAL Loads
+-- shade outputs -- DMX => digital loads - every DMX channel is considered a switch leg
+
+SWITCHLEG IS => the smallest controllable output
+dimmed or switched circuits
+digitally addressable devices
+a single DMX channel
+CCI outputs
+QS Shade Drives
+
+
+Athena - under System Technical Guides
+***** Lutron Residential and Commercial System Rules **** 
+DOWNLOAD it
+
+
+NWK = input only
+
+DMX Interface = 32 switchlegs
+
+T-Series ESNs discontinued
+
+
+--- QP6 Hub ---
+QP6-1L -- small system hub -- one 1 link proc
+
+
+
+--- A-RF2 Wireless Processor ---
+Powered by POE
+
+CCA and CCX radio --
+CCX - up to 100 devices -- ketra type x and AWNs
+CCA - up to 50 devices -- pico 50 max - daylight sensor max 5 - occ / vac sensors max 15 --- only 50 max total
+
+**does not NEED a wired processor if there are no QS devices or non CCX fixtures**
+
+
+--- Q-RF Athena Gateway ---
+Powered by POE
+CCX - up to 100 devices
+requires at least one QP5 or QP6 panel with a POE -- is not a processor by itself
+
+cant have more than 16 total gateways and procs
+
+
+--------
+Link type and designations
+--------
+
+Wired processors
+QP-1L - QP-2L
+1 link / 2 link
+
+
+QP5 hub -- 2 power supplies - 1 powers POE, 1 powers QS link and proc (for 1 proc model) -- would have 3*** power supplies if 2 link
+
+QP6 - SINGLE power supply, SINGLE proc ----- small system enclosure
+
+
+--- QS Link ---
+
+can have up to 99 devices
+free wiring topology - can be t-tapped or daisy chained
+MAKE SURE YOU DO NOT MAKE A CLOSED LOOP / LOOP BACK ON ITSELF -- will cause comms problems
+
+Common
+Power
+Mux Data ---> TWP
+Mux Data (Bar)----> TWP - twisted shielded pair
+Drain Wire
+
+total sum of distance -- 18AWG - 500ft --- 12 AWG - 2000ft
+**CANNOT MIX AND MATCH GAUGE**
+
+
+**PHASE ADAPTIVE ESN provides NO PDUs**
+
+do not connect PDU supplying unit terminal 2 (power) of QS link -- WILL CAUSE BACKFEED
+
+PDU = Power Draw Unit (33 mA)
+
+
+
+
+
+
+
+
+
+Lutron training 1
+
+-- TERMS -- 
+Neutral => return AC voltage
+switch leg => output (/ output side of a relay) --- electricians refer to switch legs as zones <===> "which circuit is feeding this?" -- in our domain, zone is a GROUP of outputs
+drain -- drains to ground
+
+
+--- systems ---
+
+vive / quantum / athena
+
+old systems:
+panel link / qs standalone
+
+athena is main focus = quantum replacement
+
+
+
+--- quantum hub - power supply and processor ---
+
+can communicate to up to 99 devices
+support BACnet, DMX integration
+control 512 switch legs - physical / digital (ie DALI)
+shade motors also count as switch legs
+only has 1 NIC / mac address -- 2 rj45 ports - one is a service port
+works on multicast by default for networking --- broadcast , any device on the network can hear it -- not as secure as unicast -- in many cases, multicast is required
+
+can track timezones / DST , etc -- cannot track moving holidays 
+
+server based system - not a cloud system
+UI - quantum Vue -- transfers all info to the processor + xfer to the database
+once the db is setup - set up the local web page - server hosts the
+
+server CAN BE just for config if on a laptop - after setup, information lives on the processor
+server can also run permanently on an on-site hardware server, so user can continue to manage
+sqlexpress
+RabbitMQ service -- message queuing protocol
+has enough memory to serve 7 days or so of information then overwrites itself -- if they dont have a server its difficult to pull historical logs
+
+recommend a 500gb HD on the server
+
+web API also supported -- list of partners / mfgs who can use the API (ex. Crestron)
+
+--- Panel Link / OMX link ---
+legacy devices - types:
+XP - switching only modules - just switch power on and off
+GP - f phase - r phase - 3 wire fluorescent (dimming via ballast - switched hot, neg/pos)
+LP/CCP - phase dimming RPM4A / RPM4U
+
+current product line uses QS link protocol - older uses OMX protocol --- NOT COMPATIBLE, but same cables
+
+
+
+--- Quantum ---
+
+--- PRO LED+ ---
+ESN / QSN -- phase adaptive panel -- phase adaptive = dont have to determine whether it is fwd or rev - its auto -- there is a manual function in case it cannot detect correctly
+
+16 A max total current means all 4 switch legs / outputs combined amp ==> if fails, has internal fault protection - gives you blink codes saying you are over voltage etc.
+
+reference for blink codes in wiki*
+
+NO built in relays - dimming only via panel
+
+
+
+--- ESN 0-10V ( Energi Savr Node Switching Panel) ---
+
+model numbers w T -> 0-10v / S -> switching only
+QS Link Cable - communication cable 
+has built in relays
+
+emergency LED rapid blinks when there is an issue / ie. jumper / contact is loose
+if panel is not controlling any emergency loads JUMPER SHOULD REMAIN IN
+
+CCI - close contact input -- signal from any 3rd party device, etc
+
+other wired sensor inputs at bottom - 4 groups -- by default, each group is connected to each zone -- can be reprogrammed 
+
+passive sensors are plug in play - no programming required - can just be replaced if wired correctly
+
+wireless sensors have a unique serial number / SN because they have to be paired
+
+
+
+
+--- T-Series / EcoSystem / DALI ---
+
+DALI -- open source standard -- limit of 64 addresses
+
+EcoSystem - propr. version based on early version of DALI -- also limit of 64 addresses - NOT specifically designed for tunable white
+
+T-Series (Discontinued) = tunable white series (created from EcoSystem) -- adjust balance between cool and warm LED - 2ch --- 1 address for warm white, 1 address for cool white.  important bc DALI has a limit of addresses on a DALI BUS (OR LOOP) --- LIMITED TO 32 drivers / addresses
+
+DALI panel can come in single or dual loop model
+majority get 2
+
+Originally EcoSystem was better because you get Sensor Feedback - etc
+
+DALI version 2 makes BOTH EcoSystem and T-Series mostly obsolescent 
+subsections - DT6 and DT8
+DT6 achieves tunable white via 2 address --- EQUAL TO T-SERIES
+DT8 uses 1 address for white tuning and color intensity -- can use 64 instead of 32 devices
+
+*most things are compatible with athena*
+
+TEST -- press and hold - test led start flashing
+THEN press LOOP 1 --
+-- press 1 time, FULL ON
+-- press 2nd time, DIM
+-- press 3rd time, Dimming up and down / flash
+-- press 4th time, OFF
+press and hold TEST again to stop test mode
+
+Ethernet port = for standalone programming (if there is no processor)
+
+Emergency contact functions the same way as before - but the indicator is different -- indicators flash red when in emergency mode (on loop 1 and loop 2 indicators at top)
+SOLID RED --> SHORT
+FLASHING RED --> IN EMERGENCY MODE
+1 BLINK PER SEC / GREEN --> NORMAL
+
+
+If temp light is flashing red and green - overheating issue
+
+- - FACTORY RESET - -
+***if you want to factory reset -- UNPLUG the QS link cable first*** -- if attached to the processor, will continue getting information and not properly reset
+
+triple tap - hold for 5 sec - triple tap
+
+if lights at bottom flash in unison or go back and forth:
+either
+-mux wires are swapped (pins 3/4)
+-not getting any information from a processor - not connected etc
+-firmware update failed / panel stuck in boot mode --- just push the firmware update again
+
+
+
+--- GRAPHIK EYE QS ---
+
+GRPHIK EYE can be transferred over but you cannot add a new one
+
+
+--- CONTROLS ---
+Seatouch - has a CCI / close contact input on the back -- programmable input
+Palladiom are custom made - if they haven't shown up yet, they may still be being manufactured -- does not have a CCI on the back
+
+
+--- SHADE PANELS ---
+QSPS - QS Power Supply --- QSPS 10 refers to a shade panel --- QSPS-DH - simply din rail power supply (inside the Quantum Hub)
+shade panel only compatible with Lutron shade motors
+
+
+Lutron makes their own fabric -- ie high quality -- overall reliability is reliant on the install -- always installed by a 3rd party 
+
+
+
+--- WIRED INTERFACES ---
+
+QSE-CI-DMX
+--
+DMX Output -- Quantum Processor can do DMX out/in, but this interface is DMX output only (DMX In is a way to communicate with Lutron)
+limit of 32 channels per interface
+
+for each QS link -- limit of 512 DMX channels
+16 DMX interfaces fill up a QS Link
+
+QSE-CI-NWK-E
+--
+allows system to control lighting systems using Ethernet / RS232, can use to do firmware updates, monitor the health of the QS Link --- may be there for AV integration
+
+QSE-IO
+--
+CCO/CCI -- close contact i/o - exterior photo cells to turn off via daytime/nighttime, partition sensors (IR beam set up between a wall that is moveable - track the state of the wall if conference rooms can be combined, etc. -- set up so that keypads can control different areas) - trigger 3rd party shades
+
+QSE-CIW-CI
+--
+Wallbox CCI - used for wiring close contacts - has more inputs but can only do inputs
+
+QSM
+--
+can be wired to up to 4 wired sensors, plus paired to wireless sensors -- Occ/Daylight/Picos/etc -- wireless up to 10 of each kind of device can pair (30 total) (window/daylight counted together)
+
+LUT-ELI-3PH
+--
+Emergency Lighting Interface
+connects to ESN panels with dry contact
+
+
+
+
+--- QS Link Cable ---
+
+Plenum and non plenum - higher durability - open environment / air return or air supply area
+
+Red and Black - 18 gauge
+
+Red Black and Orange (orange cable one compatible with LEGACY) - 12 gauge - can go as far as 2000ft -- "did you buy 500 ft spools or 1000ft spools?" - if they used 4 spools on the floor theyre probably under 2000 but cutting it close ---- extra orange cable interfaces with the legacy panels -- typically only used for an emergency single
+
+BOTH variations can come in 12, 16 or 18 gauge
+
+can get non-Lutron cable but needs to follow the specs - can void warranty if the cable does not follow specs
+
+1 PDU = 33 mA
+when PDUs are added together, the count must be 0 or greater
+QS link has a total limit of 100 total devices (*Wired Devices*) -- processor included -- does NOT include wired sensors
+
+
+QS link power supply +8 PDUs - Seetouch -1 PDU
+at the power supply units, terminal 2 (POWER SOURCE) is capped off / never connected
+
+wired sensors also draw PDUs
+
+
+--- Lutron System Rules ---
+One document that covers all the systems
+
+99 QS devices per QS link
+Max 2000ft , can be boosted another 2000ft with the output of a shade power
+
+
+
+--- PHPM ---
+phase adaptive power module
+-convert between different voltages / extend capacity
+
+PHPM-PA - 2 wire dimming - "phase adaptive"
+PHPM-WBX - 3 wire **(fluorescent)** dimming - forward phasing -- 3rd wire is used to switch the load off
+
+you can have up to 3 PHPM modules on a single dimmer
+
+
+
+
+
+--- SOFTWARE ---
+
+Each processor has 2 links, each link has 512 switch legs
+multicast is a requirement for processor to processor communication
+a subsystem is a multicast network of processors
+
+
+
+-- LUTRON SUBMITTALS --
+
+
+Lutron training 2
+
+--- quantum vue / quantum processors ---
+
+reasons to adjust high end trim -- customer pref, energy savings, device longevity
+reasons to adjust low end trim -- driver shuts off at a certain level, fix flicker issues / whine
+
+shades - 3rd party will not show up / no feedback will be provided -- would have to set up as dry contact
+devices - features - lock and unlock keypads, replace and re-address drivers (scan for new drivers - DALI, EcoSystem, or T-Series)
+
+vue is the UI which lives on the server
+system can run without a server but cannot be configured without site visit
+
+2 links per processor - each can handle 512 switch legs
+multiple floors / processors can be networked to allow quantum vue to control all floors as 1 system
+
+8 max recommended processors on a subsystem - but 16 is real max in the software
+
+
+
+--- fixture controllers / panels ---
+
+they are wired directly to the fixtures
+
+fixtures only have ONE type of dimming usually that they are controlled by:
+
+0-10v
+Switching
+ELV / Reverse Phase
+MLV / Forward Phase
+DMX
+T-Series
+DALI
+EcoSystem
+
+**and the panel will be specifically designed to control via that type of dimming**
+
+Test a 0-10v fixture --- short the wires - if it goes to dim, then it's NOT an issue with the fixture
+
+SYNC vs SOURCE --> refers to which device is providing current vs receiving current - SOURCE provides, SYNC receives 
+in the past, a driver was either a sync or a source -- now every driver in the market is set to auto
+
+when you measure the 0-10 wires coming out of the fixture you should get 10v DC -- when not connected to any panel
+
+DALI panels have 2 loops - 64 fixtures each loop = 128 fixtures max
+
+DALI test mode oscillating operation will always be maximum 0-100%, and may cause drivers that will cut off below a certain % to blink off during the sequence
+
+MAKE sure you set the lights back to HIGH before you exit test mode, they may retain the last broadcast command
+
+if in emergency mode, loop lights LEDs will flash red
+
+if loop LEDs are SOLID RED -- there is a short in the loop
+
+
+for a 0-10v panel, a GREEN LED right above the jumper will flash rapidly if in emergency mode
+
+LEDs flashing in sequence means a QS link cable is wired wrong / no communication / no power to the processor --- OR the firmware update failed and you're stuck in boot mode (for ALL ESN panels)
+
+
+GRX Power Panels
+--- 
+GRX / Legacy panels will communicate using GRX protocol -- there is an extra wire - orange cable 
+difference between GRX and QS is 5th conductor (cable) is not needed
+c
+
+quantum proc has 2 link ports that allow communication with GRX and QS at the same time
+
+CABLE LENGTH LIMIT -- depends on gauge
+12 AWG - 2000 ft
+16 AWG - 1000 ft
+18 AWG - 500 ft
+
+
+one of the inputs of a processor can be configured to accept DMX communication (I/O)
+
+
+--- INTERFACES ---
+Type 1 allows for interaction with 3rd party
+Type 2 allows for converting dimming signal from Lutron panels
+
+type 2--
+
+EcoSystem C5-BMJ-16A
+---
+converts ecosystem dimming signal from an ecosystem panel to a 3 wired forward phase output
+connects to QS-ESN-Eco panels with ecoloop 2-wire
+uses control signal from ESN-Eco panel to control MLV/ELV (magnetic low voltage / electronic low voltage ie. fwd/rev phase --- MLV = Forward, ELV = Reverse) fixtures/loads
+
+
+GRX-TVI
+---
+DOES NOT connect to QS-link or GRX-link
+Uses dimming switchleg from ESN-4A5 or GRX-Power panels to control 0-10v fixtures / loads
+
+
+PHPM
+---
+Boosting / Phase converting interfaces
+DOES NOT connect to QS-link or GRX-link
+Uses dimming switchleg from  ESN-4A5 or GRX-Power panels to control ELV/MLV
+Typically used as a 'power booster' -- they are able to control more fixtures than a single output of ESN panel
+Typically used to convert between MLV and ELV
+DOES NOT have built in relays -- need to use PHPM-SW to deal with switching only fixtures
+
+
+
+
+
+
+
+lutron training 3
+
+--- 3 wire dimming EcoSystem C5-BMJ ---
+
+3 wire dimming is a phase adaptive fwd/rev phase dimming method -- USUALLY associated with ballasts / flourescent BUT can rarely be used on an LED driver as well
+
+dimmed hot (orange*) wire is the one that actually has the clipped waveform, but will read 0-120v, etc. on the meter due to taking an average (RMS)
+
+
+--- general electrical --- 
+
+line is 1 phase, neutral is ALL 3 PHASES returning - so it will have 0V when measured (phase cancelling)
+
+
+CONSTANT HOT -- standard colors
+black / red / blue = 120V
+brown / yellow / orange = 277V
+
+neutral = white (high voltage = gray)
+switched hot = red (high voltage = yellow)
+
+GROUND = exposed copper OR green sheath
+
+circuit breaker = source
+
+load = any device along the circuit that is going to consume power
+**recepticles count as loads!!** (possible load / you dont know what will be plugged in)
+
+emergency bypass relay --> 2 inputs normal constant hot and emergency power, if it detects no power on the normal hot, it switches to the 2nd line
+
+QS link is 1 port but has 4 terminals
+
+ask for AS BUILTS -- marked up floor plan showing how things are actually wired
+
+10 digital slots available for wireless devices on the QSM
+
+
+LAMP = SINGLE LIGHT
+FIXTURE = FIXTURE TYPE
+
+YOU can have multiple lamps on a single load but you should NOT have multiple fixtures (fixture types) on a single load
+
+
+
+--- Q Design ---
+
+inside the fixture schedule, you can customize columns and add Low/High end, modify the L/H end trim across the board for all fixtures of a type instead of specifying per area, etc.
+
+COLOR Temp H/L end DOES NOT TRIM --- it just labels what is calibrated for 10V vs 0V
+
+
+Processor link types - each of the 2 links can be configured to a different link type:
+--
+QS
+Power Panel (GRX)
+DMX Input
+DMX Output
+
+
+if the electrician gives you an updated oneline / as built oneline / etc --- highly recommend going to link assignment and updating it to match the updated oneline  -- editing the link assignment in classic view will CHANGE the oneline -- it is dynamically generated!!!
+
+ROWs for daylighting sensors = rows of lights from the windows, where row 1 is the closest to the window
+
+q design database file naming convention:
+JOBNUMBER_JOBNAME_QUANTUMVERSION_DATESTAMP
+
+close lutron service manager -> ctrl shift f7PDU = power that goes out on the QS-Link that powers devices (seeTouch keypads [NOT picos] / QSMs / NWK-IO or DMX devices), does NOT go to the lights
+
+
+
+--- QP6 (athena 1 link proc) ---
+
+line voltage cover must be on, should be written up in trip report if not
+
+processor takes about 30-40 sec to boot up
+
+class 2 connection = low voltage
+
+if any line voltage connections made outside the line voltage cover / in the low voltage area, must be reported / fixed
+
+
+
+--- Athena Gateway ---
+
+looks identical to a wireless proc
+counts as 1 processor count**
+
+can tell apart from a QSM because the QSM has 3 dots instead of 2
+
+mac address and serial number on the back -- need to physically activate the device
+
+ethernet port also on the back -- powers over POE and connects to network
+
+should be discoverable on the network
+
+can have a surface mount bracket or a recess mount bracket -- can disconnect by giving a quarter turn
+same bracket used for QSM, Gateway, A-RF2
+
+
+LED blink green -- normal operation
+Blue blink -- downloading firmware --- may download auto update of firmware when connected to the cloud (usually at initial connection?)
+Red - issue
+
+
+
+
+--- LTE Modem (Digi modem) ---
+
+included with most systems as a line item
+provides connection over LTE / cellular
+the purpose of this is for startup -- to be a connected system during startup
+usually on startup they dont have the building connectivity or internet set up
+
+up to 16 processors can be connected
+
+can be either powered by POE or plug in power supply -- you HAVE to use a power injector -- power injector does 18V - our switch does 48V -- device cant handle 48V
+also comes with battery pack
+
+you want the contractor to have this up and running before you ever come to the job site
+
+digi dashboard -- allows you to remotely set up the digi modem
+
+we require a minimum of 3 bars of service -- might need to be mounted outside the electrical closet / maybe near a window
+the battery pack allows you to walk the modem around the building to find service and mount it in that location
+
+when you mark the service is complete, we can go in and discontinue the cellular service
+
+pre-visit checks can be done through the dashboard
+
+will ONLY use DHCP - cannot be used with static IPs
+
+port 1 LAN connection - is the only port we use -- CAT 5e minimum --- 328ft maximum
+
+can actually have up to 2 sim cards providing service
+
+
+CAN be directly plugged into the athena processor, OR can be plugged into a switch and then hooked to the processor
+
+
+contractor needs to send a picture of the label with mac address of the modem to you
+
+
+BLINK CODES (LTE LED):
+Solid Yellow - initializing
+Flashing (any color) - connecting
+Solid Green - connected via 2G/3G
+Solid Blue - connected via 4G LTE
+Alternating Red/Yellow - Upgrading firmware (do not power off)
+
+
+
+some customers get their own sim card and keep the modem as the main connectivity for the athena system.  this allows them to isolate the system from their building network, etc.
+
+30 days after startup, we disable cell service to the unit
+
+
+
+
+
+---- DIN PANELS ----
+
+
+only available for athena systems
+
+
+
+- Satellite Panels - 
+
+Just has the power modules
+does not have circuit breakers or anything else in it
+16 in, 42 in, 64 in sizes
+up to a maximum of 10 DIN modules
+
+feed through -- every module has to get its own feed
+
+modules do not provide or draw any PDUs
+
+
+- Satellite Panels with Breakers -
+
+adds a load center - single phase or 3 phase rated for 120/240V or 120/208V
+now they are not bringing their own independent feed to each module -- the feed comes from the breaker
+
+only 1 size -> 65 inch panel
+
+
+- System Panel -
+
+DPM = DIN POWER MODULE
+
+comes with power modules, but also has intelligence
+can have a processor with power supply / POE switch
+can also have other interfaces such as NWKs or IOs
+
+bottom section is divided off into a low voltage section
+
+42 and 64 inch sizes
+
+this is used so you dont have to have a separate QP5
+
+
+
+--- DIN MODULES ---
+
+
+
+QSN-4A5-D - Phase Adaptive Power Modules
+---
+4 zone power module
+
+one load type per zone
+
+NOT rated for switching loads
+
+LEDs:
+Power - continuous on - normal
+Power - Off - no power
+Power - Rapid flash - module failure, contact Lutron
+Hi Temp - Off - normal
+Hi Temp - 1 sec on 7 sec off - module too hot, scaled to 25% power
+Hi Temp - Continuous On - too hot, loads turned off
+Hi Temp - Flashing 1 blink/sec - module was overheated and has now cooled.  to clear error press the input, prog, up, and down buttons simultaneously
+Prog - Off - normal
+Prog - Flashing - Device in program mode
+Zones - Off - normal, zone off
+Zones - On - Normal, zone on
+Zones - 1 blink, pause - zone selected for manual control OR output shorted
+Zones - 2 blink - overvoltage
+Zones - 3 blink - shorted component
+Zones - 4 blink - over temp, zone may be overloaded, scaled to 25%
+Zones - 5 blink - over temp, turned off 
+Zones - rapid flash - multiple errors -- shut the power down, disconnect, re-energize, connect the outputs one at a time to check errors
+CCI - on - normal
+CCI - rapid flash - emergency mode
+
+
+
+
+QSN-4T5-120-D - 0-10V / Switching Module
+---
+4 zone module for 0-10/switching
+
+fed with a single circuit -- single feed comes into the module -- the 4 outputs SHARE that one feed
+
+cannot exceed 16 Amps lighting load for the entire module
+
+
+each output rated for 50mA per output for 0-10 --- source or sink (sync?) - they can either provide or control
+
+rule of thumb is 2mA per driver
+
+
+the 0-10V fixtures must support switching power to turn on/off
+
+all products have power failure memory -- if power is lost,  all relays stay in the last known position
+
+
+
+
+QSN-4T20-D - 0-10V/Switching Module (independent feeds)
+---
+
+Each output is fed by its OWN INDEPENDENT FEED
+16 A switching per output for lighting loads
+20 A per output for AC general use / receptacles 
+
+
+
+QSN-4S8-120-D - Switching Power Module
+---
+
+Single feed - 4 switched outputs
+Outputs cannot be used to control general purpose receptacles -- not rated for general loads
+
+
+QSN-4S20-D - Switching Power Module (independent feeds)
+---
+independent feeds - 4 switched outputs
+
+similar specs to the 4T20-D
+
+
+QSN-1DALUNV-D / QSN-2DALUNV-D -- DALI Universal
+---
+provides 1 or 2 DALI buses depending on model
+DALI = Digitally Addressable Lighting Interface
+
+64 DALI addressable loads per bus
+
+Some DALI loads may be POLARITY SENSITIVE -- refer to individual driver specs
+
+
+
+QSN-2ECO-120-D -- EcoSystem Power Module
+---
+Provides EcoSystem loop power for two loops
+
+Each loop supports up to 64 devices (drivers) -- up to 128 devices per ESN
+
+automatic replacement of a single failed ballast or driver
+
+POLARITY INSENSITIVE
+
+topology-free
+
+the module DOES NOT provide power to the fixtures -- they get their power from another source 
+
+RED LED MAY INDICATE LINE VOLTAGE ON THE ECO LINK
+
+
+DIN module Wiring
+---
+Why are there 2 mains inputs on the phase adaptive module? --- for the contactor to temporarily make a connect to verify loads before you attach them to the module -- so you dont have to splice the hot coming in
+
+Zone selector buttons allow you to verify the outputs -- plus many other functions
+
+QS-Link wire harnesses available to pre-wire the panels
+Wire landing board (QS-Link) - comes with the panel -- 5 terminals - run in parallel - good place to splice the QS-Link --- extra terminal #5 used for the DRAIN wire
+DPM Line Voltage Wire Harness - power wiring harnesses -- module type specific, uses different harnesses for different module types
+Terminal Block Kits -- switch from a single feed to a multi feed for QSN-4T20 / 4S20
+
+
+each module counts as 1 device on the QS link device limit
+each OUTPUT of each module counts as a switchleg -- ONLY if they are being used
+ECO and DALI -- modules count as 1 QS device -- have to count how many devices are on the bus for the number of switchlegs
+
+2000 feet link length limit (cable dependent)
+
+you can add / field modify to add additional modules on the DIN panels
+you CANNOT field modify the power harness / load center (breakers)
+
+
+
+
+----- ESNs -----
+
+Gen 1/2 Softswitch
+---
+4 zones of switching
+Gen 2 does NOT have wired sensor inputs
+Gen 2 is compatible with Athena 20.4 and Quantum 3.4.437 and higher
+
+
+Gen 1/2 0-10V
+---
+4 zones of switching or dimming
+ONLY sinks 0-10V - cannot provide, can only control the 0-10V signal
+Gen 2 does NOT have wired sensor inputs
+Gen 2 is compatible with Athena 20.4 and Quantum 3.4.437 and higher
+
+
+Gen 1 EcoSystem
+---
+1 loop or 2 loop version
+
+
+T-Series
+---
+Discontinued -- white tunable
+modified ecosystem
+supports **32** T-series LED drivers per link
+each link can control a maximum of 16 zones
+you usually wouldn't have multiple zones for CCT (color temp) in a room, just multiple zones for intensity
+
+
+LED+ Phase Adaptive ESN
+---
+4-zone ESN for phase control dimming of lighting and other loads
+auto-detect or lock to a phase type
+does not provide or consume any PDUs
+
+
+DALI Universal ESN
+---
+DALI control
+
+
+-- ESN Wiring --
+
+Sensor Groups
+---
+4 groups of terminals
+Wired sensor inputs ONLY on gen 1 ESNs
+Each group has ability to wire an occ sensor, daylight, IR (pico) in EACH group
+sensors wired on these DO NOT CONSUME PDUs -- they are powered through the sensor group terminals and are NOT powered through the QS-Link
+
+CCI / Emergency
+---
+emergency switch input
+also has an ADDITIONAL contact closure input (CCI) -- can be wired to do anything using CCI
+
+Power
+---
+4 circuits, single feed  -- 1 hot feed -> 4 switched hots
+1-4 correspond to the 0-10V zones signals
+
+0-10V is POLARITY SENSITIVE
+
+Picos can be referred to as IR in labeling, etc. -- this is a historical term due to the way that picos used to be set up
+New style Picos don't use IR window, but still send out the same IR command
+
+
+
+
+
+
+-- reach out if needed to make a change in who you are paired with in OJT --
+reach out to territory leader
+
+
+rob delahunt -- REGIONAL leader east
+
+
+software team may DROP 0s from the firmware numbers -- be aware. for example , 2.080 might be labeled 2.8 and mean the same thing
+
+ALWAYS go to the homepage for the device when searching - DO NOT use firmware pages on search they may be out of date
+
+SPEC SHEETS may not be current if linked internally within static wiki -- check on public lutron site
+
+
+
+
+--- HOW to find documentation on lutron.com ---
+
+google MAY not have the LATEST documents because they dont have a lot of hits
+
+DO NOT search on lutron.com - it sucks, instead:
+
+BOOKMARK: Lutron.com -> controls -> commercial systems -> (pick system) -> click product specs -> BOOKMARK THESE PAGES***
+
+you can scroll down this page and look for related devices -> click you can see CUTSHEET / SPECSHEET
+
+NWK part number means network interface
+
+athena "controls" -- everything that is linked to athena
+
+
+
+----
+support wiki is geared toward looking at a product by its FAMILY
+
+----
+
+difference between OS firmware and Boot firmware? --- BOOT firmware we DO NOT update -- its embedded in the product --  ****we only update the OS firmware.***  in order to update the firmware you have to put it into boot mode and then you can update the OS firmware.
+
+sometimes units only support UP TO certain OS versions for a certain version of BOOT firmware -- we cant change the BOOT code/firmware but good to be aware of these limitations.
+
+
+
+---
+if you are looking for a spec sheet / cutsheet / programming guide -- go to lutron.com
+
+product/quantum/documents - for example, has a list of all the guides etc. that you might need
+under lutron support / product support section on site
+
+
+
+----
+
+PDU
+
+--- 
+
+can splice through the #2 power line to power all devices in all power groups, do not need to connect it to the back of the PDU supplying unit
+This allows you to power more units WITHOUT CAUSING BACKFEED
+
+DIN RAIL PANELS DO NOT PROVIDE OR CONSUME PDUs
+
+have to add up wired sensors and add to PDU count
+
+
+
+QP5 / QP6 hubs = +33 PDUs PER LINK --- +66 total on 2 link procs
+
+
+
+--- Q-RF Gateway components ---
+on the back there is an RJ45
+
+
+
+
+-- Hubs / LEDs---
+
+Processor LED:
+Green slow blink -- normal
+Green rapid blink -- IDing processor
+Blue blink -- software updating
+Red Solid --- error -- usually a network error
+
+Link LED:
+Green slow blink -- normal
+Red blink --- error -- comms error -- usually miswired cable or power over the cable
+
+POE LEDs:
+P1 Green -- Power
+Fault -- amber -- P1 or P2 power fault
+Link / Act solid/flash -- normal
+
+--- digi modem ---
+
+can connect the modem to ANY processor on the system - will connect all connected processors to internet
+
+can be mounted either with provided plastic clip, or mounted to a ceiling tile using small clips in plastic bag in the box
+
+firmware updates may take a while -- potentially all day.  make sure its already connected and running, if you just connect when you get there, you may have to wait up to 24hrs to use it.
+
+may need to re-seat the sim card if it doesnt recognize the sim
+
+
+-----
+
+PDUs on ESNs:
+T-Series: +30 PDUs
+EcoSystem: +30 PDUs
+Softswitch / 0-10V: +14 PDUs
+Phase Adaptive: +0 PDUs
+DALI: +0 PDUs
+
+
+DALI drivers MAY BE polarity sensitive --- some drivers are polarity sensitive -- NOT STANDARD
+ECOSYSTEM IS NOT polarity sensitive --- we have control over all the drivers, so they are standard
+
+
+--- ecosystem ESN ----
+
+loop1 and loop2 commonly miswired bc loop2 is on the LEFT
+STRANDED WIRE DOES NOT PLUG INTO THE TERMINALS -- use SOLID WIRE
+EcoSystem is DIGITAL ONLY -- we do NOT PROVIDE POWER FROM THE ESN to the LIGHTS- -- they have to get their power from elsewhere
+the power coming in on the ESN only powers the unit
+
+
+
+--- DALI ESN ---
+
+USES THE SAME DALI DIN MODULE but is put inside the ESN enclosure
+NO wired sensor inputs
+2 DALI loops
+DOES NOT provide power
+
+
+--- LED+ Phase Adaptive ESN ---
+
+SAME DIN MODULE in ESN enclosure
+
+
+
+--- Troubleshooting ---
+
+Some contractors accidentally take out the emergency mode jumper -- THIS will put the unit into emergency mode -- it may also be LOOSE
+
+Make sure you are not drawing too many PDUs or backfeeding PDUs -- unit will not function
+
+you can see whether MUX and MUX(BAR) are reversed ---> units will show an LED blink code that the unit is not communicating properly over the QS-Link (reverse waterfall pattern - lights move upwards in a pattern)
+
+should NOT have Line voltage on the QS-Link
+
+you can see if the unit works without being connected with the QS-Link -- then u know something is wrong with the QS-Link
+
+
+
+ESN Switching issues:
+--
+output of one relay is feeding another
+power is being back fed -- an alternate source of power feeding the lights
+ESN is not powered correctly
+
+
+if you DO NOT see the LINE VOLTAGE SHIELD on an ESN - you need to notify the EC -- it is part of the unit
+
+wires in the line and low voltage areas SHOULD BE ISOLATED - notify EC
+
+on ESNs, hots can be jumpered to keep the loads always on
+
+WAYGO connector - type of multi-wire jumper box
+
+static shock shield present on low voltage section of the ESN -- isolates any ESD from the circuit board, also provides a backup shield against a high voltage lead that is accidentally touching a trace on the board
+
+
+reset button on the board acts as a soft power cycle
+
+Out of Box the unit -> triple tap, hold, triple tap the PROGRAM button -- factory reset to out of the box settings -- it also erases all programming (have to reprogram if standalone) -- if connected to a processor, it can get the database back from the processor
+
+
+
+--- EcoSystem ESN troubleshooting / wiring ---
+Ethernet jack only used for standalone
+QS-Link is on the left
+
+RED LED on LOOP1/2
+-- check to make sure you dont have any line voltage -- if its just a few volts it may just be stray voltage
+-- check to make sure the loop wires arent tied together (cont check)
+-- check continuity between ground and E1
+-- check continuity between E1 and E2, etc.  --- short
+
+Out of Box an Eco ESN --> triple tap, hold, triple tap the TEST button,
+
+when OOBing a unit - the unit AUTOMATICALLY pulls the database from the processor via a handshake -- same thing happens if power is lost.  you don't have to do anything
+
+
+-- DIN module --
+how to OOB -> use the program button---- Wall Controls / Wallstations ----
+
+
+ClearConnect = 434 Mhz
+
+
+
+--- QS Wallstations ---
+
+can be programmed to control lights, shades , contact closures, etc.
+
+unprogrammed OOB functionality - they will control the way they were set up at End of Line in production 
+
+
+SeeTouch
+---
+
+seeTouch keypads have a contact closure input on the back -- up to 2 CCI through a connector on the back of the wallstation -- works with Occ/Vac sensors, partitioning, etc.
+
+seeTouch keypads have backlighting
+
+we dont require the customers to really keep their engraving certificates provided in the box of the keypad -- we just look at the bill of materials and give engraving based on that
+
+there are part numbers for standard engraving codes - or they can do custom
+
+1-7 button options for SeeTouch models --- 3 types - lights only, lights and shades, shades only
+
+
+insert style ---
+the opening for the faceplate to insert the button is a standard size (industry standard)
+advantage is keypad button inserts are easily swappable to different button configurations -- the back part of the keypad supports max number of buttons
+
+non-insert style ---
+the faceplate is customized based on the number / config of buttons -- you can't just swap in different buttons
+advantage is just that it looks a bit nicer
+
+
+internally, every keypad has 11 buttons -- 7 buttons in vertical column + 4 raise and lower (at middle and bottom position)
+
+
+you can ask on the pre-wire visit to document the serial numbers of the units when they are installing them -- they can write them down on the one-line --- or they should note where the units are
+
+
+by default the CCI 1 and CCI 2 are first and last buttons on the keypad (!!) the 2 contacts are mapped to the first and last buttons on the device
+
+
+
+
+QS Keyswitch
+---
+
+provides key-only access to QS lighting controls
+recalls preset light levels for any 2 scenes including off
+
+can come in 3 position or 2 position versions -- can be momentary or maintained
+
+Q --- example of what is momentary vs maintained?
+select scenes / basically all button presses - momentary -- 99% of the time
+enabling something until disabled - maintained
+
+
+
+QS Palladiom Keypad
+---
+
+not designed to be customized out in the field
+buttons and faceplate are physically attached -- the other keypads, the faceplate is separate from the unit
+
+status of active button press is indicated through intensity of backlighting -- the buttons have dynamic backlighting
+has an ambient light sensor to adjust the backlighting
+
+engraved ahead of time
+
+
+
+Athena Touchscreen
+---
+
+no real programming for the touchscreen
+gets assigned to a wired edge or wireless processor - can have up to 5 assigned to a proc
+it reads the info on the processor and displays it on the screen
+
+powered by POE
+
+you can designate what areas you want to see
+
+it does not save any settings (?)
+
+
+
+Wiring
+---
+
+MUX drain wire should be spliced through between the 2 mux wires
+
+Athena touchscreen -- each touchscreen needs to have a home run ethernet connection back to a POE switch (or POE injector between the network switch and the touchscreen)
+
+
+Troubleshooting
+---
+
+can it communicate -- if i press a button does it control anything out there
+
+the buttons should track -- if you press a button on 1 keypad, all the rest of the connected keypad should match what was pressed e.g. it should go to scene 2, etc.
+
+LED reverse waterfall = unable to communicate on QS Link
+
+No LED feedback at all = no power to wallstation / another device on the QS Link is in programming mode - try putting the keypad in programming mode and then exit
+
+All LEDs flashing rapidly = device is in advanced programming mode -- press and hold the top and bottom buttons for 3 seconds to exit
+
+
+
+
+
+---- Device / Control Interfaces ---
+
+
+--- QSE-CI-DMX - DMX interface ---
+
+this allows us to control DMX loads
+DMX OUTPUT ONLY
+
+DMX is a streaming protocol - it's constantly sending commands out -- a DMX link can have up to 512 channels on a link
+We can only control 32 from a DMX interface -- this is a DMX limitation - DMX rules are you can only have 32 devices before you need to split the DMX link
+
+when we control DMX it's for architectural purposes
+
+Up to 16 DMX per QS LINK
+
+Daylighting / Loadshedding / Nightlighting NOT SUPPORTED for DMX loads
+
+
+DMX link is a 3 wire connection - Data + (MUX) / Data - (MUX-BAR) / Common 
+DMX wires must be daisy chained -- link terminators required at the end of line -- nominal resistance of 120 Ohms
+
+
+LEDs:
+1 - Power
+2 - Unused
+3 - Status LED -- will be blink steady when in programming mode
+4 - DMX link Tx - blinking based on data flow (send)
+5 - DMX link Rx - blinking based on data flow (rcv)
+6 - QS link Tx - blinking based on data flow (send)
+7 - QS link Rx - blinking based on data flow (rcv)
+
+
+Dip switches 6 7 8 for testing broadcast commands
+6 - send all channels to 0
+7 - send to min
+8 - send to max
+
+
+susceptible to noise - you can get induced noise from it being near electrical cable --- will result in poor connection
+
+
+--- QSE-IO -- Contact Closure Interface ---
+
+input / output
+
+occ / vac sensors
+motorized screens / skylights etc
+av equipment
+security systems / badge access / alarm systems
+movable partition walls
+timeclocks
+
+provides five inputs and five dry contact closure outputs
+provides both NO normally open and NC normally closed contacts
+
+in standalone, the functionality is set by the dip switches
+
+
+
+--- NWK / QSE-CI-NWK-E / AV interface ---
+
+RS232 or RJ45 connectors -- can use one or the other but not both
+
+third party devices can control and/or monitor a QS system
+
+easily integrate with touchscreens, PCs, A/V systems, etc
+
+used for control INPUT, but we give status updates of when things change as output --- for example: if a button press is made on another connected device, they can update the state on their end
+
+monitor lighting scenes, levels, shade positions, etc.
+
+we DO NOT use this to control 3rd party shades / equipment, etc.
+
+up to 10 NWKs per QS Link
+
+RS232 -->
+Baud rate must be set correctly
+STRAIGHT THROUGH CONNECTION / CABLE REQUIRED -- we internally swapped the pins on the device on our end
+Null modem - small device to swap the 2/3 Tx/Rx pins on the RS232 cable -- may be needed by the integrator to fix the connection
+
+Ethernet -->
+standard CAT5 or better
+only supports 10 or 100 Mbps, DOES NOT support gigabit
+default IP address = 192.168.250.1 (can be changed on Lutron DeviceIP)
+
+
+LEDs
+1 - ON
+2 - ETH traffic
+4/5 - RS232 traffic
+6/7 - QS link traffic
+
+Fault indications - No LED traffic on 2 or 4/5 indicates no communication to third party (AV) device
+if communication is garbled on RS232 -- check the baud rate
+
+
+--- QSM - QS Sensor Module ---
+
+Designed to be mounted on a ceiling
+interface for WIRED or WIRELESS sensors
+
+3 models - one for both wired and wireless, one for wireless only (uncommon), one for wired only (sometimes used on goverment sites / healthcare, etc)
+
+only LISTENS on wireless - does not talk over wireless
+
+connects up to 4 wired sensors or controls (occ, daylight, wired picos, EcoSystem wallstations [discontinued])
+RF Range - 60 ft line of sight / 30 ft through walls
+
+Powered by the QS Link
+
+up to 10 OF EACH TYPE of wireless inputs -- CANNOT substitute one for another
+10x Occ sensor
+10x Pico
+10x Daylight
+
+processor DOES NOT autodetect what type of sensor is connected - you have to set the right type of sensor for each wired input
+
+
+LEDs
+TWO rapid blinks, pause - normal
+Erratic - communication issue with processor
+Keeps resetting after some time (multiple blinks + really long pause and cycle restarts) - link is over the PDU limit / overcurrent
+
+NOTE: if LED is blinking rapidly - first thing to check is the QS link - make sure pins 3/4 are connected correctly
+
+
+
+--- Wired and Wireless Sensors ---
+
+--- Wired Occupancy Sensors ---
+
+
+LOS-CDT
+---
+Dual technology ceiling mount occupancy sensor.  Uses both passive IR and ultrasonic.  Passive IR is good for GROSS MOVEMENT - ultrasonic is good for FINE MOVEMENTS
+
+Segmented lens = FREZNEL lens
+
+IR is like a heat signature
+
+BOTH sensors need to trip to GO OCCUPIED -- then EITHER can stay active to STAY OCCUPIED -- BOTH have to go inactive to go VACANT (8 minute no movement timer by default)
+
+covers 2000 square ft -- other models can cover different amounts
+
+passive IR ONLY version might be used for example in corridors
+
+
+DIP switches under the dome:
+
+Bank A
+Auto/Manual - off is automatic / normal -- we never change
+Threshold - auto threshold adjustment - you have to trip both sensors to turn ON -- on HIGH sensitivity mode it turns on with either sensor --- you may want to set this dip switch ON depending on application
+LED motion indicator - disables motion LED -- normally not set
+Reset Learned Settings - you can use to reset the learned settings - but we do not use the auto adjust
+
+Bank B
+Strong Airflow Compensation -- can compensate for airflow interfering with the ultrasonic by DESENSITIZING it -- we usually want to ask the contractor to MOVE IT INSTEAD
+Over Doorway Installation - if turned on, it desensitizes the passive IR (only for the ON state)  -- normally we want to ask the contractor to MOVE IT INSTEAD
+Auto Timer Adjust - not recommended to use default / WE MUST TURN THIS DIP SWITCH TO ON to disable auto - for code / commissioning agent walkthrough etc.  we want this timer to ALWAYS work the same
+Auto Sensitivity - not recommended to use default / WE MUST TURN THIS DIP SWITCH TO ON to disable auto - our policy is to disable it - so that the sensors always function the same
+
+
+Wiring:
+Wired into the QSM or ESNs
+trim pots on back - for trimming sensor range and timer
+Standard- 3 wires - power, common, and occ output (signal)
+Relay model (R model) - 7 wires - power, common, and occ and photocell output (signal), relay common -- used to integrate with hvac
+
+Put into test mode:
+8 second test mode - timer will set to 8 seconds for reactions instead of 8 mins, allowing you to quickly test functionality
+take the black trim pot - go fully clockwise -> fully counter clockwise
+
+
+--- Wireless Occupancy Sensor ---
+
+Uses PIR (passive IR) -- uses Lutron XCT technology to filter out background noise, makes it as sensitive as ultrasonic even though it is using IR
+
+needs LOS & cannot see through glass objects
+
+DO NOT be within 4ft of HVAC, microwave ovens, wireless routers / devices -- the RF energy may tickle the sensor / interferes with the sensor's ability to detect motion
+
+BUTTONS:
+light bulb symbol - sends a forced on/off commands to all lights
+test - gives you a visual indication when it picks you up (visibly lights up the dome)
+
+laser - flash twice and it will put it into test mode, as well as send out its serial number for identification
+
+
+--- Wireless Daylight Sensor ---
+
+
+BUTTONS:
+link - press and hold to activate / send serial
+test - stream its light level constantly for the next 5 mins for calibration
+cal - doesn't do anything unless it's used with a wallbox dimmer - we dont use
+
+effective window height = 3ft up from the floor or at the window sill UP TO the top of the window
+should be 1-2x the effective window height away from the window
+
+DO NOT position with uplight directed at it
+DO NOT position in the well of a skylight
+
+you can use a flashlight to verify its working correctly - should dim lights down
+
+
+--- Wired Daylight Sensor ---
+
+also has an IR sensor built in as well - was used for programming - we don't use
+
+
+--- Wireless PICO ---
+
+uses CCA to communicate to the QSM or the Athena Wireless Processor
+
+
+--- Wired PICO ---
+
+low voltage control that can be connected -- it is NOT battery operated -- NOT QS / NOT ADDRESSABLE -- sends IR signal type
+white wire is IR signal -- digital signal
+wired picos ONLY control lights, not shades or CCI, etc
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--- Wallstation troubleshooting ---
+
+
+mux voltage --> one of them should be positive (+V MUX) one should be negative (-V MUX-BAR)
+
+some pages on the support wiki explaining the voltage of mux
+mux should be 1 voltage, mux-bar should be ABOUT HALF of that
+
+this applies to any device on the QS Link
+
+the devices are designed to work between 18 and 32 V
+
+
+-----
+
+Interfaces
+
+--- QSE-CI-DMX ---
+
+program button is used to activate / identify / OOB (3tap / hold / 3tap)
+
+the dip switches VARY DEPENDING ON WHAT FIRMWARE YOU HAVE -- different for standalone
+
+--- NWK ---
+
+the dip switches are ONLY applicable to the RS232 connection
+the way the baud rate diagram is printed expects you to ROLL the unit toward you --- NOT to flip the unit around and look at it from the front
+only way to OOB the unit is to connect it to one of the RJ45 or RS232 and send a command from the software
+
+
+--- IO / QSE-IO ---
+
+in standalone, the outputs follow the inputs
+in athena / quantum - you can configure how the inputs and outputs are controlled
+if you need to use the outputs, you have to tie the commons together externally to the unit (???)
+
+
+--- QSM ---
+
+pre-wire -- ask the contractor to mark the sensor wires coming into the QSM -- if they don't mark them, you have no idea which wire goes to which sensor when trying to troubleshoot
+
+same process to OOB -- 3tap/hold/3tap button on front
+
+----
+Sensors
+----
+
+--- Occ / Vac sensors ---
+
+wired version is ONLY occ sensor
+
+hole allows you to use a laser to activate the sensor to a QSM -- tag twice - once to wake it up - once to send out its serial number
+you have to put the QSM into activation mode to activate sensors to it
+
+3 gray buttons on the back of the sensor - used to control various functions printed on the back of the unit -- press and hold for 6 sec then click to change, hold again to lock in the setting
+
+you can only get timeouts less than 15 minutes by using the gray button on the back for setting the time
+
+WALL mounted OCC sensors
+---
+Wall / corner / hallway versions -- they all look basically the same
+the only way to know the difference is looking at the model number on the back
+the difference between them is:
+wall has a 180deg view - 50 ft out
+corner has a 90deg view - 50 ft out
+hallway sensor only has a 10-20deg view, but goes 150ft out -- designed to be at the end of a hallway and look down the hallway
+has a laser hole on the bottom
+
+--- WIRED OCC sensors ---
+
+some may have ultrasonic on both sides - just changes coverage range
+you pop off the dome to access the dip switches
+always set B3&4 dip switches to the on position
+
+red trim - IR
+green trim - ultrasonic
+black trim - timer - set to fully clockwise, fully counterclockwise to put into test mode
+
+DO NOT force the trim pots too hard -- they can break and will have to replace the whole sensor
+
+relay model will have a BLUE trim pot inside -- we do not use the actual trim pot but it can be used to identify what model it is without removing unit --- make sure it is kept FULLY clockwise
+
+relay models are very commonly MISWIRED
+
+
+--- Wireless daylight sensor ---
+
+it can rotate WHILE it is mounted in the bracket, you can click rotate it into the direction it needs to be facing
+
+make sure the battery is put in the RIGHT direction -- + has to be down toward the circuit board.  they are NOT pre-installed, the contractor has to install them
+
+
+--- Wired daylight sensor ---
+wiring:
+yellow wire is for the sensor signal / white gets capped off
+
+streams its data constantly
+
+signal goes from about 0-11V depending on how much light is detected
+
+can use the multimeter to check the voltage between common and the signal wire
+
+
+
+
+--- LUTRON SHADES ---
+
+lighting systems get sold through distribution, shades are sold directly to a shade dealer
+
+when troubleshooting - need to isolate issue owner between EC/Shade Dealer on punch list
+
+expectations:
+shades on the BOM are in the DB/Oneline
+provided the contact info for the shade dealer
+scheduled for enough service time to program shades
+startup checklist complete
+know the players onsite
+
+ESCALATE ALL SHADE ISSUES THROUGH THE PROJECT MANAGER -- DO NOT BRING UP WITH THE EC OR GC
+
+
+--- Shade Components ---
+
+Header - top of the window
+Mullion - vertical bar in the window
+Sill - bottom of the window
+
+Roller shades - 95% of the time
+
+Bracket - attaches to the building - holds the shade up
+Tube with fabric - aluminum tube the fabric attached to
+Fabric
+EDU (electronic drive unit) - motor for the shade
+Hembar - bar at the bottom of the shade
+
+Sivoia QS - family of roller models -- premium whisper quiet - ultra reliable
+
+Contract Roller - family of roller models -- more cost effective - not whisper quiet
+
+Shades are a QS device but DO NOT get power from the QS link - they need their own power supply
+
+exposed hembar with wool pile used for blackout shades -- the wool pile blocks the light
+
+coupled shades -- 1 of the shades has a drive, and the other ones are just coupled and are controlled by the one with the drive -- reduces cost
+
+coupled roller shades can have a maximum of 6 panels driven by 1 motor
+
+angled coupled roller can have up to 3 panels -- maximum of 45 degree angle
+
+mounting - naked mount - fascia - pocket mount (common)
+
+
+
+
+
+
+
+
+
+
+
+
+
+--- Shades ---
+
+Shade brands (top is highest end)
+
+Palladiom -- high end design -- more common in residential, but could be in high end office, art gallery, etc -- QS compatible
+Sivoia QS / Sivoia QS Wireless -- wireless dongle SHOULD NOT be connected to QS Link
+Contract Roller (wired/wireless) -- you can only use wired with athena or quantum
+Sivoia QS Triathlon -- battery operated shade -- usually not on commercial startups
+Contract Roller (manual) -- NOT motorized -- offered because if they want both motorized and non motorized on a job we can provide both
+
+in athena usually natural light automation used for controlling the shades
+
+hyperion is only in quantum -- a lot more setup / customization
+
+theia compliant fabrics -- performance fabrics with tighter tolerance in the openness factor (how loose the weave is), much tighter than the industry standard
+
+
+
+Power Options
+---
+NOT powered directly from the QS LINK
+
+MUST BE 1 of the 3 SHADE SPECIFIC power supplies:
+
+QS Smart Panel - 10 outputs , doesn't have fuses, but has resettable circuit breakers
+Plug in power supply - two sets of qs link terminals to daisy chain devices - NO miswire protection -- UNPLUG before troubleshooting
+J-Box power supply - two sets of qs link terminals to daisy chain devices - NO miswire protection -- UNPLUG before troubleshooting
+
+these all put out 35V, which is different than the rest of the system
+
+
+
+Troubleshooting
+---
+Are the limits set? -- shade dealer technically responsible, but may be faster to fix yourself -- usually can be done right from the software in athena/quantum
+Speed/IHA (intelligent hembar alignment) correct? -- IHA makes the hembars run at consistent speed regardless of the level of the shade --- without this, the speed would change due to the tube diameter changing as fabric is taken up -- typically we ONLY ship shades with IHA already set on them -- may not be added to VERY WIDE shades with a baton however.   you can also look in the software to see if values are set for the IHA
+Sound / Noise -- Check: proper wire dressing / proper alignment (ie. the hembars are straight and coupled shades are AT THE SAME LEVEL) / EDU/Drive issue
+Telescoping -- fabric is telescoping on the tube - generally caused by unlevel install, or debris --- may result in damage to the fabric
+Alignment -- Couplers properly torqued -- must use 2 screws provided and plastic coupler clip
+
+
+Power Panel
+---
+LEDs indicate power status of shades
+Override buttons - lights on / lights off - shades open / shades closed -- BROADCAST COMMAND to all shades on the QS Link.  clear alerts button -- clears any blinking alert LEDs (present if the power was cycled, etc).
+
+
+
+--- Shade Notes ---
+
+MAKE SURE you remember when you control the shades on the QS Link -- it controls ALL THE SHADES on the QS Link, even if not in the same room, etc.   they may be wrapped up, or people may be working near them, so make sure you let people know / check all the shades on the link before moving them.
+
+-----
+-- Fixing limits --
+
+-- From the drive unit:
+How to reset the shade limits from the drive unit -- go to the control panel for the drive (user interface) on the side of the roller, there are small buttons which can be pressed with a screwdriver.
+
+- tap the limit button to go into limit set mode (TOP BUTTON)
+- move the shade into the correct position using the move buttons (inner buttons)
+- then PRESS AND HOLD the limit button (TOP button)
+
+-- From the keypad (standalone system):
+
+To assign shades:
+- press and hold the open and close buttons for 6 sec (top/bottom) - all shades on the QS Link move -- if they move to the OPEN position the are NOT assigned to the keypad, if they move to CLOSED position they ARE assigned
+- tap the open button to cycle selected shade -- it will WIGGLE the selected shade.  tap the close button to cycle backwards.
+- to assign the shade to the keypad, tap the lower button
+- to unassign, tap raise
+- press and hold open and close again for 6 sec to get out of assignment mode
+
+To set limits:
+- press and hold OPEN and RAISE to unlock the shade's limits
+- raise or lower the shade
+- lock in the limit by pressing the close button (for lower limit) -- open button (for upper limit)
+
+To set presets:
+- move the shades, then press and hold the preset to set current level to that preset
+NOTE: If you TAP a preset button when in ASSIGNMENT mode, you can set the presets differently for each shade
+
+
+-- OR can be done by the software (athena/quantum)
+
+-----
+
+
+Telescoping:
+
+if fabric is telescoping, check if the shade is level -- document for shade dealer if not
+Roller 100s have a screw to adjust the level - you can do yourself depending on situation
+
+can put a piece of painters tape on the side you want to pull the fabric, under the tube -- this will offset and cause the telescoping to correct.  may need multiple pieces of tape.  it's a temporary fix to make sure the fabric doesn't get damaged on the side channels, etc. while doing setup -- leave the tape on there for the shade dealer to see which shade has the issue
+
+OOBing shades:
+
+on the drive unit, there are buttons:
+close limit
+open limit
+up
+down
+
+- PRESS AND HOLD each button starting with the CLOSE LIMIT until the LED starts to flash, and move down to the next one. this will OOB the shade.  DOES NOT cause the limits to be lost, but removes assignments / presets, etc.
+
+- if you OOB a KEYPAD, it removes all SPECIFIC assignments / presets but will now just send broadcast commands to ALL SHADES on the QS link
+
+
+---- LEGACY PANELS ---
+
+---- PANEL SPECIFICATIONS ----
+
+GP:
+UL Listed
+120/277V
+3-144 circuits
+power failure memory
+controls:
+- INC / Halogen
+- MLV
+- ELV (with PHPM module)
+- Flourescent
+- 0-10V (TVM or TVI interface)
+- Neon cold Cathode
+- HID
+
+LP:
+120V only
+also controls:
+Lutron Tu-wire
+
+XP:
+120/240/277/340V
+switch loads only
+
+
+--- PANEL LINK ---
+PANEL LINK MUST BE DAISY CHAINED
+Baud rate must be set, terminators must be used
+
+
+circuit selectors -- make sure you verify the firmware inside of them to make sure they are compatible with quantum
+
+
+--- LEGACY PANEL / MODULES NOTES ---
+
+XP2 module - Switching modules (white label) - DO NOT PRODUCE HEAT -- the black and white cable provides power for the control circuit INSIDE the module, does not provide power to any loads -- other blacks are the feeds, and reds are the switch legs -- EACH OUTPUT has its own feed - EACH is rated for 16A of lighting load
+
+XP module -- it does not have an addressing dial -- this module still requires power for the control circuit, but it gets it through the 12 pin HEADER / HARNESS on the front -- modules are addressed via jumpers on the harness
+
+triac - this is what controls the dimming - ONLY FORWARD PHASE DIMMING -- its inside the dimming card -- these get damaged easily
+
+
+--- GP PANEL ---
+
+behind the breaker panel there are a bunch of chokes -- they help smooth out the slug of current -- the triac turns on and off 120 times a second / 60hz, so the choke smooths out this current to make the flow of power more constant down at the lighting loads
+
+everything is connected to dimmed hot - the only thing the switched hot will be used for is Lutron Tu-wire (??) 
+
+there is a V shape in the cards lengths to help with convection
+
+make sure nothing is obstructing the vents on the back of the units
+
+circuit selector (quantum) is on the right side --- the last breaker on the right side is marked with a C - that is the control breaker that powers the circuit selector 
+
+
+
+
+--- CIRCUIT SELECTOR ---
+
+if all the dimming cards are NOT blinking in unison with the circuit selector, it means the CS is not communicating with the cards
+
+look at the data OK led to see if communication is coming in over the link
+
+top display shows what circuit is selected
+
+the bottom display shows various things:
+
+a value (number), explains what it is by LEDs below it (selectable by #5 button):
+
+Circuit Level -- the level of dimming on the circuit
+Load Type -- some of the main load types are imprinted on the label at the bottom.  there is a chart printed on the support wiki
+Zone Assignment w/ Circuit Schedule -- 1-512 (quantum) you can have 512 switch legs on a Power Panel Link - shows what zone it is on the database
+Zone Assignment w/ Zone Capture -- (only for standalone) -- rarely used
+Low-End Trim -- default 5 - when you go to 1% on the slider it goes to 5%
+High-End Trim -- default 90 (for incandescents) - when you go to 100% on the slider , it goes to 90% -- helps to extend the life of the lamp
+
+if you click one more time on #5 beyond high-end trim, it goes into ADDRESSING MODE - this is so you can address the circuit selector on the processor (1-32)
+
+control harness is on the bottom of the CS -- check to make sure it is connected if any communication problems -- it also may not be connected on both pins
+
+if you have a panel like LP or CCP module with more than 6 modules, you would have 2 harnesses (more than 24 switch legs)
+
+
+if set up to connect to emergency -- sense wire SENDS a 24V signal to tell the emergency system it is there
+if set up as an emergency PANEL --- sense wire is LOOKING for a signal coming from the other circuit selectors -- when it LOSES the signal, it goes into emergency mode (sets all loads to max)
+
+
+if the CIRCUIT SELECTOR is turned off, the loads will stay where they are at, but the panel will be frozen and not be able to be controlled until it is turned back on.
+
+
+
+--- TERMINAL BLOCKS ---
+
+if something happens to the dimming card, you can insert a bypass jumper to get the lights on
+
+if a fixture needs to be changed, put back in the bypass jumper --- if there is any fault it could damage the card / module (NOT covered by warranty) - bypass jumper avoids
+ask the contractor to keep the jumpers at the bottom of the panel, in case they need to do any work on the fixtures
+
+
+WORK WITH THE JUMPERS NON ENERGIZED -- THEY WILL BE ENERGIZED AS WELL
+
+ELECTRONIC BYPASS --> if the DIMMING CARD BREAKERS are power cycled while the circuit selector is off, the cards wait for a few seconds to check for communication from the circuit selector, then come back on FULL BRIGHTNESS
+
+
+
+
+===============
+---- LOAD INTERFACES ----
+===============
+
+--- PHPM ---
+4 different types
+maximum of 3 per zone --- can connect up to 3 per output of a dimmer
+they mount in a wallbox
+
+**the control sides and load sides are electrical isolated from each other**
+DO NOT USE COMMON NEUTRALS
+
+- phase adaptive PA
+- phase adaptive WBX - uses a different input - uses a 3 wire fluorescent input
+- 3 wire fluorescent
+- softswitch
+
+--- GRX ---
+maximum of 5 per zone
+surface mounted
+
+GRX-TVI - 0-10V interface
+GRX-PWM - Pulse-width modulation -- turns on and off at 350hz - a lot faster -- niche product / uncommon at this point
+
+
+
+--- PHPM-PA ---
+
+used to control phase adaptive loads -- either fwd or rev phase
+
+control up to 16A of lighting load
+
+what it is used for:
+- make a non compatible load type compatible -- convert between one phase type to another
+- to increase the capacity -- use the dimmer to control the phpm-pa, and then use the phpm-pa to control the high load fixture
+
+we need to use a separate neutral for our load vs. the control neutral
+
+
+
+--- PHPM-3F ---
+
+phase control dimmer to control ---> a Lutron 3-wire fluor
+
+**connect both SH and DH to the ballast**
+
+
+
+--- PHPM-SW ---
+
+use a dimmer to control (takes any kind of phase control) --> a switched load / non-dimmed load (**including HID, which is not supported by things like the grafik eye**)
+
+any dimmed signal above zero - SH is ON
+dimmed signal at 0 - SH is OFF
+
+
+
+--- PHPM-WBX ---
+
+output identical to the PHPM-PA, but INPUT is different
+
+allows you to use a 3 wire fluorescent dimmer input to control (CENTER PHASE) ----> a 2 wire output
+
+different model numbers for 120V, 277V, and Dual Voltage (DV)
+
+SH on the input dimmer is capped off - just use DH
+
+
+
+--- CENTER PHASE ---
+
+center phase cuts the sine wave at both the leading and trailing edge of the wave -- takes from both sides equally
+
+RMS -- the average of the output over time
+
+if a center phase signal used on fwd/rev phase, will cause dead travel on the lighting control, because it never cuts one side of the waveform enough to get down to the expected level
+
+
+
+
+--- GRX-TVI ---
+
+
+takes a phase control signal and convert to 0-10
+
+minimum load is 10 microamps and 300 mA maximum on the 0-10V side (higher than usual!)
+
+Wiring:
+Make sure that L2/H2 and DL2/DH2 are fed from the same phase that powers the control unit -- by code - the SAME BREAKER
+SAME NEUTRAL for control unit and N2
+YOU CAN JUMPER N2 and N1
+NO COMMON NEUTRALS between load and control ---??
+
+DO NOT DO SERIES
+***Star topology is ideal for 0-10V loads --- FOR THE CONTROL VOLTAGE****  otherwise you may have resistance or voltage drop
+
+if the fixtures do not look the same on 0-10V, the wiring quality / length etc. may be in play, better to wire as STAR topology
+
+
+
+
+
+
+
+
+
+
+shades
+--
+the POWER PANEL is a QS Device, but the power supplies are not
+
+
+
+--- LEGACY PANELS ---
+=====================
+
+legacy panel interface - only part of an athena system - allows integration with legacy panels
+
+circuit selector for quantum / used with legacy panel interface for athena
+
+
+--- GP Panel ---
+
+pre assembled panel with dimming cards
+wires like a distribution panel
+from 3 output to 144 output depending on model
+
+--- LP Panel ---
+
+has modules inside (4U modules), each module has 4 outputs -- shares 1 feed between its 4 outputs
+ONLY for forward phase dimming - phase controlled loads
+
+--- XP Panel ---
+
+Switching panel, pre-assembled with non-dim modules
+
+--- CCP Panel ---
+
+Custom configured panel
+Can put different types of modules inside
+
+NOTE: CANNOT field modify the types or numbers of modules - if they do, they have to have another inspection done on the panel
+
+--- circuit selectors ---
+(only works with quantum)
+1 or 2 link models
+link A
+link B -- used as a DMX link
+
+
+--- Legacy Panel Interface ---
+(only works with athena)
+converts the panel from a power panel link to a QS-Link
+LED diagnostics / Local control buttons
+Supports emergency lighting applications
+
+--- modules ---
+1 feed shared between x outputs:
+1U - 1 circuit
+2U - 2 circuit
+4U - 4 circuit
+4A - phase adapative module 4 circuit
+the rotary dial sets which module number it is when installed
+
+4M - motor module - four circuit motor module -- used for motorized hurricane shutters , gates, etc -- every output has 2 sets of controls for 2-way motors / open/close
+
+XP/XP2 - switching module (4 circuit) --- the XP2 module only goes into a CCP (custom) panel
+
+GP Harrier Card -- goes into a GP panel - 120V and 277V models
+
+TVM -- 0-10V module -- either GRX-TVM-ISO2 (POWER MODULE only), or GRX-TVM2 (ballast control module) -- need one power module to power multiple TVM2s
+
+--- CONTROL HARNESS ---
+
+all modules are pre-addressed from the factory
+4 pin connectors to connect the harness
+
+GP / Harrier cards use a 12 pin connected and are pre-wired from the factory
+green LED = 120V card 
+amber LED = 277V card
+
+277V cards can be used in either panel type
+
+TVM - 0-10 wiring is polarity sensitive, must be landed on the correct terminals
+
+we should never be pulling out jumpers LIVE
+
+
+--- BCI-0-10 (obsolete) ---
+
+allows control of 3-wire from a 0-10V source
+replaced by the phase controlled ESN -- previously ESNs did not do phase adapative version
+
+connects to a PHPM-WBX
+
+
+--- TVI-LMF-2A ---
+
+allows you to use an ecosystem control system to control 0-10V loads
+suggested for SINGLE FIXTURE control -- 2 amps of switching load
+
+
+--- C5-XPJ-16A ---
+
+EcoSystem input to SWITCHING output
+control up to 16A of lighting load
+any type of switched load + also controls motor loads
+
+has wired sensor inputs -- provides 20VDC power out to wired sensors
+
+uses 1 eco address
+
+
+--- C5-BMJ-16A ---
+
+EcoSystem input to 3-wire output
+also provide wired sensor connections
+
+
+--- C5-BMF-2A ---
+
+this product has made a resurgence -- can be used to add connections for wired sensors to LED drivers
+
+upgrade system from ballast to LED
+
+only rated for 2A
+
+usually just used as a sensor input, not usually used to control a fixture
+
+
+
+
+
+
+DC -> AC = Inverter
+AC -> DC = Rectification
+
+
+
+--- LUT-ELI-3PH ---
+
+emergency power line (from powpak / power pak) goes to +V Input (positive voltage / 24V DC input) that is the emergency POWER -- common is the return voltage loop -- 8/7 power the emergency line of the unit
+
+pins 9-12 used for GRX legacy communication --- the emergency state signal is sent via 12 (Sense)
+
+pin 1 is dry contact goes to ESN to trigger emergency state (circuit is open)
+
+
+--- Emergency Bypass Device ---
+
+0-10 controller (any) connects  (normal source/line/feed)
+Emergency Panel (emergency feed)
+
+Need 2 sources of power (normal / emergency)
+
+passes normal power (black)  - uses this to SENSE ---
+
+red switch leg also is patched through to the yellow (EMERGENCY switch leg) to switch on and off both the normal and emergency fixture
+
+purple (0-10 signal) goes through a normally open relay which is CLOSED during normal operation -- when it opens (POWER LOST) it switches into an emergency mode
+
+when the hot leg goes dead (black) -- the 0-10 relay opens up -- when 0-10 control voltage is lost, the fixture goes FULL BRIGHT -- it is connected to the emergency fixture, so EM goes to full bright
+
+ALSO when black leg goes dead NORMALLY CLOSED emergency relay closes, supplying emergency power to the EM fixture
+
+
+--- GRX-TVI ---
+
+phase to 0-10 interface
+
+0-10V control voltage -> PURPLE IS PLUS (positive +) - GRAY/PINK is negative (-)
+
+with 2 feeds / distribution panels, control unit/device MUST be on the same neutral as panel 1 that is wired into the 1st section of pins, lights MUST be on the 2nd panel's neutral
+
+
+--- ATHENA ---
+
+quantum is a server based system, athena is a cloud based system 
+requires an internet connection to connect to the athena / lutron app --- on google play / apple app store etc.  also a web version for desktop
+
+web version has a subscription fee -- offers more functionality
+phone app is free -- does not offer floorplans / activity / errors / etc
+
+can use hotspot to access internet for startup
+
+Athena Edge Processor
+---
+QP-1L --- 1 link processor -- max 25 devices
+QP-2L --- 2 link processor -- max 99 devices per link
+
+
+--- QP5 Athena Hub / Panel ---
+
+can have either 1 or 2 processors -- up to 4 links in the PANEL if 2x QP-2Ls are used
+
+qs wire landing board - its a board that can attach to MULTs QS link
+
+
+QP6 panel -- is a smaller panel with NO SWITCH, just the processor (1 link only)
+
+Circuit Selector -- UA-CS-LX - replaces legacy circuit selector to allow the athena system to control legacy panels
+
+
+Lutron Startup Service (LTE Modem) -- wireless modem for setup
+
+
+
+--- Athena Wireless Processor --- 
+
+DOES NOT connect on the QS Link -- this connects on the POE (power over ethernet) --> A Power over Ethernet (PoE) switch is a networking device that allows a single Ethernet cable to provide both data and electrical power to connected devices
+
+Connects to up to 50 wireless devices - wireless picos / sensors etc  -- "Clear Connect Type A Devices"
+
+in addition to being a processor, it also talks to Type X Ketra devices -- Type X = Ketra Devices / Athena Wireless Nodes
+
+some customers do not want unmanaged switches/poe devices -- if they want these devices on their own network, they have to provide a POE switch -- lutron can sell a POE injector --> just provides the power that is missing from normal ethernet
+
+just like quantum processors - it is compatible with BACnet / LEAP API
+
+BACnet protocol to communicate with HVAC systems / BMS --- LEAP API is api version
+
+
+Type A devices -- must be max of 30ft through walls, 60 ft with line-of-sight
+
+Type X devices -- must be within 25 ft of the processor
+Ketra is basically wireless fixtures that get line voltage, and communicate over wireless to get data / control / etc
+
+athena processors DO NOT have multiple subsystems
+
+athena normal and wireless processors can be on the same subsystem / can talk on the same network
+they can talk to each other
+
+but DOES NOT have QS link - so you need an edge processor on the same network to communicate to ESNs etc via QS-LINK
+
+basically just handles wireless input devices  -- picos/sensors
+
+
+
+--- Ketra ---
+
+fixture has a built in sensor with a feedback loop to measure color temp and get the same output every time
+
+lutron acquired ketra
+
+they have built in wireless features -- creates its own mesh network
+just need the electrician to provide power
+
+DRIVER is BUILT IN to the FIXTURE -- it has the wireless features etc
+
+legacy ketra has its own version of a hub
+
+athena hub can control athena (new) ketra
+
+we DO NOT deal with legacy ketra -- they will call someone else within the company who deals with it
+
+
+
+
+--- Athena Wireless Node (AWN) - INSIDE THE FIXTURE  ---
+
+communicated **TO** over wireless BY the processor, it relays information either 0-10 or DALI dimming information TO THE DRIVER
+
+about the size of a quarter - goes in a fixture (via mfg)
+comes with or without a sensor 
+
+4 terminals -- can be used for DALI or 0-10 (automatically determines)
+1 - DALI (DA -- dali data connection) - 0-10 (AUX+ -- this is AUXILLARY POWER provided TO the AWN to power it and keep it alive)
+2 - DALI (DA) - 0-10 (AUX-)
+3 - DALI (N/C -- no connection) - 0-10 (SIG+ --- this is the 0-10V control voltage SIGNAL translated from the digital signal provided out to the driver)
+4 - DALI (N/C) - 0-10 (SIG- / DGND -- digital ground)
+
+D4I -- ADDITIONAL dali subset -- allows the driver to supply power on the DALI bus/wiresz
+DT6 / DT8 -- does not provide any digital voltage from the driver -- expect power from the controller
+something can be designated DT8 + D4I for example***
+
+if compatibility issue the power can be TURNED OFF on the DRIVER
+
+
+if the driver DOES NOT have a built in power supply (for the AWN), lutron provides/sells a power supply (DFC-OEM-DBI)
+
+Athena Wireless Nodes COUNT as a Type X
+
+
+
+--- Athena Touchscreen - Q-TOUCH-5 --
+
+can have up to 5 touchscreen per edge processor -- wired
+
+can control multiple zones -- typically within one area
+shows the named zones on the left side, can click 
+
+you get the ability to control:
+
+- trigger preset scenes
+- intensity
+- on/off only
+- color temp
+- ketra full color RGB
+- shade controls for lutron shades
+
+touchscreen is a POE device -- connected back to the POE switch in the athena panel, or customer provides their own POE
+
+UI NOT customizable
+
+
+
+
+--- Athena specific -> DIN RAIL versions of ESN panels ---
+
+DIN Panel --- Physical Mounting System / Standard
+
+Everything that would be an ESN in quantum world can be a DIN module ->
+
+Phase Adaptive Module
+0-10V Module
+Switching Module
+DALI Module
+EcoSystem Module
+
+Etc.
+
+itegrated panel solution, comes pre-wired mostly from the factory - electrician is just wiring into the rail
+
+pop it open to check if modules are blinking / error codes
+
+
+
+--- Athena QRF - Athena Clear Connect Gateway (Type X) ---
+
+connects with ***type X ONLY*** devices  ---- AWNs/Ketra
+devices must be within 75ft
+
+like an athena wireless processor, but is NOT a processor -- only interfaces with the devices
+MUST then be connected to either an Athena Wireless Processor (ARF2) or athena edge processor (wired)
+
+connected over POE**
+
+
+
+
+
+
+
+
+lutron training 5
+
+----
+
+
+
+ALL 0-10V (load) controllers always have a relay that cut off switched hot when the voltage goes to 0
+
+
+
+--- LUTRON ASC Community ---
+
+ASC = Authorized Service Center
+
+Child work order is the only thing that matters to us -- click the 2nd link on the block in the schedule
+
+scheduling contact is the person who scheduled, job site contact is on site
+
+1. Call **job site contact** (hover over for phone number)
+- pre visit phone call
+"Hi my name is x from Lutron - scheduled to come to x on tuesday.  Want to confirm a few details."
+- confirm the address
+- is all the lutron hardware installed and energized
+- is the site on permanent power
+- are all the lights installed
+- anything i need to know about site access
+-- parking / badge / access / etc.
+- what PPE do i need
+- standard start time is 8 AM -- what time do you need me there?
+- anything else i need to know?
+
+
+
+scheduled resource is YOU
+
+the asset is the system we are working on
+
+--- RELATED TAB
+
+Work order line item -- need to assign items to a work order line item
+
+--- FUNCTIONS TAB
+
+
+UNDER SERVICE APPOINTMENT -- always starts with SA
+***
+1st thing you do when you get to a job is go to the functions tab and CHECK IN
+CHECK OUT when you leave
+***
+
+
+UNDER WORK ORDER 
+***
+Exclude from service report if doing travel / logging expenses
+start time is not important -- dont change it
+
+KEEP TRACK OF HOW MANY HOURS SUBMITTING A TIMESHEET ENTRY BECAUSE IT WILL DISAPPEAR WHEN YOU SUBMIT
+
+call territory leader if need more time than 8 hrs
+
+CHANGE THE STATUS AND CHANGE THE % to complete a job if the job is done
+
+
+after you do the check in it will create a trip report
+
+service report goes into RELATED tab****
+
+you have to click the report and CLICK SEND to email out the report ****
+
+on a quantum job, you must upload a copy of the database under RELATED -> Files
+
+
+keep databases organized on local -- recommendation:
+Year Folder -> Month Folder -> Job folder
+
+Word document in the folder to do the write up as you're going
+
+SYSTEM COMPONENTS ---
+
+Used for Vive -- add the vive components
+
+
+
+Dashboards at the top bar ---
+
+has rejected trip reports -- go in and fix
+
+
+
+PARENT WORK ORDER CONTAINS ALL THE WORK ORDERS FROM THE JOB**
+you can see other technicians previous trip reports, etc.  so you can look into what was done
+
+
+--------
+WHEN YOU GET A WORK ORDER
+--------
+
+1. GET DB - Check out the work order, check out the asset, get the database from the asset
+--- QUANTUM -> it will be under related -> files
+--- Athena -> it will be link under special instructions - when you click nothing happens but it will show up in designer
+--- Vive -> NO DB
+
+2. Call job site contact
+--- Go to functions, scroll down to checklist - select the checklist
+- Startup readiness - quantum / athena
+- can go through the checklist while you are on the phone
+
+***WHEN YOU GET TO THE JOB***
+
+3. Go to service order and --- under FUNCTIONS -> Check in
+4. When done same -> Check out
+5. Add your timesheet entries --- under FUNCTIONS
+
+
+***WHEN DONE WITH JOB***
+
+6. Do the trip report --- under WORK ORDER -> RELATED -> Trip reports (CHECK IN creates the trip report links)
+--- SOMETIMES DUPLICATES -- it will have 0 hours - change to 1 and submit for approval - say delete
+7. After final checkout, go into ASSET and upload the QUANTUM database -- QUANTUM only
+8. Change job status to completed -- under RELATED check work order line item to complete or whatever status it is
+9. Click create service report
+10. Click submit for approval
+11. Go back out --- under FUNCTIONS - click service report and click send
+
+
+
+
+
+
+-- DALI --
+
+DALI 2 Type 8
+DT6 / DT8
+Device Type 8/6
+
+
+-- dimming --
+
+constant hot vs. switched hot
+
+if you remove the 0-10v wires and short out, and still an issue then likely a driver problem
+
+if trying to test a 0-10 and it stays at low end, most likely polarity is reversed
+
+
+
+
+--- vive hub ---
+
+you can start up a whole system without the hub, but you have to pair every single controller
+
+load controller -- pow pak
+
+in wall controls -- hook up switch leg directly to it
+
+wireless remote -- also known as picos
+
+wireless sensors -- wireless daylight sensors
+you may have a job that has wired sensors
+
+vive is scalable - can do single small area or entire building
+not cloud based - they have their own ssid
+
+
+load shedding - demand response -- allows you to reduce the lighting output with all areas associated with the vive hub
+
+HVAC Integration -- BACnet -- use occupancy data from vive to control HVAC
+
+
+434 Mhz -- special frequency for Lutron devices
+
+maestro --- forward phasing / reverse phasing dimmer -- some maestro have built in occupancy sensors
+
+-- code --
+
+we are not code experts
+
+if you know the code - you have the auth to sign off but get sig / documentation from customer
+or have the ability to say no
+
+if dont know the code call mgr
+or if anything deviates from the sequence of ops
+
+signature pertains to how many hours we spent making the change -- prevent backcharges
+
+"might not be code compliant
+
+
+***once the space is turned over, you can comply with the customer request -- if space is still under construction, all changes should be run by the electrical contractor***
+???
+
+
+legal--
+walk away - refer to the manufacturer
+
+can pay for light tuning visits after the fact
+
+
+
+-- facility managers --
+
+more detail about the equipment / how to override things
+
+full facility systems training -- paid training they can buy
+
+security and safety control --- either want completely dark or lit, turn off motion sensors etc
+fire alarm may trigger behavior -- dont illumante for giant white cloud
+
+**high end**
+
+BMS -- building management system --- overmanager control
+
+
+when giving trainings -- look for someone who will be there the longest -- give to at least 2-3 training
+who has authority to sign off on purchasing additional warranty
+
+retraining products -->   post occupancy service visit (included in system package)
+
+
+
+
+-- integration --
+
+AV integration often uses telnet / newer use API
+
+--- dry contact - simple low voltage relay - open / close of a wire
+- pulse vs. maintain signal
+get POC for 3rd party system
+
+
+
+-- programming --
+
+TI = Tenant Improvement
+
+core and shell are NON tenant areas etc.
+
+you may think you are connected to the tenant system but you might be connected to the core and shell system
+pre visit phone call***
+
+
+
+
+-- specs on sensor placement 
+hot air flow can sometimes trigger the sensor -- can turn sensitivity down to prevent but can affect operation
+- placement in corner may be problematic(?)
+
+
+there is a line item they have to pay for to fine tune the lighting -- dont let them take away programming timec
+
+
+
+
+
+
+
+CCI on the SeeTouch RARELY/NEVER USED
+
+
+
+
+Q --- example of what is momentary vs maintained? on QS keyswitch
+maintained --> 3rd party shit if it requires maintained
+
+
+
+
+sink vs source clarification --- 0-10V - whether or not the device PROVIDES (source) or CONTROLS/ATTENUATE (sink) the CONTROL VOLTAGE (only)
+
+
+
+GP PANEL
+everything is connected to dimmed hot - the only thing the switched hot will be used for is Lutron 3-wire
+
+
+
+GRX-TVI
+
+Wiring:
+Make sure that L2/H2 and DL2/DH2 are fed from the same phase that powers the control unit -- by code - the SAME BREAKER
+SAME NEUTRAL for control unit and N2
+YOU CAN JUMPER N2 and N1
+NO COMMON NEUTRALS between load and control ---?? WRONG
+

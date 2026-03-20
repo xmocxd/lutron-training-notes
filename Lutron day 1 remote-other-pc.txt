@@ -1,0 +1,306 @@
+Lutron day 1 remote
+
+----
+
+58%
+
+What do FSEs do?
+
+---
+
+travel to custom sites
+manage the installation of systems and customer relations
+provide initial system trining
+may be sent to any install that has problems
+
+customers are many different roles (EC, lighting designer, facility manager etc)
+
+
+have access to engineering teams (escalate issues)
+provide quality and product feedback to engineering group
+work with customers on system upgrades, maintenance plans, software plans (bring up the plans -- you are the face of Lutron) --- "We offer technology support plans"
+
+
+what does it mean to be a professional?
+
+PUT THE CUSTOMER FIRST
+understand their needs
+
+Make expertise your specialty
+become an expert with the skills and tools
+keep knowledge up to date
+
+Do more than expected -- go above and beyond
+
+"is there anything else i could help you with today?"
+
+Communicate effectively
+clear / concise / thorough, accurate
+
+
+praise your peers not yourself
+
+share your knowledge
+-information isn't a limited resource
+
+territory leader can post stuff on the wiki if you find any new issue / situation / fix etc
+
+SAY THANK YOU
+keep a smile on your face - especially in trying times
+
+keep your promises -- manage and meet expectations
+dont make excuses
+
+honesty and integrity 
+
+self regulation - stay professional under pressure
+
+project a professional image
+
+----
+DO NOT:
+
+argue in front of others
+demeaning criticism / non constructive
+verbal outbursts
+harassment / discrimination
+physical
+
+talk bad about our products -- no "ive seen this a lot" -- WE SHIP QUALITY PRODUCT
+talk bad about COMPETITOR products -- i cant speak for another product / im not really familiar with it
+pointing fingers / blaming others -- man up
+discussing non-job related behavior - dont go down the wrong path - even if you didn't initiate 
+lying and stealing -- DONT help yourself to the amenities, unless specifically told
+
+----
+
+tin doll pants
+
+hard hats = 5 YEAR from date of mfg they EXPIRE should be replaced
+
+
+-- can you wear metallic watches? - NO metal on arms -- you can wear but be smart about it
+
+safety glasses have to be worn at all times -- even if not doing directly risky work -- anything can come from anywhere on the site -- ie. window shattering
+
+
+constructive criticism mut be done privately -- know who is in the room
+
+
+
+listen to your customers -- write stuff down and repeat it back to them
+
+
+---------------------
+
+
+--- SUPPORT WIKI ---
+
+set up by product family
+
+
+stuff under FS Engineer resources --- how to do stuff in lightning (ASC community app?)
+----
+SFS - sales force field service lightning
+Job site guidelines -- leaving jobsite flowchart
+qual card? -- you need to have access - they stay online
+
+post start up
+if a system needs to be updated we need to create a Method of Procedure (MOP) -- plan for how to upgrade the system
+
+Technical Documents
+engrave critical buttons during startup
+commercial project and services (CPS)
+R/T leader maps
+----
+
+SUPPORT WIKI IS FOR INTERNAL EYES ONLY -- DO **NOT** COPY TO A CUSTOMER OR EXTERNAL CONTACT
+
+approved customer documentation is on the Lutron website
+instruction sheets NOT on the support wiki -- check Lutron.com
+
+FIRMWARE IS on the support WIKI***
+
+
+ON WEBSITE - dynamic documents, will always(?) be the latest version
+ON WIKI - documents have to be manually updated, may be outdated
+
+can use product number to search on WIKI
+
+NEVER GO to a hyperlink that directs you to firmware files, always go to the product's homepage and check the firmware on there.  it may be updated / wrong
+
+s19 files = firmware(?)
+
+CUSTOMER INCLUDES REP -- do not send internal only
+
+if you see RED -- READ it
+
+
+DONT EVER USE "JOB SPECIFIC" firmware (unless it is for your job)
+DO NOT USE internal release firmware
+
+ONLY USE full customer release or gamma
+
+Gamma is a legit version to use in the field
+
+
+
+
+--- ATHENA SYSTEM ARCHITECTURE ---
+
+
+athena hubs sometimes referred to as processors, but technically the processor lives inside of the hub
+wired processor = edge
+
+ARF-2 - Athena Wireless Processor
+Q-RF - Athena Gateway
+
+QS-Link - wired low voltage communication link
+
+Athena DIN panel - panels with power modules inside ---> centralized load controller - all the modules live inside
+ 
+ESN = ****distributed**** load controllers - anywhere from 4 outputs .... to 128 switch legs it can control if it's ecosystem, etc.
+distributed = scattered around the building, closer to where the loads are, so u dont have to wire everything back to the same home location
+DMX Interface - is another type of distributed load controller
+
+Wall Controls - all SPEAK QS
+
+QSM - unique interface - 1) wired sensor inputs (including wired picos) - NON addressable devices, you have to tell what is on the inputs, they have to be landed on the correct terminal.  QS link also provides POWER to the devices.  -- 2) wireless sensor inputs
+
+WE support Lutron shades on athena -- BUT they need power, they do not get power from the QS ink -- they require a separate share power supply - can be an individual or shared supply
+
+ESN provides link power
+
+INTERFACES -> AV interface - connect 3rd party equipment, can monitor and output commands / Contact Closure Interface - connect 3rd party equipment -- for example 3rd party shades, security system, etc.
+
+
+BLUE LINE on diag - QS link
+GREEN LINK - ethernet
+
+inside the athena hub, there is a POE switch providing power and connectivity on ethernet
+
+Touchscreen - can have access to 1 area, or multiple areas -- it is configurable
+There is no programming per se of the touchscreen - it reads information from the processor
+
+Athena Wireless Processor - dual radio:  clear connect type A (CCA) - it also has a CCX radio built into it - works with Ketra and AWNs--- it ONLY LISTENS CCA - does not talk CCA
+
+also there is a CCX interface - not shown on the arch diagram --- looks the same as an athena wirelss processor, but does not support CCA
+
+Software -- Lutron Dashboard & Lutron App / Lutron Designer
+Dashboard - allows you to see alerts, system energy, system occupancy **history**, energy usage **history**
+Lutron Designer - software we use to start up the system --- usually end users dont use, but if they go through facility mgr training, they can get access
+(need mylutron account to get to all software)
+
+
+Working on an option to have a local server for athena that is not cloud connected / cloud required -- still in early stages
+
+
+
+if you press a control, it sends the message ***all the way back to the processor***, then the PROCESSOR tells the device to react to the button press -- dispatches
+
+EVERYTHING goes through the processor, ESNs/DIN modules (LOAD CONTROLLER) do not directly communicate to controls / sensors, they only get their commands from the processor and the load controller then manipulates
+
+isolated system - 16 processors per system -- systems cannot talk to systems
+
+
+
+--- QP5 Hub ---
+QP5-xL-POE -- x stands for how many links are on the hub
+2 athena edge processors with up to 2 links each
+includes 8 port ethernet unmanaged POE
+
+1L - 1 Link Athena hub (1x 1 link processor) -- 25 QS Devices -- 50 Wall Controls (including non QS) -- 50 OCC - 50 Daylight - 
+2L - 2 Link Athena hub (1x 2 link processor) -- 99 QS Devices
+5L - 4 Link Athena hub (2x 2 link processor) -- 99 QS Devices
+each processor has 2 eth ports
+
+switchleg - a single output of an ESN - a digitally controlled device on a DALI/Eco ESN -- DIGITAL Loads
+-- shade outputs -- DMX => digital loads - every DMX channel is considered a switch leg
+
+SWITCHLEG IS => the smallest controllable output
+dimmed or switched circuits
+digitally addressable devices
+a single DMX channel
+CCI outputs
+QS Shade Drives
+
+
+Athena - under System Technical Guides
+***** Lutron Residential and Commercial System Rules **** 
+DOWNLOAD it
+
+
+NWK = input only
+
+DMX Interface = 32 switchlegs
+
+T-Series ESNs discontinued
+
+
+--- QP6 Hub ---
+QP6-1L -- small system hub -- one 1 link proc
+
+
+
+--- A-RF2 Wireless Processor ---
+Powered by POE
+
+CCA and CCX radio --
+CCX - up to 100 devices -- ketra type x and AWNs
+CCA - up to 50 devices -- pico 50 max - daylight sensor max 5 - occ / vac sensors max 15 --- only 50 max total
+
+**does not NEED a wired processor if there are no QS devices or non CCX fixtures**
+
+
+--- Q-RF Athena Gateway ---
+Powered by POE
+CCX - up to 100 devices
+requires at least one QP5 or QP6 panel with a POE -- is not a processor by itself
+
+cant have more than 16 total gateways and procs
+
+
+--------
+Link type and designations
+--------
+
+Wired processors
+QP-1L - QP-2L
+1 link / 2 link
+
+
+QP5 hub -- 2 power supplies - 1 powers POE, 1 powers QS link and proc (for 1 proc model) -- would have 3*** power supplies if 2 link
+
+QP6 - SINGLE power supply, SINGLE proc ----- small system enclosure
+
+
+--- QS Link ---
+
+can have up to 99 devices
+free wiring topology - can be t-tapped or daisy chained
+MAKE SURE YOU DO NOT MAKE A CLOSED LOOP / LOOP BACK ON ITSELF -- will cause comms problems
+
+Common
+Power
+Mux Data ---> TWP
+Mux Data (Bar)----> TWP - twisted shielded pair
+Drain Wire
+
+total sum of distance -- 18AWG - 500ft --- 12 AWG - 2000ft
+**CANNOT MIX AND MATCH GAUGE**
+
+
+**PHASE ADAPTIVE ESN provides NO PDUs**
+
+do not connect PDU supplying unit terminal 2 (power) of QS link -- WILL CAUSE BACKFEED
+
+PDU = Power Draw Unit (33 mA)
+
+
+
+
+
+
+
+
+

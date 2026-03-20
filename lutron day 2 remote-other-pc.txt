@@ -1,0 +1,340 @@
+PDU = power that goes out on the QS-Link that powers devices (seeTouch keypads [NOT picos] / QSMs / NWK-IO or DMX devices), does NOT go to the lights
+
+
+
+--- QP6 (athena 1 link proc) ---
+
+line voltage cover must be on, should be written up in trip report if not
+
+processor takes about 30-40 sec to boot up
+
+class 2 connection = low voltage
+
+if any line voltage connections made outside the line voltage cover / in the low voltage area, must be reported / fixed
+
+
+
+--- Athena Gateway ---
+
+looks identical to a wireless proc
+counts as 1 processor count**
+
+can tell apart from a QSM because the QSM has 3 dots instead of 2
+
+mac address and serial number on the back -- need to physically activate the device
+
+ethernet port also on the back -- powers over POE and connects to network
+
+should be discoverable on the network
+
+can have a surface mount bracket or a recess mount bracket -- can disconnect by giving a quarter turn
+same bracket used for QSM, Gateway, A-RF2
+
+
+LED blink green -- normal operation
+Blue blink -- downloading firmware --- may download auto update of firmware when connected to the cloud (usually at initial connection?)
+Red - issue
+
+
+
+
+--- LTE Modem (Digi modem) ---
+
+included with most systems as a line item
+provides connection over LTE / cellular
+the purpose of this is for startup -- to be a connected system during startup
+usually on startup they dont have the building connectivity or internet set up
+
+up to 16 processors can be connected
+
+can be either powered by POE or plug in power supply -- you HAVE to use a power injector -- power injector does 18V - our switch does 48V -- device cant handle 48V
+also comes with battery pack
+
+you want the contractor to have this up and running before you ever come to the job site
+
+digi dashboard -- allows you to remotely set up the digi modem
+
+we require a minimum of 3 bars of service -- might need to be mounted outside the electrical closet / maybe near a window
+the battery pack allows you to walk the modem around the building to find service and mount it in that location
+
+when you mark the service is complete, we can go in and discontinue the cellular service
+
+pre-visit checks can be done through the dashboard
+
+will ONLY use DHCP - cannot be used with static IPs
+
+port 1 LAN connection - is the only port we use -- CAT 5e minimum --- 328ft maximum
+
+can actually have up to 2 sim cards providing service
+
+
+CAN be directly plugged into the athena processor, OR can be plugged into a switch and then hooked to the processor
+
+
+contractor needs to send a picture of the label with mac address of the modem to you
+
+
+BLINK CODES (LTE LED):
+Solid Yellow - initializing
+Flashing (any color) - connecting
+Solid Green - connected via 2G/3G
+Solid Blue - connected via 4G LTE
+Alternating Red/Yellow - Upgrading firmware (do not power off)
+
+
+
+some customers get their own sim card and keep the modem as the main connectivity for the athena system.  this allows them to isolate the system from their building network, etc.
+
+30 days after startup, we disable cell service to the unit
+
+
+
+
+
+---- DIN PANELS ----
+
+
+only available for athena systems
+
+
+
+- Satellite Panels - 
+
+Just has the power modules
+does not have circuit breakers or anything else in it
+16 in, 42 in, 64 in sizes
+up to a maximum of 10 DIN modules
+
+feed through -- every module has to get its own feed
+
+modules do not provide or draw any PDUs
+
+
+- Satellite Panels with Breakers -
+
+adds a load center - single phase or 3 phase rated for 120/240V or 120/208V
+now they are not bringing their own independent feed to each module -- the feed comes from the breaker
+
+only 1 size -> 65 inch panel
+
+
+- System Panel -
+
+DPM = DIN POWER MODULE
+
+comes with power modules, but also has intelligence
+can have a processor with power supply / POE switch
+can also have other interfaces such as NWKs or IOs
+
+bottom section is divided off into a low voltage section
+
+42 and 64 inch sizes
+
+this is used so you dont have to have a separate QP5
+
+
+
+--- DIN MODULES ---
+
+
+
+QSN-4A5-D - Phase Adaptive Power Modules
+---
+4 zone power module
+
+one load type per zone
+
+NOT rated for switching loads
+
+LEDs:
+Power - continuous on - normal
+Power - Off - no power
+Power - Rapid flash - module failure, contact Lutron
+Hi Temp - Off - normal
+Hi Temp - 1 sec on 7 sec off - module too hot, scaled to 25% power
+Hi Temp - Continuous On - too hot, loads turned off
+Hi Temp - Flashing 1 blink/sec - module was overheated and has now cooled.  to clear error press the input, prog, up, and down buttons simultaneously
+Prog - Off - normal
+Prog - Flashing - Device in program mode
+Zones - Off - normal, zone off
+Zones - On - Normal, zone on
+Zones - 1 blink, pause - zone selected for manual control OR output shorted
+Zones - 2 blink - overvoltage
+Zones - 3 blink - shorted component
+Zones - 4 blink - over temp, zone may be overloaded, scaled to 25%
+Zones - 5 blink - over temp, turned off 
+Zones - rapid flash - multiple errors -- shut the power down, disconnect, re-energize, connect the outputs one at a time to check errors
+CCI - on - normal
+CCI - rapid flash - emergency mode
+
+
+
+
+QSN-4T5-120-D - 0-10V / Switching Module
+---
+4 zone module for 0-10/switching
+
+fed with a single circuit -- single feed comes into the module -- the 4 outputs SHARE that one feed
+
+cannot exceed 16 Amps lighting load for the entire module
+
+
+each output rated for 50mA per output for 0-10 --- source or sink (sync?) - they can either provide or control
+
+rule of thumb is 2mA per driver
+
+
+the 0-10V fixtures must support switching power to turn on/off
+
+all products have power failure memory -- if power is lost,  all relays stay in the last known position
+
+
+
+
+QSN-4T20-D - 0-10V/Switching Module (independent feeds)
+---
+
+Each output is fed by its OWN INDEPENDENT FEED
+16 A switching per output for lighting loads
+20 A per output for AC general use / receptacles 
+
+
+
+QSN-4S8-120-D - Switching Power Module
+---
+
+Single feed - 4 switched outputs
+Outputs cannot be used to control general purpose receptacles -- not rated for general loads
+
+
+QSN-4S20-D - Switching Power Module (independent feeds)
+---
+independent feeds - 4 switched outputs
+
+similar specs to the 4T20-D
+
+
+QSN-1DALUNV-D / QSN-2DALUNV-D -- DALI Universal
+---
+provides 1 or 2 DALI buses depending on model
+DALI = Digitally Addressable Lighting Interface
+
+64 DALI addressable loads per bus
+
+Some DALI loads may be POLARITY SENSITIVE -- refer to individual driver specs
+
+
+
+QSN-2ECO-120-D -- EcoSystem Power Module
+---
+Provides EcoSystem loop power for two loops
+
+Each loop supports up to 64 devices (drivers) -- up to 128 devices per ESN
+
+automatic replacement of a single failed ballast or driver
+
+POLARITY INSENSITIVE
+
+topology-free
+
+the module DOES NOT provide power to the fixtures -- they get their power from another source 
+
+RED LED MAY INDICATE LINE VOLTAGE ON THE ECO LINK
+
+
+DIN module Wiring
+---
+Why are there 2 mains inputs on the phase adaptive module? --- for the contactor to temporarily make a connect to verify loads before you attach them to the module -- so you dont have to splice the hot coming in
+
+Zone selector buttons allow you to verify the outputs -- plus many other functions
+
+QS-Link wire harnesses available to pre-wire the panels
+Wire landing board (QS-Link) - comes with the panel -- 5 terminals - run in parallel - good place to splice the QS-Link --- extra terminal #5 used for the DRAIN wire
+DPM Line Voltage Wire Harness - power wiring harnesses -- module type specific, uses different harnesses for different module types
+Terminal Block Kits -- switch from a single feed to a multi feed for QSN-4T20 / 4S20
+
+
+each module counts as 1 device on the QS link device limit
+each OUTPUT of each module counts as a switchleg -- ONLY if they are being used
+ECO and DALI -- modules count as 1 QS device -- have to count how many devices are on the bus for the number of switchlegs
+
+2000 feet link length limit (cable dependent)
+
+you can add / field modify to add additional modules on the DIN panels
+you CANNOT field modify the power harness / load center (breakers)
+
+
+
+
+----- ESNs -----
+
+Gen 1/2 Softswitch
+---
+4 zones of switching
+Gen 2 does NOT have wired sensor inputs
+Gen 2 is compatible with Athena 20.4 and Quantum 3.4.437 and higher
+
+
+Gen 1/2 0-10V
+---
+4 zones of switching or dimming
+ONLY sinks 0-10V - cannot provide, can only control the 0-10V signal
+Gen 2 does NOT have wired sensor inputs
+Gen 2 is compatible with Athena 20.4 and Quantum 3.4.437 and higher
+
+
+Gen 1 EcoSystem
+---
+1 loop or 2 loop version
+
+
+T-Series
+---
+Discontinued -- white tunable
+modified ecosystem
+supports **32** T-series LED drivers per link
+each link can control a maximum of 16 zones
+you usually wouldn't have multiple zones for CCT (color temp) in a room, just multiple zones for intensity
+
+
+LED+ Phase Adaptive ESN
+---
+4-zone ESN for phase control dimming of lighting and other loads
+auto-detect or lock to a phase type
+does not provide or consume any PDUs
+
+
+DALI Universal ESN
+---
+DALI control
+
+
+-- ESN Wiring --
+
+Sensor Groups
+---
+4 groups of terminals
+Wired sensor inputs ONLY on gen 1 ESNs
+Each group has ability to wire an occ sensor, daylight, IR (pico) in EACH group
+sensors wired on these DO NOT CONSUME PDUs -- they are powered through the sensor group terminals and are NOT powered through the QS-Link
+
+CCI / Emergency
+---
+emergency switch input
+also has an ADDITIONAL contact closure input (CCI) -- can be wired to do anything using CCI
+
+Power
+---
+4 circuits, single feed  -- 1 hot feed -> 4 switched hots
+1-4 correspond to the 0-10V zones signals
+
+0-10V is POLARITY SENSITIVE
+
+Picos can be referred to as IR in labeling, etc. -- this is a historical term due to the way that picos used to be set up
+New style Picos don't use IR window, but still send out the same IR command
+
+
+
+
+
+
