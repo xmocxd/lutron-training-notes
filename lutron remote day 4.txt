@@ -1,0 +1,127 @@
+shades
+--
+the POWER PANEL is a QS Device, but the power supplies are not
+
+
+
+--- LEGACY PANELS ---
+=====================
+
+legacy panel interface - only part of an athena system - allows integration with legacy panels
+
+circuit selector for quantum / used with legacy panel interface for athena
+
+
+--- GP Panel ---
+
+pre assembled panel with dimming cards
+wires like a distribution panel
+from 3 output to 144 output depending on model
+
+--- LP Panel ---
+
+has modules inside (4U modules), each module has 4 outputs -- shares 1 feed between its 4 outputs
+ONLY for forward phase dimming - phase controlled loads
+
+--- XP Panel ---
+
+Switching panel, pre-assembled with non-dim modules
+
+--- CCP Panel ---
+
+Custom configured panel
+Can put different types of modules inside
+
+NOTE: CANNOT field modify the types or numbers of modules - if they do, they have to have another inspection done on the panel
+
+--- circuit selectors ---
+(only works with quantum)
+1 or 2 link models
+link A
+link B -- used as a DMX link
+
+
+--- Legacy Panel Interface ---
+(only works with athena)
+converts the panel from a power panel link to a QS-Link
+LED diagnostics / Local control buttons
+Supports emergency lighting applications
+
+--- modules ---
+1 feed shared between x outputs:
+1U - 1 circuit
+2U - 2 circuit
+4U - 4 circuit
+4A - phase adapative module 4 circuit
+the rotary dial sets which module number it is when installed
+
+4M - motor module - four circuit motor module -- used for motorized hurricane shutters , gates, etc -- every output has 2 sets of controls for 2-way motors / open/close
+
+XP/XP2 - switching module (4 circuit) --- the XP2 module only goes into a CCP (custom) panel
+
+GP Harrier Card -- goes into a GP panel - 120V and 277V models
+
+TVM -- 0-10V module -- either GRX-TVM-ISO2 (POWER MODULE only), or GRX-TVM2 (ballast control module) -- need one power module to power multiple TVM2s
+
+--- CONTROL HARNESS ---
+
+all modules are pre-addressed from the factory
+4 pin connectors to connect the harness
+
+GP / Harrier cards use a 12 pin connected and are pre-wired from the factory
+green LED = 120V card 
+amber LED = 277V card
+
+277V cards can be used in either panel type
+
+TVM - 0-10 wiring is polarity sensitive, must be landed on the correct terminals
+
+we should never be pulling out jumpers LIVE
+
+
+--- BCI-0-10 (obsolete) ---
+
+allows control of 3-wire from a 0-10V source
+replaced by the phase controlled ESN -- previously ESNs did not do phase adapative version
+
+connects to a PHPM-WBX
+
+
+--- TVI-LMF-2A ---
+
+allows you to use an ecosystem control system to control 0-10V loads
+suggested for SINGLE FIXTURE control -- 2 amps of switching load
+
+
+--- C5-XPJ-16A ---
+
+EcoSystem input to SWITCHING output
+control up to 16A of lighting load
+any type of switched load + also controls motor loads
+
+has wired sensor inputs -- provides 20VDC power out to wired sensors
+
+uses 1 eco address
+
+
+--- C5-BMJ-16A ---
+
+EcoSystem input to 3-wire output
+also provide wired sensor connections
+
+
+--- C5-BMF-2A ---
+
+this product has made a resurgence -- can be used to add connections for wired sensors to LED drivers
+
+upgrade system from ballast to LED
+
+only rated for 2A
+
+usually just used as a sensor input, not usually used to control a fixture
+
+
+
+
+
+

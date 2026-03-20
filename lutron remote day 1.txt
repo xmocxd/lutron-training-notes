@@ -1,0 +1,93 @@
+-- reach out if needed to make a change in who you are paired with in OJT --
+reach out to territory leader
+
+
+rob delahunt -- REGIONAL leader east
+
+
+software team may DROP 0s from the firmware numbers -- be aware. for example , 2.080 might be labeled 2.8 and mean the same thing
+
+ALWAYS go to the homepage for the device when searching - DO NOT use firmware pages on search they may be out of date
+
+SPEC SHEETS may not be current if linked internally within static wiki -- check on public lutron site
+
+
+
+
+--- HOW to find documentation on lutron.com ---
+
+google MAY not have the LATEST documents because they dont have a lot of hits
+
+DO NOT search on lutron.com - it sucks, instead:
+
+BOOKMARK: Lutron.com -> controls -> commercial systems -> (pick system) -> click product specs -> BOOKMARK THESE PAGES***
+
+you can scroll down this page and look for related devices -> click you can see CUTSHEET / SPECSHEET
+
+NWK part number means network interface
+
+athena "controls" -- everything that is linked to athena
+
+
+
+----
+support wiki is geared toward looking at a product by its FAMILY
+
+----
+
+difference between OS firmware and Boot firmware? --- BOOT firmware we DO NOT update -- its embedded in the product --  ****we only update the OS firmware.***  in order to update the firmware you have to put it into boot mode and then you can update the OS firmware.
+
+sometimes units only support UP TO certain OS versions for a certain version of BOOT firmware -- we cant change the BOOT code/firmware but good to be aware of these limitations.
+
+
+
+---
+if you are looking for a spec sheet / cutsheet / programming guide -- go to lutron.com
+
+product/quantum/documents - for example, has a list of all the guides etc. that you might need
+under lutron support / product support section on site
+
+
+
+----
+
+PDU
+
+--- 
+
+can splice through the #2 power line to power all devices in all power groups, do not need to connect it to the back of the PDU supplying unit
+This allows you to power more units WITHOUT CAUSING BACKFEED
+
+DIN RAIL PANELS DO NOT PROVIDE OR CONSUME PDUs
+
+have to add up wired sensors and add to PDU count
+
+
+
+QP5 / QP6 hubs = +33 PDUs PER LINK --- +66 total on 2 link procs
+
+
+
+--- Q-RF Gateway components ---
+on the back there is an RJ45
+
+
+
+
+-- Hubs / LEDs---
+
+Processor LED:
+Green slow blink -- normal
+Green rapid blink -- IDing processor
+Blue blink -- software updating
+Red Solid --- error -- usually a network error
+
+Link LED:
+Green slow blink -- normal
+Red blink --- error -- comms error -- usually miswired cable or power over the cable
+
+POE LEDs:
+P1 Green -- Power
+Fault -- amber -- P1 or P2 power fault
+Link / Act solid/flash -- normal
+

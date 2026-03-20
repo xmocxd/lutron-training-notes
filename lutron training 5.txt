@@ -1,0 +1,129 @@
+lutron training 5
+
+----
+
+
+
+ALL 0-10V (load) controllers always have a relay that cut off switched hot when the voltage goes to 0
+
+
+
+--- LUTRON ASC Community ---
+
+ASC = Authorized Service Center
+
+Child work order is the only thing that matters to us -- click the 2nd link on the block in the schedule
+
+scheduling contact is the person who scheduled, job site contact is on site
+
+1. Call **job site contact** (hover over for phone number)
+- pre visit phone call
+"Hi my name is x from Lutron - scheduled to come to x on tuesday.  Want to confirm a few details."
+- confirm the address
+- is all the lutron hardware installed and energized
+- is the site on permanent power
+- are all the lights installed
+- anything i need to know about site access
+-- parking / badge / access / etc.
+- what PPE do i need
+- standard start time is 8 AM -- what time do you need me there?
+- anything else i need to know?
+
+
+
+scheduled resource is YOU
+
+the asset is the system we are working on
+
+--- RELATED TAB
+
+Work order line item -- need to assign items to a work order line item
+
+--- FUNCTIONS TAB
+
+
+UNDER SERVICE APPOINTMENT -- always starts with SA
+***
+1st thing you do when you get to a job is go to the functions tab and CHECK IN
+CHECK OUT when you leave
+***
+
+
+UNDER WORK ORDER 
+***
+Exclude from service report if doing travel / logging expenses
+start time is not important -- dont change it
+
+KEEP TRACK OF HOW MANY HOURS SUBMITTING A TIMESHEET ENTRY BECAUSE IT WILL DISAPPEAR WHEN YOU SUBMIT
+
+call territory leader if need more time than 8 hrs
+
+CHANGE THE STATUS AND CHANGE THE % to complete a job if the job is done
+
+
+after you do the check in it will create a trip report
+
+service report goes into RELATED tab****
+
+you have to click the report and CLICK SEND to email out the report ****
+
+on a quantum job, you must upload a copy of the database under RELATED -> Files
+
+
+keep databases organized on local -- recommendation:
+Year Folder -> Month Folder -> Job folder
+
+Word document in the folder to do the write up as you're going
+
+SYSTEM COMPONENTS ---
+
+Used for Vive -- add the vive components
+
+
+
+Dashboards at the top bar ---
+
+has rejected trip reports -- go in and fix
+
+
+
+PARENT WORK ORDER CONTAINS ALL THE WORK ORDERS FROM THE JOB**
+you can see other technicians previous trip reports, etc.  so you can look into what was done
+
+
+--------
+WHEN YOU GET A WORK ORDER
+--------
+
+1. GET DB - Check out the work order, check out the asset, get the database from the asset
+--- QUANTUM -> it will be under related -> files
+--- Athena -> it will be link under special instructions - when you click nothing happens but it will show up in designer
+--- Vive -> NO DB
+
+2. Call job site contact
+--- Go to functions, scroll down to checklist - select the checklist
+- Startup readiness - quantum / athena
+- can go through the checklist while you are on the phone
+
+***WHEN YOU GET TO THE JOB***
+
+3. Go to service order and --- under FUNCTIONS -> Check in
+4. When done same -> Check out
+5. Add your timesheet entries --- under FUNCTIONS
+
+
+***WHEN DONE WITH JOB***
+
+6. Do the trip report --- under WORK ORDER -> RELATED -> Trip reports (CHECK IN creates the trip report links)
+--- SOMETIMES DUPLICATES -- it will have 0 hours - change to 1 and submit for approval - say delete
+7. After final checkout, go into ASSET and upload the QUANTUM database -- QUANTUM only
+8. Change job status to completed -- under RELATED check work order line item to complete or whatever status it is
+9. Click create service report
+10. Click submit for approval
+11. Go back out --- under FUNCTIONS - click service report and click send
+
+
+
+
+
+

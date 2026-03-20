@@ -1,0 +1,163 @@
+--- Wallstation troubleshooting ---
+
+
+mux voltage --> one of them should be positive (+V MUX) one should be negative (-V MUX-BAR)
+
+some pages on the support wiki explaining the voltage of mux
+mux should be 1 voltage, mux-bar should be ABOUT HALF of that
+
+this applies to any device on the QS Link
+
+the devices are designed to work between 18 and 32 V
+
+
+-----
+
+Interfaces
+
+--- QSE-CI-DMX ---
+
+program button is used to activate / identify / OOB (3tap / hold / 3tap)
+
+the dip switches VARY DEPENDING ON WHAT FIRMWARE YOU HAVE -- different for standalone
+
+--- NWK ---
+
+the dip switches are ONLY applicable to the RS232 connection
+the way the baud rate diagram is printed expects you to ROLL the unit toward you --- NOT to flip the unit around and look at it from the front
+only way to OOB the unit is to connect it to one of the RJ45 or RS232 and send a command from the software
+
+
+--- IO / QSE-IO ---
+
+in standalone, the outputs follow the inputs
+in athena / quantum - you can configure how the inputs and outputs are controlled
+if you need to use the outputs, you have to tie the commons together externally to the unit (???)
+
+
+--- QSM ---
+
+pre-wire -- ask the contractor to mark the sensor wires coming into the QSM -- if they don't mark them, you have no idea which wire goes to which sensor when trying to troubleshoot
+
+same process to OOB -- 3tap/hold/3tap button on front
+
+----
+Sensors
+----
+
+--- Occ / Vac sensors ---
+
+wired version is ONLY occ sensor
+
+hole allows you to use a laser to activate the sensor to a QSM -- tag twice - once to wake it up - once to send out its serial number
+you have to put the QSM into activation mode to activate sensors to it
+
+3 gray buttons on the back of the sensor - used to control various functions printed on the back of the unit -- press and hold for 6 sec then click to change, hold again to lock in the setting
+
+you can only get timeouts less than 15 minutes by using the gray button on the back for setting the time
+
+WALL mounted OCC sensors
+---
+Wall / corner / hallway versions -- they all look basically the same
+the only way to know the difference is looking at the model number on the back
+the difference between them is:
+wall has a 180deg view - 50 ft out
+corner has a 90deg view - 50 ft out
+hallway sensor only has a 10-20deg view, but goes 150ft out -- designed to be at the end of a hallway and look down the hallway
+has a laser hole on the bottom
+
+--- WIRED OCC sensors ---
+
+some may have ultrasonic on both sides - just changes coverage range
+you pop off the dome to access the dip switches
+always set B3&4 dip switches to the on position
+
+red trim - IR
+green trim - ultrasonic
+black trim - timer - set to fully clockwise, fully counterclockwise to put into test mode
+
+DO NOT force the trim pots too hard -- they can break and will have to replace the whole sensor
+
+relay model will have a BLUE trim pot inside -- we do not use the actual trim pot but it can be used to identify what model it is without removing unit --- make sure it is kept FULLY clockwise
+
+relay models are very commonly MISWIRED
+
+
+--- Wireless daylight sensor ---
+
+it can rotate WHILE it is mounted in the bracket, you can click rotate it into the direction it needs to be facing
+
+make sure the battery is put in the RIGHT direction -- + has to be down toward the circuit board.  they are NOT pre-installed, the contractor has to install them
+
+
+--- Wired daylight sensor ---
+wiring:
+yellow wire is for the sensor signal / white gets capped off
+
+streams its data constantly
+
+signal goes from about 0-11V depending on how much light is detected
+
+can use the multimeter to check the voltage between common and the signal wire
+
+
+
+
+--- LUTRON SHADES ---
+
+lighting systems get sold through distribution, shades are sold directly to a shade dealer
+
+when troubleshooting - need to isolate issue owner between EC/Shade Dealer on punch list
+
+expectations:
+shades on the BOM are in the DB/Oneline
+provided the contact info for the shade dealer
+scheduled for enough service time to program shades
+startup checklist complete
+know the players onsite
+
+ESCALATE ALL SHADE ISSUES THROUGH THE PROJECT MANAGER -- DO NOT BRING UP WITH THE EC OR GC
+
+
+--- Shade Components ---
+
+Header - top of the window
+Mullion - vertical bar in the window
+Sill - bottom of the window
+
+Roller shades - 95% of the time
+
+Bracket - attaches to the building - holds the shade up
+Tube with fabric - aluminum tube the fabric attached to
+Fabric
+EDU (electronic drive unit) - motor for the shade
+Hembar - bar at the bottom of the shade
+
+Sivoia QS - family of roller models -- premium whisper quiet - ultra reliable
+
+Contract Roller - family of roller models -- more cost effective - not whisper quiet
+
+Shades are a QS device but DO NOT get power from the QS link - they need their own power supply
+
+exposed hembar with wool pile used for blackout shades -- the wool pile blocks the light
+
+coupled shades -- 1 of the shades has a drive, and the other ones are just coupled and are controlled by the one with the drive -- reduces cost
+
+coupled roller shades can have a maximum of 6 panels driven by 1 motor
+
+angled coupled roller can have up to 3 panels -- maximum of 45 degree angle
+
+mounting - naked mount - fascia - pocket mount (common)
+
+
+
+
+
+
+
+
+
+
+
+
+

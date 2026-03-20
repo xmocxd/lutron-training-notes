@@ -1,0 +1,103 @@
+--- digi modem ---
+
+can connect the modem to ANY processor on the system - will connect all connected processors to internet
+
+can be mounted either with provided plastic clip, or mounted to a ceiling tile using small clips in plastic bag in the box
+
+firmware updates may take a while -- potentially all day.  make sure its already connected and running, if you just connect when you get there, you may have to wait up to 24hrs to use it.
+
+may need to re-seat the sim card if it doesnt recognize the sim
+
+
+-----
+
+PDUs on ESNs:
+T-Series: +30 PDUs
+EcoSystem: +30 PDUs
+Softswitch / 0-10V: +14 PDUs
+Phase Adaptive: +0 PDUs
+DALI: +0 PDUs
+
+
+DALI drivers MAY BE polarity sensitive --- some drivers are polarity sensitive -- NOT STANDARD
+ECOSYSTEM IS NOT polarity sensitive --- we have control over all the drivers, so they are standard
+
+
+--- ecosystem ESN ----
+
+loop1 and loop2 commonly miswired bc loop2 is on the LEFT
+STRANDED WIRE DOES NOT PLUG INTO THE TERMINALS -- use SOLID WIRE
+EcoSystem is DIGITAL ONLY -- we do NOT PROVIDE POWER FROM THE ESN to the LIGHTS- -- they have to get their power from elsewhere
+the power coming in on the ESN only powers the unit
+
+
+
+--- DALI ESN ---
+
+USES THE SAME DALI DIN MODULE but is put inside the ESN enclosure
+NO wired sensor inputs
+2 DALI loops
+DOES NOT provide power
+
+
+--- LED+ Phase Adaptive ESN ---
+
+SAME DIN MODULE in ESN enclosure
+
+
+
+--- Troubleshooting ---
+
+Some contractors accidentally take out the emergency mode jumper -- THIS will put the unit into emergency mode -- it may also be LOOSE
+
+Make sure you are not drawing too many PDUs or backfeeding PDUs -- unit will not function
+
+you can see whether MUX and MUX(BAR) are reversed ---> units will show an LED blink code that the unit is not communicating properly over the QS-Link (reverse waterfall pattern - lights move upwards in a pattern)
+
+should NOT have Line voltage on the QS-Link
+
+you can see if the unit works without being connected with the QS-Link -- then u know something is wrong with the QS-Link
+
+
+
+ESN Switching issues:
+--
+output of one relay is feeding another
+power is being back fed -- an alternate source of power feeding the lights
+ESN is not powered correctly
+
+
+if you DO NOT see the LINE VOLTAGE SHIELD on an ESN - you need to notify the EC -- it is part of the unit
+
+wires in the line and low voltage areas SHOULD BE ISOLATED - notify EC
+
+on ESNs, hots can be jumpered to keep the loads always on
+
+WAYGO connector - type of multi-wire jumper box
+
+static shock shield present on low voltage section of the ESN -- isolates any ESD from the circuit board, also provides a backup shield against a high voltage lead that is accidentally touching a trace on the board
+
+
+reset button on the board acts as a soft power cycle
+
+Out of Box the unit -> triple tap, hold, triple tap the PROGRAM button -- factory reset to out of the box settings -- it also erases all programming (have to reprogram if standalone) -- if connected to a processor, it can get the database back from the processor
+
+
+
+--- EcoSystem ESN troubleshooting / wiring ---
+Ethernet jack only used for standalone
+QS-Link is on the left
+
+RED LED on LOOP1/2
+-- check to make sure you dont have any line voltage -- if its just a few volts it may just be stray voltage
+-- check to make sure the loop wires arent tied together (cont check)
+-- check continuity between ground and E1
+-- check continuity between E1 and E2, etc.  --- short
+
+Out of Box an Eco ESN --> triple tap, hold, triple tap the TEST button,
+
+when OOBing a unit - the unit AUTOMATICALLY pulls the database from the processor via a handshake -- same thing happens if power is lost.  you don't have to do anything
+
+
+-- DIN module --
+how to OOB -> use the program button
