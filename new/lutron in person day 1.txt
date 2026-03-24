@@ -1,0 +1,307 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+REMEMBER ----- GLASSES!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+***WORK ORDER CHANGES EVERY TIME YOU GO IN, JOB NUMBER (UNIQUE) NEVER CHANGES***
+
+
+
+--- NETWORKING BASICS ---
+
+Multicast
+---- 
+one to many communication where information is adress to a group of desitination computers simultaneously --- computers must subscribe to the broadcast address
+
+Unicast
+----
+unicaste is a message that is sent from one device to another device --- peer to peer
+
+IP
+----
+Internet Protocal --- the method or protcol by whiich data is sent from one computer to another on the internet or intranet -- each computer (host) has at least 1 IP address that uniquely identifies it --- can be multicast or unicast
+
+UDP
+---
+User Datagram Protocal -- offers NO delivery verification when messages are sent --- UDP supports multicast
+
+
+TCP
+---
+tcp enables 2 hosts to establish a connection and exchange streams of data --- TCP guarantees the delivery packets were recieved in the same order they were sent -- UNICAST
+
+
+PIM
+----
+PIM - Protocol independent multicast --- routing protocol -- used to send from a single source to multiple destinations accross the network --- we use PIM with our multicast --- needs the enabled on the network
+
+
+IGMP
+-----
+Internet Group Management Protocol -- used on a ipv4 -- used t to establish multicast group memberships -- integral part of IP multicast
+
+multicast can sometimes be considered not secure --- can be "chatty" - takes up too much bandwidth on the network --- our equip doesnt use a lot of streaming so not too much bandwidth
+
+
+VLAN
+----
+Virtual Local Area Network --- just a virtual LAN on a standard network -- limits the connectivity of other devices -- the connected devices are able to communicate as if they were attached to an isolated network
+
+
+NTP
+----
+Network Time Protocol - the athena processors will reach out to the internet to sync the clock via NTP --- quantum does NOT use this
+
+
+DNS / mDNS
+----
+domain name system --- mDNS is a localized, multicast version of DNS Lutron uses to discover athena processors.  a dedicated mDNS application can be used to browse mDNS services on the network. ---  mDNS can be used to discover processors without multicast --- similar to Bonjour on mac
+
+wireshark ---> sniffing tool
+
+
+SSH & SCP
+----
+secure shell protocols used by lutron app and lutron designer for DB transfer / support / files / etc --- we do a handshake between the lutron proc and the application -- if we cant get a secure connection, we won't allow the transfer to go through
+
+
+--- HARDWARE ---
+
+
+Ethernet Hub
+---
+broadcasts all traffic to all devices, non-programmable ---- not used on job sites anymore.   if information is sent in one port, it gets sent out all the ports of the hub --- all hosts connected would always get the information even if you wanted to send to one host
+
+Layer 2 Ethernet Switch
+---
+smart forwarding, when managed can be programmable for VLANs --- used in applications previously done by ethernet hubs --- only send the traffic where it is addressed -- builds a table of who is connected to it, and the data only goes out to the specified device on the table
+--- can be managed or unmanaged -- managed: can be administered and configured by IT --- can enable / disable multicast / ping, various protocols
+
+Layer 3 Devices (Router / Switch)
+---
+able to route between VLANs and other networks, programmable and firewall capable --- a lot of them have network switches built in -- allows you to route between one network to antoher --- almost every athena job needs connection to the cloud - can utilize router to route to internet
+
+
+
+---- Lutron Athena IT Implementation Guide ----
+https://assets.lutron.com/a/documents/040453_eng.pdf
+
+(useful for pre-wire visits)
+
+NOTE: the customer's network must be able to negotiate down 100 BaseT ethernet / link speed, otherwise the equipment won't work
+
+Q -- are we ever planning to add support for faster network speeds like gigabit???? --- not part of the roadmap currently
+
+***Network Diagrams in the doc are a good resource to show to IT staff, explains why we need certain config and how the system will be connected**** --- they also show different configurations such as offline system, system during startup, etc.
+
+they dont like unmanaged swtiches because they can't lock down unknown devices connected to the switch (for example)
+
+---
+
+Multicast address (general term) = subsystem address (quantum) = system address (athena)
+
+- each DB MUST have its own unique multicast address --- each db may be sent out with a default address -- MAY NOT BE CORRECT / what we want to use-- need to double check all system addresses are UNIQUE -- can cause transfers to be pushed to the WRONG PROCS and wipe out data --- DOUBLE CHECK THIS ***
+
+- each proc MUST be able to communicate via multcast with other procs in its system and to the server IN BOTH DIRECTIONS (inbound and outbound)
+
+- IGMP "snooping" needs to be enabled on LAYER 2 switches
+
+- PIM needs to be enabled on layer 3 switches
+
+
+Athena naming convention -- 
+Athena is comprised of a System and a Place
+- System (Database) - a group of products that control each other --- Athena is DATABASE PER SYSTEM** -- databases are smaller, limit exposure
+- Place - a collection of athena systems under one customer group's control --- i.e. physical location
+
+Quantum naming convention --
+- Database / System -- equivalent to PLACE in athena ---- ONE DATABASE IS USED FOR THE ENTIRE PLACE in quantum -- Quantum is SINGLE DATABASE***
+- Subsystem -- equivalent to SYSTEM in athena
+
+
+
+IP Networks need several address to operate correctly
+- 192.168.1.0 -- network address
+- 192.161.1.255 -- broadcast address -- everything hears the message within the subnet
+- ip address of the host / device  (192.168.1.XXX)
+- default gateway (192.168.1.1) --- **usually the ip address of the router** --- access from one subnet/lan/network to another -- traffic leaves / passes from one network to another -- goes through the gateway
+- subnet mask (255.255.255.0) --- defines how many devices / addresses can be in the subnet (lan/network)
+
+network address has 2 halves
+- network address, this is the first half that is the same across devices on the network (192.168.0.XXX)
+- host address - this is the id of the device / host (.XXX)
+- subnet determines the split between the network and the host
+
+
+subnet -- 255 means the 2 octets of 2 addresses MUST MATCH in order for an ip address to be able to talk to one another -- 0 in the subnet means the octet can be 0-254 and the devices can talk to each other -----  255 in an ip address is reserved for broadcast --
+if lower than 255 -- the ones above the number (e.g. 240) are the only ones that can talk to each other
+
+if they ask you how many ip addresses we need --- make sure we get more than the 16 procs -- we need 1 for each device connected, laptop, ipad, athena touchscreen devices, etc.
+
+
+
+DHCP
+---
+dynamic host configuration protocol --- ip address automatically assigned to devices when they connect to the network
+
+DHCP or Static IP Settings
+---
+athena --> DHCP is recommended to keep the processors Online -- a DHCP reservation can be added to the sites DHCP server to keep the address the same -- this is not a lutron setting
+
+if devices on the same lan have the same IP address -- one or more of the devices wont communicate --- if a device is not working, try taking the device (eg. processor) offline, and pinging the known IP of the device to see if something else responds
+
+
+
+--- DIGI MODEM ---
+
+ask the contractor to take a picture of the MAC ADDRESS AND SEND TO YOU
+
+put in last 4 or 5 of mac address to filter devices
+
+---- when you click on the device in digi dashboard ---
+you can check uptime when you click on the device -- how long since EC started it up
+can see if it has enough bars, ask the EC to move it
+can edit name under device details ---> JOB NUMBER - JOB NAME
+
+once the name is updated, you can search for it by name instead of the mac address
+
+----> click on settings -> network -> wifi -> radio -> phy0 -> CHECK IF WIFI IS ENABLED
+in an athena system, change to 5GHZ so it doesnt interfere with the 2.4GHZ athena wireless devices
+
+click ---> access points --> DIGI AP --> change the SSID to something like "Athena System" - that way it is easy to see and connect to.  -- DO NOT document this in trip report
+
+click ---> encryption
+
+set Pre-shared key --- > recommend 3 unrelated terms strung together (ie. term1-term2-term3) --- the default password is DigiDog -- make sure you change! --- DO NOT document in trip report
+
+make sure you HIT APPLY after making changes
+
+
+**YOU CAN ALSO CLICK ON FAVORITES on this page to get to all these items we need to change --- but it can sometimes be disabled, so you can also access through above methods**
+
+
+DOCUMENTATION for digi --> 
+document in networking section in salesforce --- or upload a document to the asset page!!!!  -- DO NOT ADD ANY OF THESE DETAILS TO TRIP REPORT OR SEND TO EC
+
+
+you can go to console and query the modem to determine what devices are connected to it
+
+show dhcp-lease -- show devices
+
+if devices not showing up on network --- if the processors have already been powered up and havent gotten an ip address - they will not try to request an ip until the next day (!!) --- ask the EC to cycle the power of the procs
+
+
+?? Q for josh --- do the procs have to be configured with the digi modem information in order to connect to it, or are they automatically set up out of the box to connect ??
+
+
+when the digi modem page says Update Available --- this does not mean that Lutron has APPROVED this update -- DOES NOT mean you should update it
+
+it will automatically try to get any new ***approved firmware *** at midnight each day
+
+
+
+---- LUTRON DESIGNER ----
+rename devices --- the end user will also see these names
+
+an area cannot be ontop of another area, an area cannot be off the canvas -- if you try to place them there, they will snap back
+
+you CANNOT ctrl Z --- but you can go to version history and roll back to previous saves
+
+it does not **periodically** auto save, but will auto save versions every time you switch between screens, tasks, etc. , as well as any manual saves  ---- save versions save the VIEW SETTINGS as well (layers, etc)
+
+you can move devices around based on where they actually are, in case the EC installed in a different location
+
+devices auto update their names if there are conflicting names within the same AREA --- only if there is a conflict
+
+double click to rename
+
+you can rezone lights by using the ZONE TOOL and clicking on them
+
+CONNECT TOOL - allows you to connect devices
+
+
+RFI - request for information -- PMs can put in RFIs to request information from the contractor
+
+
+CCX -- any 2 devices have to be 25 ft from each other / the wireless gate, but the furthest device can't be further than 75ft away
+
+
+----
+
+
+Sequence of Ops --- understand that a lot of terminology in the SOO is generic -- you may have to refer to other diagrams, etc to get the information of exactly what devices are supposed to do --- NOTES may override details of other parts of the SOO, because some information cannot be edited in designer+ -- NOTES always overrule when there is conflicting information
+
+
+control intent page --- hidden equipment will show devices which should be in the area, but may be in the ceiling or some other non visible area
+
+always have to ask the contractor where they installed stuff --- "as builts" / "markups" --- ask them to give you a marked up diagram of where devices have been installed --- "how did you install it" - "do you have your marked up drawings, can you show me how you ran everything" -- you can also ask them to show you where the power is wired along the QS link
+
+***REMEMBER:***
+TRIP REPORTS GO TO THE CUSTOMER -- do not put any kind of internal issues we had. just explain you were "troubleshooting," use generic language, etc. if it needs to be mentioned at all
+TIMESHEETS DO NOT go to the EC/Customer -- they are internal to Lutron
+
+
+---- PROJECT SETTINGS ----
+
+Can set auto upgrade settings:
+Auto Upgrade Processors
+Auto Upgrade CCX Devices
+
+
+do not upgrade processors manually from Lutron Designer - there is another way to do it
+
+
+
+--- activate ---
+
+make sure you open up advanced settings and add your system number and system address to be unique and the system number and last octet of system addreess SHOULD MATCH.  (NOTE - YELLOW field means pending)
+
+if left side doesnt show processors, designer may have been open, but the network settings may have changed / etc
+
+under available NIC addresses, if you hit REFRESH, WIFI will show your NIC address
+
+HOW DO you know which processor is the right proc on left side --- go by MAC Address or SN
+
+make sure you WAIT for a second before switching activation types or it may give a communication error
+
+activate devices DOES NOT REQUIRE PUSH / transfer
+activate drivers ONLY for ecosystem and DALI
+
+if the first time working on an eco loop, you want to activate/address ALL DRIVERS (RESET option)
+
+
+NOTE: GET A COLLAPSABLE STICK
+
+
+------------ activate CCX devices
+
+
+2 databases in the cloud
+
+project database --- database we are working with in designer, when you save, it saves a copy of the project db in the cloud
+runtime database --- runtime database is populated when SYNC is used --- runtime database is used by the lutron app
+
+lutron app required to activate CCX devices
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
