@@ -1,0 +1,117 @@
+================
+NUMBERS
+================
+
+
+----- ATHENA -----
+
+
+Max processors (including CCX Gateways) -- 16
+Max QS Link wire length -- 2000ft (12 AWG) / 500ft (18 AWG)
+
+1 Link Athena processor
+---
+Max switch legs - 256
+Max QS Devices - 25
+Max Occ/Vac Sensors - 50
+Max Daylight Sensors - 50
+Max Wall controls (wireless picos / QS keypads / IR) - 50
+
+
+2 Link Athena processor
+---
+Max switch legs - 512 PER LINK
+Max QS Devices - 99
+Max Occ/Vac Sensors - 100
+Max Daylight Sensors - 100
+Max Wall controls (wireless picos / QS keypads / IR) - 100
+
+
+
+
+--- EcoSystem ---
+
+All PER LINK / LOOP (2 links per ESN):
+
+Max digital addresses (fixtures) - 64
+Max wall controls - 64
+Max occ sensors - 32
+Max daylight sensors - 16
+
+
+--- DALI ---
+
+Max 64 digital addresses per loop
+
+
+--- Interfaces ---
+
+DMX
+---
+DMX inteface supports up to 32 channels output
+Max 16 DMX interfaces per QS Link
+
+NWK
+---
+Max 10 NWKs per QS Link
+Each NWK can monitor up to 10 areas
+
+
+--- QSM ---
+
+4 wired sensor inputs
+10 wireless occ/vac sensors
+10 wireless picos
+10 wireless daylight sensors
+
+
+--- Athena Wireless Proc (CCA) ---
+
+Max 50 CCA devices
+
+No more than:
+50 picos
+5 daylight sensors
+15 occ / vac sensors
+
+Max 30ft through construction
+Max 60ft LoS
+
+POE maximum length 100m (328ft)
+
+
+--- Wireless Gateway (CCX) ---
+
+Max 100 CCX devices
+Max wireless range - 75ft
+At least 2 devices must be mounted within 25 ft of the gateway
+Each device must be mounted within 25ft of at least 2 other devices on the same gateway
+
+
+
+
+
+
+
+---- Area limits ----
+
+max 16 scenes + off
+31 shade presets
+100 zones (99 switch legs per zone)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

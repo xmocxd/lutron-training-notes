@@ -1,0 +1,331 @@
+
+
+--- activate touchscreen ----
+
+touch to wake it up -- select the language -- look for the edge proc MAC or SN to pair with touchscreen
+CANNOT be paired with gateway -- only edge or wireless proc
+
+once it pairs put in an admin password --- document and put in SALESFORCE / give to customer
+
+it will then show you all devices in the system -- you can then select which devices should be shown -- most likely you dont want to show everything
+
+-- settings --
+
+limited state saving -- just saves the pins and the preferences (under settings) --- there are various tests which can be done -- also display can be inverted (but NOT rotated) -- can set to DHCP or static --- ADMIN PIN REQUIRED FOR SETTINGS 
+
+IF PIN IS LOST --- turn unit to the right to take off wall -- recessed reset button is on back, press and hold with something for 20 sec, you can either factory reset or reset the admin PIN
+
+
+MAKE SURE SOMEBODY INVOLVED WITH I.T. IS THERE FOR PREWIRE VISIT --- we need information -- DO NOT assume they are going to be there --- if EC doesn't know who is in charge of IT, the GC will know
+
+
+
+
+program -> occupancy / after hours
+TOTAL AND SENSOR (HARDWARE) timeouts should MATCH -- you can change under advanced occupancy settings
+
+
+the customer has no normal way to change their occupied / unoccupied level
+in order to give the customer a way to change their occupied level -- we can create an occupied scene and they can change through the app
+
+program -> area scenes -> add occupied scene
+then go back to program -> occ -> select Occupied Level and select the created occupied scene (will just be listed as a scene number, such as Scene 5)
+
+**if the level is set to a scene, they can edit SCENES THROUGH THE LUTRON APP**
+
+advantage of using a scene is that you can set lights in the different zones at different levels -- AREA LEVEL will all set all zones to the same level
+
+
+--- GRACE PERIOD ---
+if the lights go off, you get a grace period to get the lights to go back to the previous level
+**under advanced occupancy settings --> grace period should be turned on**
+if you are going to use vacancy, you MUST have grace period on
+
+this setting may NOT be set from the initial database you receive
+
+grace period is used for OCCUPANCY to GO BACK TO THE PREVIOUS LEVEL, if not set, when the occ sensor is triggered again it will immediately go to the SET OCCUPIED LEVEL, (which is NOT the behavior you would typically want if waking the room back up when you are already sitting it)
+
+default is 15 sec
+
+
+
+WIRED OCC SENSOR will stay in test mode for 60 minutes**
+
+NOTE - there is NO VISUAL indicator on the wired occ sensor that it has gone into test mode, you just have to set the black pot CW->CCW and if it times out after 8 sec it's working
+
+
+--- LUTRON APP ---
+
+****USE THE LUTRON APP TO TEST ZONES**** -- you can change individual zone settings under ZONE EDITS when selecting scenes for an area
+
+lutron app has both a lighting designer side and an end-user side --- UI appears different and some functional differences.   on the lighting designer side, you can't control shades
+
+
+-- buttons at the bottom of ZONE EDITS --
+normally you get 3 options - intensity, fade (time for light to go to specified level), and delay (before starting fade)
+when selecting ketra lights in the app, you get a lot more options to change at the bottom of the screen --> CCT, color, vibrancy, fade
+
+any changes that you save to a scene will save to the runtime database
+
+you can edit / create schedules, but when creating schedules Lutron Designer is more fully featured than the Lutron App
+
+--- three dots ---
+you can activate devices through the three dots -> activate devices
+
+you can rename areas -- we arent obligated to rename, we name them based on the submittal -- we are contractually obligated to follow the submittal -- but we are able to say we will run it through our PM if they want us to rename things if it will take significant time -- you can also train the customer by showing them how to rename 1 area
+
+you can edit natural show if present -- only for ketra and AWNs with DALI TYPE 8 only (DT8)
+natural show mimicks the sun by getting cooler during the middle of the day and warmer in the morning and evening
+-- this is automatically based on the project location inputted into designer
+
+
+you can share a system with an end user / facility manager by having them create a lutron account , and then we can do three dots -> share access
+
+Q for josh --- where do they create a lutron account?
+
+
+usually you want to give them admin access -- viewer is basically useless
+
+load shed = demand response --- same term
+load shedding can be activated to reduce electrical load during peak times
+load shedding configuration has to be done in DESIGNER, but can be toggled in the app
+
+
+--- END USER MODE ---
+
+you can also exit lighting designer mode from this screen --- this is how you can see what the end user will see on their end**
+
+buttons at the top / on the default screen ONLY SHOW THE LIGHTS THAT ARE ON. if you turn off the lights they will disappear from that screen and you have to click devices at the bottom
+
+**customers dont get access to specific systems -- they get access to a PLACE**
+
+NOTE -- all these changes will ONLY be in the runtime DB -- they will NOT be in the project DB.  you must sync the project db with the runtime DB to see any of the app changes in designer
+
+a transfer does 2 things -- it sends the db to the proc AND it syncs the runtime db with the project DB
+
+--- you can sync via TOOLS --> SYNC APP EDITS - you can preview the edits before syncing - gives you a PDF report of all changes made in the app!!!
+
+if you initiate a transfer and you were not aware app edits were made in the runtime db Designer WILL PROMPT YOU IF YOU WANT TO SYNC APP EDITS --- NOTE: this will BLOW OUT any new changes made in designer for the same item, and will take the app edit version
+
+it ONLY syncs the stuff that was changed, any new changes to unrelated items in designer will be preserved
+
+runtime ONLY has one version in the cloud!!!!
+
+if you push a project DB without syncing app changes it will replace the runtime db with the project DB and blow out all the app edits --- this is a way to restore to a previously working state of the system if changes made in the app have messed anything up.
+
+
+--- THERE ARE 3 WAYS TO VERIFY YOUR ZONES ---
+
+- through the app (easiest way) -- NOTE: The app will not work on an offline system, since it will not be connected to the runtime db in the cloud
+
+- in designer -- program -> area scenes -> in the upper right corner there is an icon for "EDIT LIVE" --- this will let you connect to the system in real time and make changes.  NOTE: this will modify the scene PERMANENTLY in the db live, even if you don't save, you need to set back to the way they were --- all the changes will be auto saved to the project, and it will PROMPT you to transfer the changes to the proc when you exit live edit mode.
+
+- via the connect.lutron.com dashboard (Lutron Connect Portal) -> Spaces.  You can also download the Lutron Connect Portal desktop app by clicking the icon in the URL bar.
+
+---- Lutron Connect Portal ----
+energy and occupancy monitoring data is only updated at midnight each day --- if the system has not been powered for at least 1 day, it won't show any information
+
+for 1 year from startup, the customer gets access to Lutron Connect Portal for free
+
+-- system monitor
+system monitor can be used for diagnostic purposes -- note: device firmware updates is ONLY for processors here
+
+CONNECTION HISTORY -- this is useful for troubleshooting, and can show recent connection and disconnections of the device --- if a lot of connects and disconnects, it may indicate a network issue
+
+
+-----------
+natural show---
+if the light level is changed manually on a zone which is controlled by a natural show, it will change, but eventually the natural show will change the level again whenever it next updates
+
+times must be changed on the left side
+
+astronomical times can be set on the left side if needed
+includes intensity will also control the intensity along with the natural show
+
+
+--- DIAGNOSTICS ---
+
+
+Verify loads
+---
+you can flash individual loads --- NOTE: these are not ZONES, they are individual loads -- you need to verify loads are connected to the correct zones by verifying the zones,  this basically just determines if a particular load / fixture is working.
+
+you can also set it to a specific level if you need to verify multiple loads, or check specific lighting levels -- however flash is more commonly used
+
+if you click the "All loads" dropdown in the upper right, you can switch to All Shades or All Recepticles for testing those devices
+
+NOTE: these are only temporary settings and ARE NOT SAVED IN THE DB
+
+
+Verify QS Devices
+----
+show all devices on the QS and showes you their status, whether they need firmware updates, etc.
+
+NOTE: BY DEFAULT IT DOES NOT SHOW CONNECTED DEVICES WITHOUT ISSUES ---- YOU HAVE TO CLICK "CONNECTED" ON THE STATUS FILTER IN LOWER LEFT TO SHOW ALL DEVICES
+
+*** you SHOULD NOT leave a job that you didn't update the firmware on ****
+
+CAN ALSO DETECT DEVICES THAT ARE ON THE QS LINK BUT ARE NOT IN THE DATABASE --- contractor might have connected it to the wrong link --- SN found phyiscally on the link but is not assigned to any device in the database
+
+not ACTIVATED means the SN is assigned to a device, but has not been activated  (ie its entered in the DB, but device hasnt been activated --- which may be BECUASE it doesnt physically exist, or for whatever reason an activation was not yet triggered)
+
+
+note -- graphik eyes have just been brought into compatibilty with athena recently
+
+
+-----  FIRMWARE UPDATES ----
+note -- QS device firmware DOES NOT get automatically updated.  PROC and CCX firmware is automatically updated
+
+QS devices can be upgraded via Tools -> Upgrade QS devices. (firmware)
+
+you can etiher upgrade all devices with avialble updates, or you can select devices to manually upgrade.  sometimes you want to just select a specific device to upgrade because it takes SIGNIFICANT TIME to update, and you may have to leave site, or may not be working on that device currently.
+
+when it updates the firmware, it pushes out all devices in the family type in parallel -- for example it will push out all the QSM firmware first, then the ESN firmware after. --- usually best to just pick a product family at a time to upgrade.  might take multiple hours to upgrade ALL devices
+
+NOTE -- if you DO NOT PUSH THE FIRMWARE FULLY TO THE DEVICE, it may be STUCK IN BOOT MODE.  it can be recovered but this can cause issues -- does not automatically roll back to working firmware  -- you can sometimes recover by redoing the firmware update, but sometimes designer does not like units that are stuck in boot mode.
+
+
+
+---- QS FLASH TOOL ---
+
+You can also upgrade firmware with a QS flash tool and an NWK***
+
+QS flash tool can be found on the support wiki --- 
+
+
+for USB to RS232 Adapter -- plug it in and check Device Manager -> Ports -- if a USB Serial (COM) Port device pops up, it means it detected it
+
+double click and select Port Settings -- can set Baud Rate to 115200, other settings can stay the same.  NOTE: you also have to set the baud rate jumpers to match on the NWK
+
+
+NOTE: if the correct COM PORT does not show up in QS Flash tool, close and reopen the program after connecting the NWK
+
+QS FLASH TOOL CAN discover devices stuck in boot mode --- this is the way to recover devices
+
+you can either select all devices in a product family to update, or select INDIVIDUAL devices to update
+
+
+NOTE: YOU CANNOT USE THE FLASH TOOL TO UPGRADE GRAPHIK EYE FIRMWARE
+the only way to upgrade a graphic eye is via the front of the unit with a usb cable
+
+note -- firmware files are packaged with the latest install of athena
+
+firmware files can be found under ->
+
+C:\Users\[User Name]\AppData\Local\Packages\LutronElectronics.LutronDesignerGamma_[Version Number]\LocalCache\Local\Lutron Designer [Version Number]\Firmware\qs_firmware_and_tools\[Device Model]\[Gen#]\
+
+this will open a folder that shows all the firmware versions you have for that device model
+
+FOR EXAMPLE:
+
+C:\Users\QNW Field Service\AppData\Local\Packages\LutronElectronics.LutronDesignerGamma_hb4qhwkzq4pcy\LocalCache\Local\Lutron Designer 26.1.0.112\Firmware\qs_firmware_and_tools\QSM2 434 MHz\Gen2\
+
+right click the firmware file and click "Copy as Path" and PASTE into the firmware file text box on QS flash tool -- for example -->
+
+"C:\Users\QNW Field Service\AppData\Local\Packages\LutronElectronics.LutronDesignerGamma_hb4qhwkzq4pcy\LocalCache\Local\Lutron Designer 26.1.0.112\Firmware\qs_firmware_and_tools\QSM2 434 MHz\Gen2\v8.048.s19"
+
+NOTE -- YOU MUST DELETE THE QUOTES after you paste in
+
+
+BOOKMARKABLE PATH for QNW current designer ver ->
+C:\Users\QNW Field Service\AppData\Local\Packages\LutronElectronics.LutronDesignerGamma_hb4qhwkzq4pcy\LocalCache\Local\Lutron Designer 26.1.0.112\Firmware\qs_firmware_and_tools
+
+click go to upgrade with selected firmware
+
+THEN you can click connect again and see the new firmware version on the device under OS FIRMWARE
+
+IF there are issues, try pushing the firmware at a lower baud rate
+
+if a device is in boot mode OS version will show as ??.?? and it will say (IN BOOT)
+
+
+Diagnostics->
+---- VERIFY SENSORS ----
+
+you can check whether sensors are responding
+
+daylight sensors will instantly update their FC readings if light level changes
+
+NOTE: it might take a few minutes for wired OCC sensor to show up -- may show as disconnected
+
+--- Verify drivers / ballasts --- make sure you click Connected to show all devices if you aren't seeing anything
+
+--- Verify CCX devices
+click refresh to see status
+***NOTE: DO NOT UPDATE FIRMWARE MANUALLY FROM THIS SCREEN***
+
+NOTE: CCX device firmware automatically updated at 3 AM -- you can change the CCX devices update time in PROJECT SETTINGS -> project options
+
+Processor update times are FIXED -> 2AM download, then at 5AM it reboots the procs
+
+you can turn lights on and off from this view -- HOWEVER it turns ON and OFF the ENTIRE ZONE
+
+you can test individual CCX lights by going to Activate -> CCX devices, then check off Show only activated CCX devices, check off Show only links that require activation under LINK, then RIGHT CLICK each lamp and click FULL ON, or OFF.
+
+NOTE -- DO NOT Deactivate or click Unassign from the right click context menu
+
+
+---- system activity viewer
+when you click this option it creates a log of system activity
+
+link noise indicator -- updates every 30 minutes with statistical information about the link noise, can help diagnoise QS Link issues - max noise count is 255 -- if you see the number constantly going up , can indicate an issue.
+
+system activity log can also be exported out
+
+NOTE: this log is PULLED from the PROCESSOR
+same log is available on Lutron Connect Portal under activity log
+
+causes of QS Link noise
+----
+- too long of wire run for the gauge (12 AWG = 2000ft , 18 AWG = 500 ft  --- ALL the wire on the link must be below this number .. not just a single wire)
+- mux and mux bar reversed / miswire
+- loose connection (loose wire connection OR loose terminal block) -- Q: pigtailing wires (??) --- if a device is dropping on and off the link, it may indicate a loose connection near the device
+- wires in proximity to parallel line voltage
+- **if drain wire is connected to ground**, or is not connected through properly / not spliced togther or through properly
+- not enough power / drawing too many PDUs / running low on PDUs -- devices may drop off the link and come back on
+- backfeed power on the QS Link--- may cause devices to drop off the QS link because multiple devices detect incoming power and they try to negotiate back and forth
+- common connected to earth ground or touching something that is shorting it to ground could cause the entire QS link to go down
+
+
+
+--- pulling a support file -- may be needed by engineering:
+in designer:  HELP -> Support -> (you may need to start logging to get detailed logs, but it is not required to generate the file) -> create support file
+
+once it is created, it is uploaded and a link will be provided, and you can also save the file to your local machine -> you can change .athena extension to .zip, and the file can be opened in explorer
+
+NOTE: the support file in Lutron Connect Portal will not include log information originating from designer / local machine
+
+
+
+--- deactivating a ketra / CCX device ---
+
+activate -> CCX -> click deactivate on the line item
+it also frees up the SN
+
+if a lamp isnt working, it might have been associated with another system --- you might have to OOB the lamp.  this can be done through the Lutron App:
+
+athena -> more options -> reset devices -> leave phone near device -> power cycle the circuit (wait 5 seconds before turning back on -> lamp should go magenta -> identify the lamp -> click deactivate
+
+click back and the lamps should go back to 3000k if OOBed
+
+note - if you deactivate through the app, you have to remove the SN from the DB on designer -- by deactivating from the designer tab --- it will prompt you that the device is not responding, but click YES and you want to manually delete the SN.  x
+
+note - this may be a more frequent issue on AWNs -- if they arent responding, try OOBing them
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
